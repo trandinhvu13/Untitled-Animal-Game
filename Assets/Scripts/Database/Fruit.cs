@@ -2,8 +2,8 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-[CreateAssetMenu(fileName = "Drink", menuName = "ScriptableObjects/Drink")]
-public class Drink : ScriptableObject
+[CreateAssetMenu(fileName = "Fruit", menuName = "ScriptableObjects/Fruit")]
+public class Fruit : ScriptableObject
 {
     public string colorName;
     public string colorID;
