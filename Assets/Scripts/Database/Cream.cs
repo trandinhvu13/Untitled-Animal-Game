@@ -10,6 +10,6 @@ public class Cream : ScriptableObject
     public int quantity;
     public int maxQuantity;
     public Sprite playerInventory;
-    public Sprite order;
-    public Sprite cup;
+    public RuntimeAnimatorController order;
+    public RuntimeAnimatorController cup;
 }
