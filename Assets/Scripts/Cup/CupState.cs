@@ -5,7 +5,7 @@ using UnityEngine;
 public class CupState : MonoBehaviour
 {
     public bool[] slotIsFull;
-    public int[] answer;
+    public int[] answers;
 
     void Awake()
     {

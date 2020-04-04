@@ -2,62 +2,100 @@
 using System.Collections.Generic;
 using UnityEngine;
 using System.Linq;
+using Lean.Pool;
 public class CustomerManager : MonoBehaviour
 {
     [SerializeField]
-    Transform seat1;
+    static Transform seat1;
     [SerializeField]
-    Transform seat2;
+    static Transform seat2;
     [SerializeField]
-    Transform seat3;
+    static Transform seat3;
     [SerializeField]
-    Transform seat4;
+    static Transform seat4;
 
+    [SerializeField]
+    GameObject normalCustomer;
+    [SerializeField]
+    GameObject vipCustomer;
+    [SerializeField]
+    GameObject eatALotCustomer;
+
+
+
+    public int[][] seatsOrders = new int[4][];
+    public Transform[] seatsPlaces = { seat1, seat2, seat3, seat4 };
     public bool[] seatStats = { false, false, false, false };
-
-    public float[] spawnTime = { 0, 0, 0, 0 };
-    public float minSpawnTime=3;
-    public float maxSpawnTime=10;
-    public float[] time = { 0, 0, 0, 0 }; //Current time
+    public float[] spawnTimes = { 0, 0, 0, 0 };
+    public float minSpawnTime = 3;
+    public float maxSpawnTime = 10;
+    public float[] times = { 0, 0, 0, 0 }; //Current time
 
     private void Start()
     {
-        for (int i = 0; i < time.Length; i++)
+        for (int i = 0; i < times.Length; i++)
         { SetRandomTime(i); }
 
-
+        seatsOrders[0] = new int[3];
+        seatsOrders[1] = new int[3];
+        seatsOrders[2] = new int[3];
+        seatsOrders[3] = new int[3];
     }
 
     private void Update()
     {
-        for (int i = 0; i < time.Length; i++)
-        {if(seatStats[i] == false)
+        for (int i = 0; i < times.Length; i++)
+        {
+            if (seatStats[i] == false)
             {
-                time[i] += Time.deltaTime;
-                if (time[i] >= spawnTime[i])
+                times[i] += Time.deltaTime;
+                if (times[i] >= spawnTimes[i])
                 {
                     SpawnObject(i);
                     SetRandomTime(i);
                 }
             }
-            
+
         }
-
-
 
     }
     void SpawnObject(int index)
     {
-        time[index] = 0;
+        times[index] = 0;
         seatStats[index] = true;
-        Debug.Log("day la" + index);
+        GameObject prefabToSpawn = new GameObject();
+        bool foundObjectToPool = false;
+        while (foundObjectToPool == false)
+        {
+            if (Random.value <= 0.01)
+            {
+                prefabToSpawn = vipCustomer;
+                foundObjectToPool = true;
+            }
+            else if (Random.value <= 0.1)
+            {
+                prefabToSpawn = eatALotCustomer;
+                foundObjectToPool = true;
+            }
+            else
+            {
+                prefabToSpawn = normalCustomer;
+                foundObjectToPool = true;
+            }
+        }
 
+
+        GameObject customer = LeanPool.Spawn(prefabToSpawn, seatsPlaces[index], false);
+
+        IRequest customerScript = customer.GetComponent<IRequest>();
+        seatsOrders[index] = customerScript.GetOrders();
+        Debug.Log(seatsOrders[index]);
     }
 
     void SetRandomTime(int index)
     {
 
-        spawnTime[index] = Random.Range(minSpawnTime, maxSpawnTime);
+        spawnTimes[index] = Random.Range(minSpawnTime, maxSpawnTime);
     }
 }
 

@@ -1,10 +1,11 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using Lean.Pool;
 
-public class Request : MonoBehaviour
+public class NormalCustomerRequest : MonoBehaviour, IRequest, IPoolable
 {
-    public int[] order;
+    public int[] orders;
     [SerializeField]
     GameObject drink;
     [SerializeField]
@@ -12,24 +13,15 @@ public class Request : MonoBehaviour
     [SerializeField]
     GameObject fruit;
 
-    
     void Start()
     {
-        
-    }
-
-    private void OnEnable()
-    {
-        order = GenerateOrder();
-        ShowGraphic(order);
     }
 
     void Update()
     {
-        
     }
 
-    int[] GenerateOrder()
+    public int[] GenerateOrders()
     {
         int drink;
         int cream;
@@ -44,14 +36,30 @@ public class Request : MonoBehaviour
         return finalOrder;
     }
 
-    void ShowGraphic(int[] _order)
+    public void ShowGraphic(int[] _order)
     {
-        Sprite drinkSprite = CurrentInventory.instance.Drink[_order[0]].order;
-        RuntimeAnimatorController creamSprite = CurrentInventory.instance.Cream[_order[1]].order;
-        Sprite fruitSprite = CurrentInventory.instance.Fruit[_order[2]].order;
+        Sprite drinkSprite = CurrentInventory.instance.Drinks[_order[0]].order;
+        RuntimeAnimatorController creamSprite = CurrentInventory.instance.Creams[_order[1]].order;
+        Sprite fruitSprite = CurrentInventory.instance.Fruits[_order[2]].order;
 
         drink.GetComponent<SpriteRenderer>().sprite = drinkSprite;
         cream.GetComponent<Animator>().runtimeAnimatorController = creamSprite;
         fruit.GetComponent<SpriteRenderer>().sprite = fruitSprite;
+    }
+
+    public int[] GetOrders()
+    {
+        return orders;
+    }
+
+    public void OnSpawn()
+    {
+        orders = GenerateOrders();
+        //ShowGraphic(orders);
+    }
+
+    public void OnDespawn()
+    {
+        Debug.Log("Got despawn");
     }
 }
