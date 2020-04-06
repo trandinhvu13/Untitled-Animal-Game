@@ -112,6 +112,8 @@ GameObject:
   - component: {fileID: 3221662267999922820}
   - component: {fileID: 7162546757235697962}
   - component: {fileID: 3583405498204680937}
+  - component: {fileID: -5372495228119376336}
+  - component: {fileID: -2189861530838452555}
   m_Layer: 0
   m_Name: EatALotCustomer
   m_TagString: Untagged
@@ -200,6 +202,40 @@ MonoBehaviour:
   drink: {fileID: 3495255781972514446}
   cream: {fileID: 2468818443126436772}
   fruit: {fileID: 7912276527174770289}
+--- !u!114 &-5372495228119376336
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2803331150381689479}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 153371e42b16c6249b5d9d9977eb98aa, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  id: 0
+--- !u!50 &-2189861530838452555
+Rigidbody2D:
+  serializedVersion: 4
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2803331150381689479}
+  m_BodyType: 0
+  m_Simulated: 1
+  m_UseFullKinematicContacts: 0
+  m_UseAutoMass: 0
+  m_Mass: 1
+  m_LinearDrag: 0
+  m_AngularDrag: 0.05
+  m_GravityScale: 1
+  m_Material: {fileID: 0}
+  m_Interpolate: 0
+  m_SleepingMode: 1
+  m_CollisionDetection: 0
+  m_Constraints: 0
 --- !u!1 &3495255781972514446
 GameObject:
   m_ObjectHideFlags: 0

@@ -5,6 +5,7 @@ using Lean.Pool;
 
 public class NormalCustomerRequest : MonoBehaviour, IRequest, IPoolable
 {
+    #region Variables
     public int[] orders;
     [SerializeField]
     GameObject drink;
@@ -12,15 +13,9 @@ public class NormalCustomerRequest : MonoBehaviour, IRequest, IPoolable
     GameObject cream;
     [SerializeField]
     GameObject fruit;
+    #endregion
 
-    void Start()
-    {
-    }
-
-    void Update()
-    {
-    }
-
+    #region Methods
     public int[] GenerateOrders()
     {
         int drink;
@@ -52,6 +47,9 @@ public class NormalCustomerRequest : MonoBehaviour, IRequest, IPoolable
         return orders;
     }
 
+    #endregion
+
+    #region MonoBehaivour
     public void OnSpawn()
     {
         orders = GenerateOrders();
@@ -62,4 +60,9 @@ public class NormalCustomerRequest : MonoBehaviour, IRequest, IPoolable
     {
         Debug.Log("Got despawn");
     }
+    #endregion
+    
+
+    
+    
 }

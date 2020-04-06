@@ -5,12 +5,16 @@ using UnityEngine;
 
 public class CurrentInventory : MonoBehaviour
 {
+    #region Variables
+    public static CurrentInventory instance = null;
 
     public List<Drink> Drinks = new List<Drink>();
     public List<Cream> Creams = new List<Cream>();
     public List<Fruit> Fruits = new List<Fruit>();
+    #endregion
 
-    public static CurrentInventory instance = null;
+
+    
     private void Awake()
     {
         if (instance == null)
