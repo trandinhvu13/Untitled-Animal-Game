@@ -3,12 +3,12 @@ using System.Collections.Generic;
 using UnityEngine;
 
 [CreateAssetMenu(fileName = "Cream", menuName = "ScriptableObjects/Cream")]
-public class Cream : ScriptableObject
+public class Cream : ScriptableObject, IInventory
 {
-    public string colorName;
-    public string colorID;
-    public int quantity;
-    public int maxQuantity;
+    public int colorID;
+    public int Quantity { get; set; }
+    public int MaxQuantity { get; set; }
+
     public Sprite playerInventory;
     public RuntimeAnimatorController order;
     public RuntimeAnimatorController cup;
