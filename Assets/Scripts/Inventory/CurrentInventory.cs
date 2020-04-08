@@ -14,30 +14,8 @@ public class CurrentInventory : MonoBehaviour
     public List<Fruit> Fruits = new List<Fruit>();
     #endregion
 
-
-
-    private void Awake()
-    {
-        if (instance == null)
-        {
-            instance = this;
-        }
-        else if (instance != this)
-        {
-            Destroy(gameObject);
-        }
-        FirstSetupInventory();
-    }
-    private void Start()
-    {
-
-    }
-
-    private void ObjUse()
-    {
-
-    }
-
+    #region Methods
+   
     void FirstSetupInventory()
     {
         foreach (Drink drink in Drinks)
@@ -56,7 +34,7 @@ public class CurrentInventory : MonoBehaviour
             fruit.Quantity = 5;
         }
 
-        for (int i = 0; i < 9; i++)
+        for (int i = 1; i < 9; i++)
         {
             Drinks[i].colorID = i;
             Creams[i].colorID = i;
@@ -79,6 +57,29 @@ public class CurrentInventory : MonoBehaviour
     {
         _list[_colorId].MaxQuantity += _amount;
     }
+    #endregion
+
+    #region MonoBehaviour
+    private void Awake()
+    {
+        if (instance == null)
+        {
+            instance = this;
+        }
+        else if (instance != this)
+        {
+            Destroy(gameObject);
+        }
+        FirstSetupInventory();
+    }
+    private void Start()
+    {
+
+    }
+    #endregion
+
+
+
 
 }
 

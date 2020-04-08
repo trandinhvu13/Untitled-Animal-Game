@@ -4,8 +4,8 @@ using UnityEngine;
 
 public interface IInventory 
 {
-    public int Quantity { get; set; }
-    public int MaxQuantity { get; set; }
+    int Quantity { get; set; }
+    int MaxQuantity { get; set; }
 
 
 

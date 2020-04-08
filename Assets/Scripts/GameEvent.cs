@@ -22,29 +22,24 @@ public class GameEvent : MonoBehaviour
     #endregion
 
     #region Customer
-    public event Action<int[], int> OnCompare;
-    public void Compare(int[] _givenOrder, int _id)
+    public event Action<int[], int, string> OnCompare;
+    public void Compare(int[] _givenOrder, int _id, string _type)
     {
-        OnCompare?.Invoke(_givenOrder, _id);
+        OnCompare?.Invoke(_givenOrder, _id, _type);
     }
 
 
-    public event Action<bool, int> OnCompareResult;
-    public void CompareResult(bool _iscorrect, int _id)
+    public event Action<int, string> OnCorrectOrder;
+    public void CorrectOrder(int _id, string _type)
     {
-        OnCompareResult?.Invoke(_iscorrect, _id);
+        OnCorrectOrder?.Invoke(_id, _type);
     }
 
-    public event Action<int> OnCorrectOrder;
-    public void CorrectOrder(int _id)
-    {
-        OnCorrectOrder?.Invoke(_id);
-    }
 
-    public event Action<int> OnFalseOrder;
-    public void FalseOrder(int _id)
+    public event Action<int, string> OnFalseOrder;
+    public void FalseOrder(int _id, string _type)
     {
-        OnFalseOrder?.Invoke(_id);
+        OnFalseOrder?.Invoke(_id, _type);
     }
 
     public event Action<int> OnDespawnCustomer;
@@ -52,6 +47,26 @@ public class GameEvent : MonoBehaviour
     public void DespawnCustomer(int _id)
     {
         OnDespawnCustomer?.Invoke(_id);
+    }
+
+    public event Action<int> OnRequestNextVIPOrder;
+
+    public void RequestNextVipOrder(int _id)
+    {
+        OnRequestNextVIPOrder?.Invoke(_id);
+    }
+
+    public event Action<int[], int> OnReceiveNextVIPOrder;
+    public void ReceiveNextVIPOrders(int[] _newOrder, int _id)
+    {
+        OnReceiveNextVIPOrder?.Invoke(_newOrder, _id);
+    }
+
+    public event Action<int> OnFinalVIPOrder;
+
+    public void FinalVIPOrder(int _id)
+    {
+        OnFinalVIPOrder?.Invoke(_id);
     }
     #endregion
 

@@ -24,7 +24,7 @@ public class Seats : MonoBehaviour
         if (collision.gameObject.CompareTag("Cup"))
         {
             givenOrder = collision.gameObject.GetComponent<CupState>().answers;
-            CustomerManager.instance.CompareAnswers(givenOrder, id);
+            //CustomerManager.instance.Compare(givenOrder, id);
         }
     }
 }

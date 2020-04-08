@@ -22,9 +22,18 @@ public class NormalCustomerRequest : MonoBehaviour, IRequest, IPoolable
         int cream;
         int fruit;
 
-        drink = Random.Range(0, 8);
-        cream = Random.Range(0, 8);
-        fruit = Random.Range(0, 8);
+        drink = Random.Range(0, 7);
+        cream = Random.Range(0, 7);
+        fruit = Random.Range(0, 7);
+
+        while(drink == cream || drink == fruit)
+        {
+            drink = Random.Range(0, 7);
+        }
+        while(cream == fruit)
+        {
+            cream = Random.Range(0, 7);
+        }
 
         int[] finalOrder = { drink, cream, fruit };
 
