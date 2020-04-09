@@ -68,6 +68,33 @@ public class GameEvent : MonoBehaviour
     {
         OnFinalVIPOrder?.Invoke(_id);
     }
+
+    public event Action<int, string> OnWaitTimeout;
+    public void WaitTimeout(int _id, string _type)
+    {
+        OnWaitTimeout?.Invoke(_id, _type);
+    }
+
+    public event Action<string, int, int> OnDecreaseQuantity;
+    public void DecreaseQuantity(string _type, int _colorId, int _amount)
+    {
+        OnDecreaseQuantity?.Invoke(_type, _colorId, _amount);
+    }
+
+    public event Action<string, int, int> OnIncreaseQuantity;
+    public void IncreaseQuantity(string _type, int _colorId, int _amount)
+    {
+        OnIncreaseQuantity?.Invoke(_type, _colorId, _amount);
+    }
+
+    public event Action<string, int> OnIncreaseMaxQuantity;
+    public void IncreaseMaxQuantity(string _type, int _amount)
+    {
+        OnIncreaseMaxQuantity?.Invoke(_type, _amount);
+    }
+
+
+
     #endregion
 
 }

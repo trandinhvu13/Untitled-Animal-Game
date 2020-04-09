@@ -9,11 +9,20 @@ public class VIPCustomerScript : MonoBehaviour, IPoolable
     public int id;
     public string customerType = "VIP";
     int[] givenOrder = new int[3];
+    float time = 0;
+    float waitTime = 0;
     Rigidbody2D rb;
     #endregion
 
     #region Methods
-
+    void CustomerWait()
+    {
+        time -= Time.deltaTime;
+        if (time <= 0)
+        {
+            GameEvent.instance.WaitTimeout(id, customerType);
+        }
+    }
     void DespawnCustomer(int _id)
     {
         if (_id == id)
@@ -30,8 +39,16 @@ public class VIPCustomerScript : MonoBehaviour, IPoolable
         rb = GetComponent<Rigidbody2D>();
         rb.gravityScale = 0f;
     }
+
+    void Update()
+    {
+        CustomerWait();
+    }
+
     public void OnSpawn()
     {
+        waitTime = CustomerManager.instance.customerWaitingTime;
+        time = waitTime;
         GameEvent.instance.OnDespawnCustomer += DespawnCustomer;
     }
 

@@ -30,6 +30,9 @@ public class CustomerManager : MonoBehaviour
     public float maxSpawnTime = 10;
     public float[] times = { 0, 0, 0, 0 }; //Current time
 
+    public float customerWaitingTime = 10;
+   
+
     public static CustomerManager instance = null;
     #endregion
 
@@ -143,6 +146,25 @@ public class CustomerManager : MonoBehaviour
         //cong diem
     }
     
+    void WaitTimeoutHandler(int _id, string _type)
+    {
+        if(_type == "Normal")
+        {
+            GameEvent.instance.DespawnCustomer(_id);
+            //tru diem
+        }
+        else if(_type == "VIP")
+        {
+            GameEvent.instance.DespawnCustomer(_id);
+            //tru diem
+        }
+        else if(_type == "EatALot")
+        {
+            GameEvent.instance.DespawnCustomer(_id);
+            //tru diem
+        }
+    }
+
     #endregion
 
 
@@ -170,6 +192,7 @@ public class CustomerManager : MonoBehaviour
         GameEvent.instance.OnCompare -= CompareAnswersHandler;
         GameEvent.instance.OnReceiveNextVIPOrder -= UpdateCustomerOrders;
         GameEvent.instance.OnFinalVIPOrder -= FinalVIPCustomerHandle;
+        GameEvent.instance.OnWaitTimeout -= WaitTimeoutHandler;
     }
 
     private void Start()
@@ -178,6 +201,7 @@ public class CustomerManager : MonoBehaviour
         GameEvent.instance.OnCompare += CompareAnswersHandler;
         GameEvent.instance.OnReceiveNextVIPOrder += UpdateCustomerOrders;
         GameEvent.instance.OnFinalVIPOrder += FinalVIPCustomerHandle;
+        GameEvent.instance.OnWaitTimeout += WaitTimeoutHandler;
 
         for (int i = 0; i < times.Length; i++)
         { SetRandomTime(i); }

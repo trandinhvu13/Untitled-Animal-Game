@@ -6,6 +6,8 @@ public interface IInventory
 {
     int Quantity { get; set; }
     int MaxQuantity { get; set; }
+    string Type { get; set; }
+    int ColorID { get; set; }
 
 
 
