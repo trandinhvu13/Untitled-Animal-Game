@@ -75,6 +75,7 @@ public class GameEvent : MonoBehaviour
         OnWaitTimeout?.Invoke(_id, _type);
     }
 
+    //Inventory
     public event Action<string, int, int> OnDecreaseQuantity;
     public void DecreaseQuantity(string _type, int _colorId, int _amount)
     {
@@ -93,6 +94,37 @@ public class GameEvent : MonoBehaviour
         OnIncreaseMaxQuantity?.Invoke(_type, _amount);
     }
 
+    //Score
+    public event Action<int> OnIncreaseScore;
+    public void IncreaseScore(int _amount)
+    {
+        OnIncreaseScore?.Invoke(_amount);
+    }
+
+    public event Action<int> OnDecreaseScore;
+    public void DecreaseScore(int _amount)
+    {
+        OnDecreaseScore?.Invoke(_amount);
+    }
+
+    public event Action<int> OnChangeMultiplier;
+    public void ChangeMultiplier(int _amount)
+    {
+        OnChangeMultiplier?.Invoke(_amount);
+    }
+
+    //Life
+    public event Action<int> OnChangeLife;
+    public void ChangeLife(int _amount)
+    {
+        OnChangeLife?.Invoke(_amount);
+    }
+
+    public event Action<int> OnChangeMaxLife;
+    public void ChangeMaxLife(int _amount)
+    {
+        OnChangeMaxLife?.Invoke(_amount);
+    }
 
 
     #endregion

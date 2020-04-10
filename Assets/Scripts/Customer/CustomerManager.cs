@@ -99,7 +99,7 @@ public class CustomerManager : MonoBehaviour
         {
             seatStats[_id] = false;
             GameEvent.instance.DespawnCustomer(_id);
-            //cong diem
+            GameEvent.instance.IncreaseScore(10);
         }
         else if (_type == "VIP")
         {
@@ -107,7 +107,7 @@ public class CustomerManager : MonoBehaviour
         }
         else if (_type == "EatALot")
         {
-
+            return;
         }
     }
 
@@ -117,21 +117,21 @@ public class CustomerManager : MonoBehaviour
         {
             seatStats[_id] = false;
             GameEvent.instance.DespawnCustomer(_id);
-            //tru diem
+            GameEvent.instance.DecreaseScore(20);
         }
         else if (_type == "VIP")
         {
             seatStats[_id] = false;
             GameEvent.instance.DespawnCustomer(_id);
-            //tru diem
+            GameEvent.instance.DecreaseScore(100);
         }
         else if (_type == "EatALot")
         {
             seatStats[_id] = false;
             GameEvent.instance.DespawnCustomer(_id);
-            //true diem
+            GameEvent.instance.DecreaseScore(40);
         }
-        
+        GameEvent.instance.ChangeLife(-1);
     }
 
     void UpdateCustomerOrders( int[] orders, int _id)
@@ -143,7 +143,8 @@ public class CustomerManager : MonoBehaviour
     {
         seatStats[_id] = false;
         GameEvent.instance.DespawnCustomer(_id);
-        //cong diem
+        GameEvent.instance.IncreaseScore(40);
+        GameEvent.instance.ChangeMultiplier(1);
     }
     
     void WaitTimeoutHandler(int _id, string _type)
@@ -151,17 +152,17 @@ public class CustomerManager : MonoBehaviour
         if(_type == "Normal")
         {
             GameEvent.instance.DespawnCustomer(_id);
-            //tru diem
+            GameEvent.instance.DecreaseScore(20);
         }
         else if(_type == "VIP")
         {
             GameEvent.instance.DespawnCustomer(_id);
-            //tru diem
+            GameEvent.instance.DecreaseScore(100);
         }
         else if(_type == "EatALot")
         {
             GameEvent.instance.DespawnCustomer(_id);
-            //tru diem
+            GameEvent.instance.DecreaseScore(40);
         }
     }
 
