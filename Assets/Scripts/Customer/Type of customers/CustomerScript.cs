@@ -10,7 +10,6 @@ public class CustomerScript : MonoBehaviour, IPoolable
     public string customerType = "Normal";
     int[] givenOrder = new int[3];
     float time = 0;
-    float waitTime = 0;
     Rigidbody2D rb;
     #endregion
 
@@ -48,8 +47,7 @@ public class CustomerScript : MonoBehaviour, IPoolable
 
     public void OnSpawn()
     {
-        waitTime = CustomerManager.instance.customerWaitingTime;
-        time = waitTime;
+        time = PlayerStats.instance.waitTime;
         GameEvent.instance.OnDespawnCustomer += DespawnCustomer;
     }
 

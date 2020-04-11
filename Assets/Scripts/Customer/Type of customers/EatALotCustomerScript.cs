@@ -10,8 +10,6 @@ public class EatALotCustomerScript : MonoBehaviour, IPoolable
     public string customerType = "EatALot";
     int[] givenOrder = new int[3];
     float time = 0;
-    float waitTime = 0;
-
     Rigidbody2D rb;
 
     #endregion
@@ -50,8 +48,7 @@ public class EatALotCustomerScript : MonoBehaviour, IPoolable
     }
     public void OnSpawn()
     {
-        waitTime = CustomerManager.instance.customerWaitingTime;
-        time = waitTime;
+        time = PlayerStats.instance.waitTime;
         GameEvent.instance.OnDespawnCustomer += DespawnCustomer;
     }
 

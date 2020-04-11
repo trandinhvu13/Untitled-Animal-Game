@@ -13,9 +13,7 @@ public class CurrentInventory : MonoBehaviour
     public List<Cream> Creams = new List<Cream>();
     public List<Fruit> Fruits = new List<Fruit>();
 
-    public int drinkMQuantity=3;
-    public int creamMQuantity=3;
-    public int fruitMQuantity=3;
+    
     #endregion
 
     #region Methods
@@ -24,18 +22,18 @@ public class CurrentInventory : MonoBehaviour
     {
         foreach (Drink drink in Drinks)
         {
-            drink.MaxQuantity = drinkMQuantity;
-            drink.Quantity = drinkMQuantity;
+            drink.MaxQuantity = PlayerStats.instance.drinkMQuantity;
+            drink.Quantity = PlayerStats.instance.drinkMQuantity;
         }
         foreach (Cream cream in Creams)
         {
-            cream.MaxQuantity = creamMQuantity;
-            cream.Quantity = creamMQuantity;
+            cream.MaxQuantity = PlayerStats.instance.creamMQuantity;
+            cream.Quantity = PlayerStats.instance.creamMQuantity;
         }
         foreach (Fruit fruit in Fruits)
         {
-            fruit.MaxQuantity = fruitMQuantity;
-            fruit.Quantity = fruitMQuantity;
+            fruit.MaxQuantity = PlayerStats.instance.fruitMQuantity;
+            fruit.Quantity = PlayerStats.instance.fruitMQuantity;
         }
 
         //Set up color id
@@ -83,15 +81,15 @@ public class CurrentInventory : MonoBehaviour
     {
         if (_type == "Drink")
         {
-            drinkMQuantity += _amount;
+            PlayerStats.instance.drinkMQuantity += _amount;
         }
         else if (_type == "Cream")
         {
-            creamMQuantity += _amount;
+            PlayerStats.instance.creamMQuantity += _amount;
         }
         else if (_type == "Fruit")
         {
-            fruitMQuantity += _amount;
+            PlayerStats.instance.fruitMQuantity += _amount;
         }
         
     }

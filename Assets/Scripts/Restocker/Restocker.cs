@@ -5,14 +5,11 @@ using UnityEngine;
 public class Restocker : MonoBehaviour
 {
     float time;
-    float cooldownTime;
-    float deliveryTime;
+    
     bool available = true;
     void Start()
     {
-        cooldownTime = 5;
         time = 0;
-
     }
 
     void Update()
@@ -34,7 +31,7 @@ public class Restocker : MonoBehaviour
         {
             if (available)
             {
-                time = cooldownTime;
+                time = PlayerStats.instance.cooldownTime;
                 string type = collision.GetComponent<IInventory>().Type;
                 int colorId = collision.GetComponent<IInventory>().ColorID;
                 int maxQuantity = collision.GetComponent<IInventory>().MaxQuantity;
@@ -51,7 +48,7 @@ public class Restocker : MonoBehaviour
 
     IEnumerator IncreaseQuantity(string _type, int _colorId, int _maxQuantity, int _quantity)
     {
-        yield return new WaitForSeconds(deliveryTime);
+        yield return new WaitForSeconds(PlayerStats.instance.deliveryTime);
         GameEvent.instance.IncreaseQuantity(_type, _colorId, _maxQuantity - _quantity);
     }
 }

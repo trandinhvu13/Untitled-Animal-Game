@@ -26,12 +26,7 @@ public class CustomerManager : MonoBehaviour
     public Transform[] seatsPlaces = { seat1, seat2, seat3, seat4 };
     public bool[] seatStats = { false, false, false, false };
     public float[] spawnTimes = { 0, 0, 0, 0 };
-    public float minSpawnTime = 3;
-    public float maxSpawnTime = 10;
     public float[] times = { 0, 0, 0, 0 }; //Current time
-
-    public float customerWaitingTime = 10;
-   
 
     public static CustomerManager instance = null;
     #endregion
@@ -46,12 +41,12 @@ public class CustomerManager : MonoBehaviour
         bool foundObjectToPool = false;
         while (foundObjectToPool == false)
         {
-            if (Random.value <= 0.1)
+            if (Random.value <= PlayerStats.instance.VIPCustomerChance)
             {
                 prefabToSpawn = vipCustomer;
                 foundObjectToPool = true;
             }
-            else if (Random.value <= 0.2)
+            else if (Random.value <= PlayerStats.instance.EALCustomerChance)
             {
                 prefabToSpawn = eatALotCustomer;
                 foundObjectToPool = true;
@@ -76,7 +71,7 @@ public class CustomerManager : MonoBehaviour
     void SetRandomTime(int index)
     {
 
-        spawnTimes[index] = Random.Range(minSpawnTime, maxSpawnTime);
+        spawnTimes[index] = Random.Range(PlayerStats.instance.minSpawnTime, PlayerStats.instance.maxSpawnTime);
     }
 
     public void CompareAnswersHandler(int[] order, int id, string type)

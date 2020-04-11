@@ -4,16 +4,28 @@ using UnityEngine;
 
 public class ScoreManager : MonoBehaviour
 {
+    public static ScoreManager instance = null;
+
+    private void Awake()
+    {
+        if (instance == null)
+        {
+            instance = this;
+        }
+        else if (instance != this)
+        {
+            Destroy(gameObject);
+        }
+    }
+
     public int currentScore = 0;
     public int currentMultiplier = 1;
-    public int maxMultiplier;
     public float multiplierDuration;
     public int correctOrderStreak = 0;
     public float currentMultiplierTime;
     public int multiplierOrderStep;
     public bool isOnMultiplier;
-
-    public int maxLife;
+   
     public int currentLife;
     public int scoreTo1Up;
 
@@ -75,13 +87,13 @@ public class ScoreManager : MonoBehaviour
             {
                 correctOrderStreak = 0;
                 currentMultiplierTime = multiplierDuration;
-                if (currentMultiplier <= maxMultiplier)
+                if (currentMultiplier <= PlayerStats.instance.maxMultiplier)
                 {
                     currentMultiplier++;
                 }
                 else
                 {
-                    currentMultiplier = maxMultiplier;
+                    currentMultiplier = PlayerStats.instance.maxMultiplier;
                 }
             }
         }
@@ -94,6 +106,11 @@ public class ScoreManager : MonoBehaviour
         }
 
 
+    }
+
+    void AddToTotalScore(int amount)
+    {
+        PlayerStats.instance.totalScore += amount;
     }
     void IncreaseScore(int scoreAmount)
     {
@@ -121,7 +138,7 @@ public class ScoreManager : MonoBehaviour
 
     void ChangeCurrentMaxLife(int amount)
     {
-        maxLife += amount;
+        PlayerStats.instance.maxLife += amount;
     }
 
 }
