@@ -27,7 +27,7 @@ public class ScoreManager : MonoBehaviour
     public bool isOnMultiplier;
    
     public int currentLife;
-    public int scoreTo1Up;
+    //public int scoreTo1Up;
 
     void Start()
     {
@@ -66,10 +66,10 @@ public class ScoreManager : MonoBehaviour
             currentMultiplierTime -= Time.deltaTime;
         }
 
-        if (currentScore % scoreTo1Up==0)
-        {
-            ChangeCurrentLife(1);
-        }
+        // if (currentScore % scoreTo1Up==0)
+        // {
+        //     ChangeCurrentLife(1);
+        // }
 
         if (currentLife <= 0)
         {

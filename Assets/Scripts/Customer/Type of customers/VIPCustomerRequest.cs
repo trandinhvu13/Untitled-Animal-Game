@@ -68,11 +68,11 @@ public class VIPCustomerRequest : MonoBehaviour, IRequest, IPoolable
     public void ShowGraphic(int[] _order)
     {
         Sprite drinkSprite = CurrentInventory.instance.Drinks[_order[0]].order;
-        RuntimeAnimatorController creamSprite = CurrentInventory.instance.Creams[_order[1]].order;
+        Sprite creamSprite = CurrentInventory.instance.Creams[_order[1]].order;
         Sprite fruitSprite = CurrentInventory.instance.Fruits[_order[2]].order;
 
         drink.GetComponent<SpriteRenderer>().sprite = drinkSprite;
-        cream.GetComponent<Animator>().runtimeAnimatorController = creamSprite;
+        cream.GetComponent<SpriteRenderer>().sprite = creamSprite;
         fruit.GetComponent<SpriteRenderer>().sprite = fruitSprite;
     }
 

@@ -12,10 +12,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 740d3f2c70f95d34690ce96561aefe5b, type: 3}
   m_Name: F_5
   m_EditorClassIdentifier: 
-  colorName: Violet
-  colorID: 5
-  quantity: 0
-  maxQuantity: 0
-  playerInventory: {fileID: 0}
-  order: {fileID: 0}
-  cup: {fileID: 0}
+  playerInventory: {fileID: -7518122817814454854, guid: e08931167d2603146933a482e58b0735,
+    type: 3}
+  order: {fileID: -4441189822013894184, guid: dfcbb280521822a448b60bedde054075, type: 3}
+  cup: {fileID: 3390052963428106218, guid: 0ff6ac1c8e3b7fb41ad97467334dac00, type: 3}

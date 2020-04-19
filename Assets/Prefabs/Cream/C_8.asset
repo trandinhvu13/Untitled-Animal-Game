@@ -12,8 +12,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: e2d86fac656b5c04aba58358475d5700, type: 3}
   m_Name: C_8
   m_EditorClassIdentifier: 
-  colorName: Brown
-  colorID: 8
-  playerInventory: {fileID: 0}
-  order: {fileID: 0}
-  cup: {fileID: 0}
+  playerInventory: {fileID: 1155466899415808114, guid: 11b22d7e12ef3bd4a84ecbbb9b09e431,
+    type: 3}
+  order: {fileID: -8412477163954011085, guid: 0d46762072251344198da2bb853df9ae, type: 3}
+  cup: {fileID: -3052084584157295577, guid: 3b79bb3cab86f1d4eb9d90ebb639b911, type: 3}

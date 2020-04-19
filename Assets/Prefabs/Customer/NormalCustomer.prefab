@@ -215,6 +215,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   id: 0
+  customerType: Normal
 --- !u!50 &-3505221027614313859
 Rigidbody2D:
   serializedVersion: 4

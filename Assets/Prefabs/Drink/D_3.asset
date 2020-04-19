@@ -12,8 +12,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 26e3a0c9efb8d844c9b0cd4533714ace, type: 3}
   m_Name: D_3
   m_EditorClassIdentifier: 
-  colorName: Red
-  colorID: 3
-  playerInventory: {fileID: 0}
-  order: {fileID: 0}
-  cup: {fileID: 0}
+  playerInventory: {fileID: 6466212649624665762, guid: 2c1540f0bd7d17140b00dc9a04cea569,
+    type: 3}
+  order: {fileID: 7835110204962785883, guid: 65fbdcdd92474604b974ea6e98500a20, type: 3}
+  cup: {fileID: 5187792682573360658, guid: a716417a2efc8054b831e5cce56ef855, type: 3}
