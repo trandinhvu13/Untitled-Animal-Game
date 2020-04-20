@@ -3,29 +3,38 @@ using System.Collections.Generic;
 using Lean.Touch;
 using UnityEngine;
 
-public class InventoryItem : MonoBehaviour {
-    private Collider2D currentCollided;
+public class InventoryFruitItem : MonoBehaviour {
+    #region Components
     [SerializeField]
     private BoxCollider2D col;
     [SerializeField]
     private LeanDragTranslate leanDrag;
     [SerializeField]
     private SpriteRenderer spriteRenderer;
-    private Vector2 pickUpPos;
     [SerializeField]
     private RectTransform rect;
+
+    #endregion
+
+    #region Variables  
+    private Collider2D currentCollided;
+    private Vector2 pickUpPos;
+
     [SerializeField]
     private bool isBeingHeld = false;
+    public Fruit scriptableObject;
+
+    #endregion
+
+    #region Monos
     private void OnEnable () {
         leanDrag.enabled = false;
-        
+        spriteRenderer.sprite = scriptableObject.playerInventory;
     }
 
     private void OnDisable () {
-
     }
     void Start () {
-
     }
 
     void Update () {
@@ -33,6 +42,19 @@ public class InventoryItem : MonoBehaviour {
             BeingHold ();
         }
     }
+    #endregion
+
+    #region Collisions
+    private void OnTriggerEnter2D (Collider2D other) {
+        currentCollided = other;
+    }
+    private void OnTriggerExit2D (Collider2D other) {
+        currentCollided = null;
+    }
+
+    #endregion
+
+    #region Methods
     public void PickUp () {
         isBeingHeld = true;
         //send message stop scroll
@@ -83,12 +105,6 @@ public class InventoryItem : MonoBehaviour {
         }
 
     }
-   
-    private void OnTriggerEnter2D (Collider2D other) {
-        currentCollided = other;
-    }
-    private void OnTriggerExit2D (Collider2D other) {
-        currentCollided = null;
-    }
+    #endregion
 
 }
