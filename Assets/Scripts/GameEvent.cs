@@ -75,7 +75,7 @@ public class GameEvent : MonoBehaviour
         OnWaitTimeout?.Invoke(_id, _type);
     }
 
-    //Inventory
+    #region Inventory
     public event Action<string, int, int> OnDecreaseQuantity;
     public void DecreaseQuantity(string _type, int _colorId, int _amount)
     {
@@ -94,8 +94,18 @@ public class GameEvent : MonoBehaviour
         OnIncreaseMaxQuantity?.Invoke(_type, _amount);
     }
 
-    //Score
-    public event Action<int> OnIncreaseScore;
+    public event Action<bool> OnToggleScroll;
+    public void ToggleScroll(bool isEnabled)
+    {
+        OnToggleScroll?.Invoke(isEnabled);
+    }
+
+
+    #endregion
+    
+
+   #region Score
+   public event Action<int> OnIncreaseScore;
     public void IncreaseScore(int _amount)
     {
         OnIncreaseScore?.Invoke(_amount);
@@ -112,8 +122,10 @@ public class GameEvent : MonoBehaviour
     {
         OnChangeMultiplier?.Invoke(_amount);
     }
+   #endregion
+    
 
-    //Life
+    #region Life
     public event Action<int> OnChangeLife;
     public void ChangeLife(int _amount)
     {
@@ -125,6 +137,8 @@ public class GameEvent : MonoBehaviour
     {
         OnChangeMaxLife?.Invoke(_amount);
     }
+    #endregion
+    
 
 
     #endregion

@@ -9,9 +9,19 @@ public class InventoryItem : MonoBehaviour {
     private BoxCollider2D col;
     [SerializeField]
     private LeanDragTranslate leanDrag;
-    private Transform pickUpPos;
+    [SerializeField]
+    private SpriteRenderer spriteRenderer;
+    private Vector2 pickUpPos;
+    [SerializeField]
+    private RectTransform rect;
+    [SerializeField]
+    private bool isBeingHeld = false;
     private void OnEnable () {
         leanDrag.enabled = false;
+
+    }
+
+    private void OnDisable () {
 
     }
     void Start () {
@@ -19,39 +29,61 @@ public class InventoryItem : MonoBehaviour {
     }
 
     void Update () {
-
+        if (isBeingHeld) {
+            BeingHold ();
+        }
     }
-    void OnPickUp () {
+    public void PickUp () {
+        isBeingHeld = true;
         //send message stop scroll
+        GameEvent.instance.ToggleScroll (false);
         //change mask interaction
+        spriteRenderer.maskInteraction = SpriteMaskInteraction.None;
         //save pickup pos
+        pickUpPos = rect.anchoredPosition;
         //make pickup sound
-    }
-    void BeingHold () {
-        //enable leanDrag
-
+        Debug.Log ("pick");
     }
 
-    void BeingDrop () {
-        if (currentCollided.gameObject.CompareTag ("Cup")) {
-            //neu con quantity:
-            //sendmessage drop vao cup (tru quantity, them answer + sprite vao cup, tru UI)
-            //transform ve pick up pos(hieu ung poof)
-            //neu het quantity:
-            //transform ve pick up pos (dot ngot transform)
+    public void BeingHold () {
+        // //enable leanDrag
+        leanDrag.enabled = true;
+        Debug.Log ("hold");
+    }
 
-        } else if (currentCollided.gameObject.CompareTag ("Restocker")) {
-            //sendmessage drop vao restocker (restock ingredient)
-            //transform ve pick up pos (co hieu ung poof)
+    public void Drop () {
+        if (isBeingHeld) {
+            isBeingHeld = false;
+            Debug.Log ("drop");
+            if (currentCollided != null) {
+                if (currentCollided.gameObject.CompareTag ("Cup")) {
+                    //neu con quantity:
+                    //sendmessage drop vao cup (tru quantity, them answer + sprite vao cup, tru UI)
+                    //transform ve pick up pos(hieu ung poof)
+                    //neu het quantity:
+                    //transform ve pick up pos (poof)
+                    rect.anchoredPosition = pickUpPos;
 
-        } else {
-            //transform ve pick up pos(hieu ung poof)
+                } else if (currentCollided.gameObject.CompareTag ("Restocker")) {
+                    //sendmessage drop vao restocker (restock ingredient)
+                    //transform ve pick up pos (poof)
+                    rect.anchoredPosition = pickUpPos;
+
+                } else {
+                    //transform ve pick up pos(hieu ung bay lai ve cho cu)
+                    rect.anchoredPosition = pickUpPos;
+                }
+            } else {
+                rect.anchoredPosition = pickUpPos;
+            }
+            spriteRenderer.maskInteraction = SpriteMaskInteraction.VisibleInsideMask;
+            GameEvent.instance.ToggleScroll (true);
+            leanDrag.enabled = false;
+
         }
 
-        //enable scroll
-        //disable leanDrag
     }
-
+   
     private void OnTriggerEnter2D (Collider2D other) {
         currentCollided = other;
     }
