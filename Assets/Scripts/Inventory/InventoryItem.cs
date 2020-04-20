@@ -18,7 +18,7 @@ public class InventoryItem : MonoBehaviour {
     private bool isBeingHeld = false;
     private void OnEnable () {
         leanDrag.enabled = false;
-
+        
     }
 
     private void OnDisable () {
