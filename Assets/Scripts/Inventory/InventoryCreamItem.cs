@@ -1,6 +1,7 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using Lean.Touch;
+using TMPro;
 using UnityEngine;
 
 public class InventoryCreamItem : MonoBehaviour {
@@ -13,15 +14,15 @@ public class InventoryCreamItem : MonoBehaviour {
     private SpriteRenderer spriteRenderer;
     [SerializeField]
     private RectTransform rect;
-    
-
+    [SerializeField]
+    private TextMeshProUGUI textMeshPro;
 
     #endregion
 
     #region Variables
     private Collider2D currentCollided;
     private Vector2 pickUpPos;
-        private bool isBeingHeld = false;
+    private bool isBeingHeld = false;
     public Cream scriptableObject;
     #endregion
 
@@ -29,6 +30,7 @@ public class InventoryCreamItem : MonoBehaviour {
     private void OnEnable () {
         leanDrag.enabled = false;
         spriteRenderer.sprite = scriptableObject.playerInventory;
+        textMeshPro.text = scriptableObject.Quantity.ToString ();
 
     }
 

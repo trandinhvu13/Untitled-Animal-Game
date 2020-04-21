@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using Lean.Touch;
 using UnityEngine;
+using TMPro;
 
 public class InventoryDrinkItem : MonoBehaviour {
     #region Components
@@ -14,7 +15,8 @@ public class InventoryDrinkItem : MonoBehaviour {
     private SpriteRenderer spriteRenderer;
     [SerializeField]
     private RectTransform rect;
-
+    [SerializeField]
+    private TextMeshProUGUI textMeshPro;
     public Drink scriptableObject;
 
     #endregion
@@ -31,6 +33,7 @@ public class InventoryDrinkItem : MonoBehaviour {
     private void OnEnable () {
         leanDrag.enabled = false;
         spriteRenderer.sprite = scriptableObject.playerInventory;
+        textMeshPro.text = scriptableObject.Quantity.ToString ();
 
     }
 

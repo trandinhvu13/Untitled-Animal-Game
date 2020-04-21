@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using Lean.Touch;
 using UnityEngine;
+using TMPro;
 
 public class InventoryFruitItem : MonoBehaviour {
     #region Components
@@ -13,6 +14,8 @@ public class InventoryFruitItem : MonoBehaviour {
     private SpriteRenderer spriteRenderer;
     [SerializeField]
     private RectTransform rect;
+    [SerializeField]
+    private TextMeshProUGUI textMeshPro;
 
     #endregion
 
@@ -30,6 +33,7 @@ public class InventoryFruitItem : MonoBehaviour {
     private void OnEnable () {
         leanDrag.enabled = false;
         spriteRenderer.sprite = scriptableObject.playerInventory;
+        textMeshPro.text = scriptableObject.Quantity.ToString ();
     }
 
     private void OnDisable () {
