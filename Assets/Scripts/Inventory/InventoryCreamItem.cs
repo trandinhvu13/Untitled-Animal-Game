@@ -13,7 +13,7 @@ public class InventoryCreamItem : MonoBehaviour {
     private SpriteRenderer spriteRenderer;
     [SerializeField]
     private RectTransform rect;
-    [SerializeField]
+    
 
 
     #endregion
