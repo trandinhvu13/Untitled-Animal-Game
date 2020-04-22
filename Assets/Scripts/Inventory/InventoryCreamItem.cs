@@ -67,19 +67,17 @@ public class InventoryCreamItem : MonoBehaviour {
         //save pickup pos
         pickUpPos = rect.anchoredPosition;
         //make pickup sound
-        Debug.Log ("pick");
+        textMeshPro.color = new Color32(43,15,49,0);
     }
 
     public void BeingHold () {
         // //enable leanDrag
         leanDrag.enabled = true;
-        Debug.Log ("hold");
     }
 
     public void Drop () {
         if (isBeingHeld) {
             isBeingHeld = false;
-            Debug.Log ("drop");
             if (currentCollided != null) {
                 if (currentCollided.gameObject.CompareTag ("Cup")) {
                     //neu con quantity:
@@ -104,7 +102,7 @@ public class InventoryCreamItem : MonoBehaviour {
             spriteRenderer.maskInteraction = SpriteMaskInteraction.VisibleInsideMask;
             GameEvent.instance.ToggleScroll (true);
             leanDrag.enabled = false;
-
+            textMeshPro.color = new Color32(43,15,49,255);
         }
 
     }
