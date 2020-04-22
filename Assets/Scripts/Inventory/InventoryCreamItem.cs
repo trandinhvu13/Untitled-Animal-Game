@@ -28,6 +28,7 @@ public class InventoryCreamItem : MonoBehaviour {
 
     #region Monos
     private void OnEnable () {
+        GameEvent.instance.OnToggleCreamCollider += ToggleCollider;
         leanDrag.enabled = false;
         spriteRenderer.sprite = scriptableObject.playerInventory;
         textMeshPro.text = scriptableObject.Quantity.ToString ();
@@ -35,7 +36,7 @@ public class InventoryCreamItem : MonoBehaviour {
     }
 
     private void OnDisable () {
-
+        GameEvent.instance.OnToggleCreamCollider -= ToggleCollider;
     }
     void Start () {
 
@@ -67,7 +68,7 @@ public class InventoryCreamItem : MonoBehaviour {
         //save pickup pos
         pickUpPos = rect.anchoredPosition;
         //make pickup sound
-        textMeshPro.color = new Color32(43,15,49,0);
+        textMeshPro.color = new Color32 (43, 15, 49, 0);
     }
 
     public void BeingHold () {
@@ -102,9 +103,13 @@ public class InventoryCreamItem : MonoBehaviour {
             spriteRenderer.maskInteraction = SpriteMaskInteraction.VisibleInsideMask;
             GameEvent.instance.ToggleScroll (true);
             leanDrag.enabled = false;
-            textMeshPro.color = new Color32(43,15,49,255);
+            textMeshPro.color = new Color32 (43, 15, 49, 255);
         }
 
+    }
+
+    public void ToggleCollider (bool isEnabled) {
+        col.enabled = isEnabled;
     }
 
     #endregion

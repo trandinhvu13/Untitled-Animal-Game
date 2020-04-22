@@ -31,12 +31,15 @@ public class InventoryFruitItem : MonoBehaviour {
 
     #region Monos
     private void OnEnable () {
+        GameEvent.instance.OnToggleFruitCollider += ToggleCollider;
         leanDrag.enabled = false;
         spriteRenderer.sprite = scriptableObject.playerInventory;
         textMeshPro.text = scriptableObject.Quantity.ToString ();
     }
 
-    private void OnDisable () { }
+    private void OnDisable () { 
+        GameEvent.instance.OnToggleFruitCollider -= ToggleCollider;
+    }
     void Start () { }
 
     void Update () {
@@ -104,6 +107,9 @@ public class InventoryFruitItem : MonoBehaviour {
             textMeshPro.color = new Color32(43,15,49,255);
         }
 
+    }
+    public void ToggleCollider (bool isEnabled) {
+        col.enabled = isEnabled;
     }
     #endregion
 

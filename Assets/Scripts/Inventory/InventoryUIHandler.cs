@@ -20,6 +20,7 @@ public class InventoryUIHandler : MonoBehaviour {
     public GameObject buttonDown;
     public LeanTweenType easeType;
     public float transitionTime;
+    private bool isChanged = false;
 
     #endregion
 
@@ -36,19 +37,33 @@ public class InventoryUIHandler : MonoBehaviour {
     }
 
     private void Update () {
-        if (currentCategory == 2) {
-            buttonUp.SetActive (false);
-            buttonDown.SetActive (true);
-            label.text = "Drink";
-        } else if (currentCategory == 0) {
-            buttonUp.SetActive (true);
-            buttonDown.SetActive (false);
-            label.text = "Fruit";
-        } else if (currentCategory == 1){
-            buttonUp.SetActive (true);
-            buttonDown.SetActive (true);
-            label.text = "Cream";
+        if (isChanged) {
+            isChanged=false;
+            if (currentCategory == 2) {
+                GameEvent.instance.ToggleFruitCollider(true);
+                GameEvent.instance.ToggleCreamCollider(false);
+                GameEvent.instance.ToggleDrinkCollider(false);
+                buttonUp.SetActive (false);
+                buttonDown.SetActive (true);
+                label.text = "Fruit";
+            } else if (currentCategory == 0) {
+                GameEvent.instance.ToggleFruitCollider(false);
+                GameEvent.instance.ToggleCreamCollider(false);
+                GameEvent.instance.ToggleDrinkCollider(true);
+                buttonUp.SetActive (true);
+                buttonDown.SetActive (false);
+                label.text = "Drink";
+            } else if (currentCategory == 1) {
+                GameEvent.instance.ToggleFruitCollider(false);
+                GameEvent.instance.ToggleCreamCollider(true);
+                GameEvent.instance.ToggleDrinkCollider(false);
+                buttonUp.SetActive (true);
+                buttonDown.SetActive (true);
+                label.text = "Cream";
+            }
+            
         }
+
     }
 
     #endregion
@@ -61,16 +76,21 @@ public class InventoryUIHandler : MonoBehaviour {
         currentCategory = 1;
         scrollViews.transform.position = pos[currentCategory].transform.position;
         label.text = categories[currentCategory];
+        GameEvent.instance.ToggleFruitCollider (false);
+        GameEvent.instance.ToggleCreamCollider (false);
+        GameEvent.instance.ToggleDrinkCollider (true);
     }
 
     public void MoveUp () {
         currentCategory += 1;
-        LeanTween.move (scrollViews, pos[currentCategory].transform.position, transitionTime).setEase(easeType);
+        LeanTween.move (scrollViews, pos[currentCategory].transform.position, transitionTime).setEase (easeType);
+        isChanged = true;
     }
 
     public void MoveDown () {
         currentCategory -= 1;
-        LeanTween.move (scrollViews, pos[currentCategory].transform.position, transitionTime).setEase(easeType);
+        LeanTween.move (scrollViews, pos[currentCategory].transform.position, transitionTime).setEase (easeType);
+        isChanged = true;
     }
     #endregion
 
