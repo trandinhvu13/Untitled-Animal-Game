@@ -7,6 +7,9 @@ TagManager:
   - MyMainCamera
   - Cup
   - Restocker
+  - Cream
+  - Fruit
+  - Drink
   layers:
   - Default
   - TransparentFX
@@ -49,6 +52,9 @@ TagManager:
     locked: 0
   - name: Game
     uniqueID: 1568266737
+    locked: 0
+  - name: Cup
+    uniqueID: 3977053951
     locked: 0
   - name: Inventory
     uniqueID: 1103959755

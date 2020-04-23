@@ -4,7 +4,7 @@ using Lean.Touch;
 using TMPro;
 using UnityEngine;
 
-public class InventoryFruitItem : MonoBehaviour {
+public class InventoryFruitItem : MonoBehaviour{
     #region Components
     [SerializeField]
     private BoxCollider2D col;
@@ -27,6 +27,8 @@ public class InventoryFruitItem : MonoBehaviour {
     private bool isBeingHeld = false;
     public Fruit scriptableObject;
     private bool isDraggable;
+    private int defaultSortingOrder = 10;
+    private int selectSortingOrder = 105;
 
     #endregion
 
@@ -37,6 +39,7 @@ public class InventoryFruitItem : MonoBehaviour {
         isDraggable = true;
         spriteRenderer.sprite = scriptableObject.playerInventory;
         textMeshPro.text = scriptableObject.Quantity.ToString ();
+        spriteRenderer.sortingOrder = defaultSortingOrder;
     }
 
     private void OnDisable () {
@@ -78,7 +81,8 @@ public class InventoryFruitItem : MonoBehaviour {
             //save pickup pos
             pickUpPos = rect.anchoredPosition;
             //make pickup sound
-            textMeshPro.color = new Color32 (43, 15, 49, 0);
+            //textMeshPro.color = new Color32 (43, 15, 49, 0);
+            spriteRenderer.sortingOrder = selectSortingOrder;
         }
 
     }
@@ -115,7 +119,8 @@ public class InventoryFruitItem : MonoBehaviour {
             spriteRenderer.maskInteraction = SpriteMaskInteraction.VisibleInsideMask;
             GameEvent.instance.ToggleScroll (true);
             leanDrag.enabled = false;
-            textMeshPro.color = new Color32 (43, 15, 49, 255);
+            //textMeshPro.color = new Color32 (43, 15, 49, 255);
+            spriteRenderer.sortingOrder = defaultSortingOrder;
         }
 
     }

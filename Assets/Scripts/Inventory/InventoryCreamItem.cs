@@ -25,6 +25,8 @@ public class InventoryCreamItem : MonoBehaviour {
     private bool isBeingHeld = false;
     public Cream scriptableObject;
     public bool isDraggable;
+    private int defaultSortingOrder = 10;
+    private int selectSortingOrder = 105;
     #endregion
 
     #region Monos
@@ -34,6 +36,7 @@ public class InventoryCreamItem : MonoBehaviour {
         isDraggable = true;
         spriteRenderer.sprite = scriptableObject.playerInventory;
         textMeshPro.text = scriptableObject.Quantity.ToString ();
+        spriteRenderer.sortingOrder = defaultSortingOrder;
 
     }
 
@@ -77,7 +80,9 @@ public class InventoryCreamItem : MonoBehaviour {
             //save pickup pos
             pickUpPos = rect.anchoredPosition;
             //make pickup sound
-            textMeshPro.color = new Color32 (43, 15, 49, 0);
+            //textMeshPro.color = new Color32 (43, 15, 49, 0);
+            spriteRenderer.sortingOrder = selectSortingOrder;
+            
         }
 
     }
@@ -93,10 +98,10 @@ public class InventoryCreamItem : MonoBehaviour {
             if (currentCollided != null) {
                 if (currentCollided.gameObject.CompareTag ("Cup")) {
                     //neu con quantity:
+                    
                     //sendmessage drop vao cup (tru quantity, them answer + sprite vao cup, tru UI)
                     //transform ve pick up pos(hieu ung poof)
-                    //neu het quantity:
-                    //transform ve pick up pos (poof)
+                   
                     rect.anchoredPosition = pickUpPos;
 
                 } else if (currentCollided.gameObject.CompareTag ("Restocker")) {
@@ -114,7 +119,8 @@ public class InventoryCreamItem : MonoBehaviour {
             spriteRenderer.maskInteraction = SpriteMaskInteraction.VisibleInsideMask;
             GameEvent.instance.ToggleScroll (true);
             leanDrag.enabled = false;
-            textMeshPro.color = new Color32 (43, 15, 49, 255);
+            //textMeshPro.color = new Color32 (43, 15, 49, 255);
+            spriteRenderer.sortingOrder = defaultSortingOrder;
         }
 
     }

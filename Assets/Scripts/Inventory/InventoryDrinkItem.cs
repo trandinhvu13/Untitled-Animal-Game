@@ -27,6 +27,8 @@ public class InventoryDrinkItem : MonoBehaviour {
     [SerializeField]
     private bool isBeingHeld = false;
     private bool isDraggable;
+    private int defaultSortingOrder = 10;
+    private int selectSortingOrder = 105;
     #endregion
 
     #region Mono
@@ -36,6 +38,7 @@ public class InventoryDrinkItem : MonoBehaviour {
         isDraggable = true;
         spriteRenderer.sprite = scriptableObject.playerInventory;
         textMeshPro.text = scriptableObject.Quantity.ToString ();
+        spriteRenderer.sortingOrder = defaultSortingOrder;
 
     }
 
@@ -79,7 +82,8 @@ public class InventoryDrinkItem : MonoBehaviour {
             //save pickup pos
             pickUpPos = rect.anchoredPosition;
             //make pickup sound
-            textMeshPro.color = new Color32 (43, 15, 49, 0);
+            //textMeshPro.color = new Color32 (43, 15, 49, 0);
+            spriteRenderer.sortingOrder = selectSortingOrder;
         }
 
     }
@@ -116,7 +120,8 @@ public class InventoryDrinkItem : MonoBehaviour {
             spriteRenderer.maskInteraction = SpriteMaskInteraction.VisibleInsideMask;
             GameEvent.instance.ToggleScroll (true);
             leanDrag.enabled = false;
-            textMeshPro.color = new Color32 (43, 15, 49, 255);
+            //textMeshPro.color = new Color32 (43, 15, 49, 255);
+            spriteRenderer.sortingOrder = defaultSortingOrder;
         }
 
     }
