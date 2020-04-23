@@ -3,6 +3,10 @@ using System.Collections.Generic;
 using UnityEngine;
 
 public class CupState : MonoBehaviour {
+    #region Components
+    #endregion
+
+    #region Variables
     public bool[] slotIsFull = { false, false, false };
     public int[] answers = { 0, 0, 0 };
     [SerializeField]
@@ -12,13 +16,24 @@ public class CupState : MonoBehaviour {
     [SerializeField]
     private SpriteRenderer drink;
 
-    void Awake () {
-    }
+    //UI
+    [SerializeField]
+    private string defaultSortingLayer;
+    [SerializeField]
+    private string pickUpSortingLayer;
+    public SpriteRenderer[] sprites = new SpriteRenderer[4];
+    #endregion
+
+    #region Monos
+    void Awake () { }
     private void OnEnable () {
         SetUp ();
+        GameEvent.instance.OnHandleDropItem += HandleDropItem;
+
     }
 
     private void OnDisable () {
+        GameEvent.instance.OnHandleDropItem -= HandleDropItem;
 
     }
 
@@ -26,6 +41,9 @@ public class CupState : MonoBehaviour {
 
     }
 
+    #endregion
+
+    #region Methods
     void SetUp () {
         fruit.sprite = null;
         cream.sprite = null;
@@ -39,41 +57,55 @@ public class CupState : MonoBehaviour {
             answers[i] = 0;
         }
     }
-    private void OnTriggerEnter2D (Collider2D collision) {
-        string tag = collision.gameObject.tag;
-        if (tag == "Drink") {
-            if (slotIsFull[0] == false) {
-                slotIsFull[0] = true;
-                int colorID = collision.GetComponent<InventoryDrinkItem> ().scriptableObject.ColorID;
-                answers[0] = colorID;
-                drink.sprite = CurrentInventory.instance.Drinks[colorID].cup;
-                GameEvent.instance.DecreaseQuantity ("Drink", colorID, 1);
-            } else {
-                return;
-            };
-        } else if (tag == "Cream") {
 
-            if (slotIsFull[1] == false) {
-                slotIsFull[1] = true;
-                int colorID = collision.GetComponent<InventoryCreamItem> ().scriptableObject.ColorID;
-                answers[1] = colorID;
-                cream.sprite = CurrentInventory.instance.Creams[colorID].cup;
-                GameEvent.instance.DecreaseQuantity ("Cream", colorID, 1);
-            } else {
-                return;
-            };
-        } else if (tag == "Fruit") {
-
+    private void HandleDropItem (string _type, int _colorID) {
+        if (_type == "Fruit") {
             if (slotIsFull[2] == false) {
                 slotIsFull[2] = true;
-                int colorID = collision.GetComponent<InventoryFruitItem> ().scriptableObject.ColorID;
-                answers[2] = colorID;
-                fruit.sprite = CurrentInventory.instance.Fruits[colorID].cup;
-                GameEvent.instance.DecreaseQuantity ("Fruit", colorID, 1);
+                answers[2] = _colorID;
+                fruit.sprite = CurrentInventory.instance.Fruits[_colorID].cup;
+                GameEvent.instance.DecreaseQuantity ("Fruit", _colorID, 1);
             } else {
                 return;
             };
+        } else if (_type == "Cream") {
+            if (slotIsFull[1] == false) {
+                slotIsFull[1] = true;
+                answers[1] = _colorID;
+                cream.sprite = CurrentInventory.instance.Creams[_colorID].cup;
+                GameEvent.instance.DecreaseQuantity ("Cream", _colorID, 1);
+            } else {
+                return;
+            };
+        } else if (_type == "Drink") {
+            if (slotIsFull[0] == false) {
+                slotIsFull[0] = true;
+                answers[0] = _colorID;
+                drink.sprite = CurrentInventory.instance.Drinks[_colorID].cup;
+                GameEvent.instance.DecreaseQuantity ("Drink", _colorID, 1);
+            } else {
+                return;
+            }
         }
+    }
+
+    private void changeSpriteOrder (string _sortingLayer) {
+        for (int i = 0; i < 4; i++) {
+            sprites[i].sortingLayerName = _sortingLayer;
+        }
+    }
+
+    public void PickUp () {
+        changeSpriteOrder (pickUpSortingLayer);
+    }
+
+    public void Hold () {
 
     }
+
+    public void Drop () {
+        changeSpriteOrder (defaultSortingLayer);
+    }
+    #endregion
+
 }

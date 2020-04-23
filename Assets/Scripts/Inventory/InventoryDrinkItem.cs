@@ -29,11 +29,17 @@ public class InventoryDrinkItem : MonoBehaviour {
     private bool isDraggable;
     private int defaultSortingOrder = 10;
     private int selectSortingOrder = 105;
+    private string objType = "Drink";
+    private int objColorID;
     #endregion
 
     #region Mono
+    private void Awake() {
+        objColorID = scriptableObject.ColorID;
+    }
     private void OnEnable () {
         GameEvent.instance.OnToggleDrinkCollider += ToggleCollider;
+
         leanDrag.enabled = false;
         isDraggable = true;
         spriteRenderer.sprite = scriptableObject.playerInventory;
@@ -100,8 +106,9 @@ public class InventoryDrinkItem : MonoBehaviour {
                 if (currentCollided.gameObject.CompareTag ("Cup")) {
                     //neu con quantity:
                     //sendmessage drop vao cup (tru quantity, them answer + sprite vao cup, tru UI)
+                    GameEvent.instance.HandleDropItem(objType, objColorID );
                     //transform ve pick up pos(hieu ung poof)
-                    //neu het quantity:
+                  
                     //transform ve pick up pos (poof)
                     rect.anchoredPosition = pickUpPos;
 
@@ -122,6 +129,7 @@ public class InventoryDrinkItem : MonoBehaviour {
             leanDrag.enabled = false;
             //textMeshPro.color = new Color32 (43, 15, 49, 255);
             spriteRenderer.sortingOrder = defaultSortingOrder;
+            textMeshPro.text = scriptableObject.Quantity.ToString ();
         }
 
     }

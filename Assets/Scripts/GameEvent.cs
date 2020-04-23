@@ -96,6 +96,12 @@ public class GameEvent : MonoBehaviour {
     public void ToggleDrinkCollider (bool isEnabled) {
         OnToggleDrinkCollider?.Invoke (isEnabled);
     }
+
+    public event Action<string, int> OnHandleDropItem;
+    public void HandleDropItem (string _type, int _colorId) {
+        OnHandleDropItem?.Invoke (_type, _colorId);
+    }
+
     #endregion
 
     #region Score

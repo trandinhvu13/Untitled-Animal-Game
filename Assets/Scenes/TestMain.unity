@@ -896,9 +896,11 @@ GameObject:
   - component: {fileID: 169090317}
   - component: {fileID: 169090319}
   - component: {fileID: 169090318}
+  - component: {fileID: 169090321}
+  - component: {fileID: 169090320}
   m_Layer: 11
   m_Name: Cup
-  m_TagString: Untagged
+  m_TagString: Cup
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -920,6 +922,13 @@ MonoBehaviour:
   fruit: {fileID: 252771704}
   cream: {fileID: 1042943136}
   drink: {fileID: 709751859}
+  defaultSortingLayer: Cup
+  pickUpSortingLayer: PickedUpCup
+  sprites:
+  - {fileID: 169090317}
+  - {fileID: 252771704}
+  - {fileID: 1042943136}
+  - {fileID: 709751859}
 --- !u!4 &169090316
 Transform:
   m_ObjectHideFlags: 0
@@ -1034,6 +1043,78 @@ BoxCollider2D:
   serializedVersion: 2
   m_Size: {x: 2.2776668, y: 2.0316188}
   m_EdgeRadius: 0
+--- !u!114 &169090320
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 169090314}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 4eda371e5375f454490a86f21559ee38, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  Use:
+    Filter: 0
+    IgnoreStartedOverGui: 1
+    RequiredFingerCount: 0
+    RequiredMouseButtons: 0
+    RequiredSelectable: {fileID: 169090321}
+  Camera: {fileID: 0}
+  Dampening: -1
+  Inertia: 0
+  remainingTranslation: {x: 0, y: 0, z: 0}
+--- !u!114 &169090321
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 169090314}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 83dcd8dace8b7fe449d796b980cb121d, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  DeselectOnUp: 1
+  HideWithFinger: 0
+  IsolateSelectingFingers: 0
+  onSelect:
+    m_PersistentCalls:
+      m_Calls:
+      - m_Target: {fileID: 169090315}
+        m_MethodName: PickUp
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
+  onSelectSet:
+    m_PersistentCalls:
+      m_Calls: []
+  onSelectUp:
+    m_PersistentCalls:
+      m_Calls:
+      - m_Target: {fileID: 169090315}
+        m_MethodName: Drop
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
+  onDeselect:
+    m_PersistentCalls:
+      m_Calls: []
+  isSelected: 0
 --- !u!1 &173401760
 GameObject:
   m_ObjectHideFlags: 0
@@ -5751,9 +5832,9 @@ MonoBehaviour:
   drinkScrollView: {fileID: 1160451486}
   scrollViews: {fileID: 391588576}
   categories:
-  - Fruit
-  - Cream
   - Drink
+  - Cream
+  - Fruit
   pos:
   - {fileID: 2016783474}
   - {fileID: 1878599689}
