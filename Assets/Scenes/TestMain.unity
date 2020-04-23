@@ -1656,9 +1656,9 @@ MonoBehaviour:
   totalScore: 0
   maxMultiplier: 0
   maxLife: 0
-  drinkMQuantity: 3
-  creamMQuantity: 3
-  fruitMQuantity: 3
+  drinkMQuantity: 0
+  creamMQuantity: 0
+  fruitMQuantity: 0
   waitTime: 0
   customerWaitingTime: 10
   minSpawnTime: 3

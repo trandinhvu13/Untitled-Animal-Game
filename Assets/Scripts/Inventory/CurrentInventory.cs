@@ -23,17 +23,17 @@ public class CurrentInventory : MonoBehaviour
         foreach (Drink drink in Drinks)
         {
             drink.MaxQuantity = PlayerStats.instance.drinkMQuantity;
-            drink.Quantity = PlayerStats.instance.drinkMQuantity;
+            drink.Quantity = drink.MaxQuantity;
         }
         foreach (Cream cream in Creams)
         {
             cream.MaxQuantity = PlayerStats.instance.creamMQuantity;
-            cream.Quantity = PlayerStats.instance.creamMQuantity;
+            cream.Quantity = cream.MaxQuantity;
         }
         foreach (Fruit fruit in Fruits)
         {
             fruit.MaxQuantity = PlayerStats.instance.fruitMQuantity;
-            fruit.Quantity = PlayerStats.instance.fruitMQuantity;
+            fruit.Quantity = fruit.MaxQuantity;
         }
 
         //Set up color id

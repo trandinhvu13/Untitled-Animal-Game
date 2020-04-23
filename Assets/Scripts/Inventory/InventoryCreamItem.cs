@@ -24,12 +24,14 @@ public class InventoryCreamItem : MonoBehaviour {
     private Vector2 pickUpPos;
     private bool isBeingHeld = false;
     public Cream scriptableObject;
+    public bool isDraggable;
     #endregion
 
     #region Monos
     private void OnEnable () {
         GameEvent.instance.OnToggleCreamCollider += ToggleCollider;
         leanDrag.enabled = false;
+        isDraggable = true;
         spriteRenderer.sprite = scriptableObject.playerInventory;
         textMeshPro.text = scriptableObject.Quantity.ToString ();
 
@@ -43,6 +45,12 @@ public class InventoryCreamItem : MonoBehaviour {
     }
 
     void Update () {
+        if (scriptableObject.Quantity > 0) {
+            isDraggable = true;
+        } else {
+            isDraggable = false;
+        }
+
         if (isBeingHeld) {
             BeingHold ();
         }
@@ -60,15 +68,18 @@ public class InventoryCreamItem : MonoBehaviour {
 
     #region Methods
     public void PickUp () {
-        isBeingHeld = true;
-        //send message stop scroll
-        GameEvent.instance.ToggleScroll (false);
-        //change mask interaction
-        spriteRenderer.maskInteraction = SpriteMaskInteraction.None;
-        //save pickup pos
-        pickUpPos = rect.anchoredPosition;
-        //make pickup sound
-        textMeshPro.color = new Color32 (43, 15, 49, 0);
+        if (isDraggable) {
+            isBeingHeld = true;
+            //send message stop scroll
+            GameEvent.instance.ToggleScroll (false);
+            //change mask interaction
+            spriteRenderer.maskInteraction = SpriteMaskInteraction.None;
+            //save pickup pos
+            pickUpPos = rect.anchoredPosition;
+            //make pickup sound
+            textMeshPro.color = new Color32 (43, 15, 49, 0);
+        }
+
     }
 
     public void BeingHold () {

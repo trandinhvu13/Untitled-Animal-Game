@@ -26,6 +26,7 @@ public class InventoryFruitItem : MonoBehaviour {
     [SerializeField]
     private bool isBeingHeld = false;
     public Fruit scriptableObject;
+    private bool isDraggable;
 
     #endregion
 
@@ -33,16 +34,23 @@ public class InventoryFruitItem : MonoBehaviour {
     private void OnEnable () {
         GameEvent.instance.OnToggleFruitCollider += ToggleCollider;
         leanDrag.enabled = false;
+        isDraggable = true;
         spriteRenderer.sprite = scriptableObject.playerInventory;
         textMeshPro.text = scriptableObject.Quantity.ToString ();
     }
 
-    private void OnDisable () { 
+    private void OnDisable () {
         GameEvent.instance.OnToggleFruitCollider -= ToggleCollider;
     }
     void Start () { }
 
     void Update () {
+        if (scriptableObject.Quantity > 0) {
+            isDraggable = true;
+        } else {
+            isDraggable = false;
+        }
+
         if (isBeingHeld) {
             BeingHold ();
         }
@@ -61,15 +69,18 @@ public class InventoryFruitItem : MonoBehaviour {
 
     #region Methods
     public void PickUp () {
-        isBeingHeld = true;
-        //send message stop scroll
-        GameEvent.instance.ToggleScroll (false);
-        //change mask interaction
-        spriteRenderer.maskInteraction = SpriteMaskInteraction.None;
-        //save pickup pos
-        pickUpPos = rect.anchoredPosition;
-        //make pickup sound
-        textMeshPro.color = new Color32(43,15,49,0);
+        if (isDraggable) {
+            isBeingHeld = true;
+            //send message stop scroll
+            GameEvent.instance.ToggleScroll (false);
+            //change mask interaction
+            spriteRenderer.maskInteraction = SpriteMaskInteraction.None;
+            //save pickup pos
+            pickUpPos = rect.anchoredPosition;
+            //make pickup sound
+            textMeshPro.color = new Color32 (43, 15, 49, 0);
+        }
+
     }
 
     public void BeingHold () {
@@ -104,7 +115,7 @@ public class InventoryFruitItem : MonoBehaviour {
             spriteRenderer.maskInteraction = SpriteMaskInteraction.VisibleInsideMask;
             GameEvent.instance.ToggleScroll (true);
             leanDrag.enabled = false;
-            textMeshPro.color = new Color32(43,15,49,255);
+            textMeshPro.color = new Color32 (43, 15, 49, 255);
         }
 
     }

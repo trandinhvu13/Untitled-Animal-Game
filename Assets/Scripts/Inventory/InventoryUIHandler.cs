@@ -7,6 +7,12 @@ public class InventoryUIHandler : MonoBehaviour {
     #region Components
     [SerializeField]
     private TextMeshProUGUI label;
+    [SerializeField]
+    private GameObject fruitScrollView;
+    [SerializeField]
+    private GameObject creamScrollView;
+    [SerializeField]
+    private GameObject drinkScrollView;
     #endregion
 
     #region Variables
@@ -33,7 +39,9 @@ public class InventoryUIHandler : MonoBehaviour {
 
     }
     private void Start () {
-
+        fruitScrollView.SetActive(true);
+        creamScrollView.SetActive(true);
+        drinkScrollView.SetActive(true);
     }
 
     private void Update () {
@@ -73,6 +81,9 @@ public class InventoryUIHandler : MonoBehaviour {
 
     #region Methods
     void SetUpUI () {
+        fruitScrollView.SetActive(false);
+        creamScrollView.SetActive(false);
+        drinkScrollView.SetActive(false);
         currentCategory = 1;
         scrollViews.transform.position = pos[currentCategory].transform.position;
         label.text = categories[currentCategory];

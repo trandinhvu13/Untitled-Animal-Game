@@ -26,12 +26,14 @@ public class InventoryDrinkItem : MonoBehaviour {
 
     [SerializeField]
     private bool isBeingHeld = false;
+    private bool isDraggable;
     #endregion
 
     #region Mono
     private void OnEnable () {
         GameEvent.instance.OnToggleDrinkCollider += ToggleCollider;
         leanDrag.enabled = false;
+        isDraggable = true;
         spriteRenderer.sprite = scriptableObject.playerInventory;
         textMeshPro.text = scriptableObject.Quantity.ToString ();
 
@@ -45,6 +47,12 @@ public class InventoryDrinkItem : MonoBehaviour {
     }
 
     void Update () {
+        if (scriptableObject.Quantity > 0) {
+            isDraggable = true;
+        } else {
+            isDraggable = false;
+        }
+
         if (isBeingHeld) {
             BeingHold ();
         }
@@ -62,15 +70,18 @@ public class InventoryDrinkItem : MonoBehaviour {
 
     #region Methods
     public void PickUp () {
-        isBeingHeld = true;
-        //send message stop scroll
-        GameEvent.instance.ToggleScroll (false);
-        //change mask interaction
-        spriteRenderer.maskInteraction = SpriteMaskInteraction.None;
-        //save pickup pos
-        pickUpPos = rect.anchoredPosition;
-        //make pickup sound
-        textMeshPro.color = new Color32 (43, 15, 49, 0);
+        if (isDraggable) {
+            isBeingHeld = true;
+            //send message stop scroll
+            GameEvent.instance.ToggleScroll (false);
+            //change mask interaction
+            spriteRenderer.maskInteraction = SpriteMaskInteraction.None;
+            //save pickup pos
+            pickUpPos = rect.anchoredPosition;
+            //make pickup sound
+            textMeshPro.color = new Color32 (43, 15, 49, 0);
+        }
+
     }
 
     public void BeingHold () {

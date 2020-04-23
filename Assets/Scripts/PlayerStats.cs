@@ -24,9 +24,9 @@ public class PlayerStats : MonoBehaviour
     public int maxLife;
 
     //Invetory
-    public int drinkMQuantity = 3;
-    public int creamMQuantity = 3;
-    public int fruitMQuantity = 3;
+    public int drinkMQuantity;
+    public int creamMQuantity;
+    public int fruitMQuantity;
 
     //Customer
     public float waitTime;
@@ -55,7 +55,10 @@ public class PlayerStats : MonoBehaviour
 
     private void OnEnable()
     {
-        //Setup
+        //Change with players pref
+        drinkMQuantity = 3;
+        creamMQuantity = 3;
+        fruitMQuantity = 3;
     }
 
 }
