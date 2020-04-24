@@ -80,7 +80,6 @@ public class InventoryFruitItem : MonoBehaviour {
 
     #region Methods
     public void PickUp () {
-        if (isDraggable) {
             isBeingHeld = true;
             //send message stop scroll
             GameEvent.instance.ToggleScroll (false);
@@ -91,8 +90,6 @@ public class InventoryFruitItem : MonoBehaviour {
             //make pickup sound
             //textMeshPro.color = new Color32 (43, 15, 49, 0);
             spriteRenderer.sortingOrder = selectSortingOrder;
-        }
-
     }
 
     public void BeingHold () {
@@ -107,7 +104,7 @@ public class InventoryFruitItem : MonoBehaviour {
                 if (currentCollided.gameObject.CompareTag ("Cup")) {
                     //neu con quantity:
                     //sendmessage drop vao cup (tru quantity, them answer + sprite vao cup, tru UI)
-                    GameEvent.instance.HandleDropItem (objType, objColorID);
+                    GameEvent.instance.HandleDropItem (objType, objColorID,isDraggable);
                     //transform ve pick up pos(hieu ung poof)
 
                     rect.anchoredPosition = pickUpPos;

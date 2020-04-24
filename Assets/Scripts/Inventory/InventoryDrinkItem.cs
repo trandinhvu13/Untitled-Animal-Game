@@ -81,19 +81,16 @@ public class InventoryDrinkItem : MonoBehaviour {
 
     #region Methods
     public void PickUp () {
-        if (isDraggable) {
-            isBeingHeld = true;
-            //send message stop scroll
-            GameEvent.instance.ToggleScroll (false);
-            //change mask interaction
-            spriteRenderer.maskInteraction = SpriteMaskInteraction.None;
-            //save pickup pos
-            pickUpPos = rect.anchoredPosition;
-            //make pickup sound
-            //textMeshPro.color = new Color32 (43, 15, 49, 0);
-            spriteRenderer.sortingOrder = selectSortingOrder;
-        }
-
+        isBeingHeld = true;
+        //send message stop scroll
+        GameEvent.instance.ToggleScroll (false);
+        //change mask interaction
+        spriteRenderer.maskInteraction = SpriteMaskInteraction.None;
+        //save pickup pos
+        pickUpPos = rect.anchoredPosition;
+        //make pickup sound
+        //textMeshPro.color = new Color32 (43, 15, 49, 0);
+        spriteRenderer.sortingOrder = selectSortingOrder;
     }
 
     public void BeingHold () {
@@ -106,9 +103,7 @@ public class InventoryDrinkItem : MonoBehaviour {
             isBeingHeld = false;
             if (currentCollided != null) {
                 if (currentCollided.gameObject.CompareTag ("Cup")) {
-                    //neu con quantity:
-                    //sendmessage drop vao cup (tru quantity, them answer + sprite vao cup, tru UI)
-                    GameEvent.instance.HandleDropItem (objType, objColorID);
+                    GameEvent.instance.HandleDropItem (objType, objColorID, isDraggable);
                     //transform ve pick up pos(hieu ung poof)
 
                     //transform ve pick up pos (poof)
@@ -141,7 +136,7 @@ public class InventoryDrinkItem : MonoBehaviour {
     }
 
     public void UpdateUI (string _type, int _colorID) {
-        if (_type == objType && _colorID == objColorID){
+        if (_type == objType && _colorID == objColorID) {
             textMeshPro.text = scriptableObject.Quantity.ToString ();
         }
     }

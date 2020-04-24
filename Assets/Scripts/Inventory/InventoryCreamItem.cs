@@ -79,19 +79,17 @@ public class InventoryCreamItem : MonoBehaviour {
 
     #region Methods
     public void PickUp () {
-        if (isDraggable) {
-            isBeingHeld = true;
-            //send message stop scroll
-            GameEvent.instance.ToggleScroll (false);
-            //change mask interaction
-            spriteRenderer.maskInteraction = SpriteMaskInteraction.None;
-            //save pickup pos
-            pickUpPos = rect.anchoredPosition;
-            //make pickup sound
-            //textMeshPro.color = new Color32 (43, 15, 49, 0);
-            spriteRenderer.sortingOrder = selectSortingOrder;
 
-        }
+        isBeingHeld = true;
+        //send message stop scroll
+        GameEvent.instance.ToggleScroll (false);
+        //change mask interaction
+        spriteRenderer.maskInteraction = SpriteMaskInteraction.None;
+        //save pickup pos
+        pickUpPos = rect.anchoredPosition;
+        //make pickup sound
+        //textMeshPro.color = new Color32 (43, 15, 49, 0);
+        spriteRenderer.sortingOrder = selectSortingOrder;
 
     }
 
@@ -103,15 +101,20 @@ public class InventoryCreamItem : MonoBehaviour {
     public void Drop () {
         if (isBeingHeld) {
             isBeingHeld = false;
+            spriteRenderer.maskInteraction = SpriteMaskInteraction.VisibleInsideMask;
+            GameEvent.instance.ToggleScroll (true);
+            leanDrag.enabled = false;
+            spriteRenderer.sortingOrder = defaultSortingOrder;
+            textMeshPro.text = scriptableObject.Quantity.ToString ();
+
+            //Check Collision
+
             if (currentCollided != null) {
                 if (currentCollided.gameObject.CompareTag ("Cup")) {
-                    //neu con quantity:
+                        GameEvent.instance.HandleDropItem (objType, objColorID,isDraggable);
+                        //transform ve pick up pos(hieu ung poof)
 
-                    GameEvent.instance.HandleDropItem (objType, objColorID);
-                    //transform ve pick up pos(hieu ung poof)
-
-                    rect.anchoredPosition = pickUpPos;
-
+                        rect.anchoredPosition = pickUpPos;
                 } else if (currentCollided.gameObject.CompareTag ("Restocker")) {
                     if (scriptableObject.Quantity < scriptableObject.MaxQuantity) {
                         GameEvent.instance.RestockItem (objType, objColorID);
@@ -125,12 +128,7 @@ public class InventoryCreamItem : MonoBehaviour {
             } else {
                 rect.anchoredPosition = pickUpPos;
             }
-            spriteRenderer.maskInteraction = SpriteMaskInteraction.VisibleInsideMask;
-            GameEvent.instance.ToggleScroll (true);
-            leanDrag.enabled = false;
-            //textMeshPro.color = new Color32 (43, 15, 49, 255);
-            spriteRenderer.sortingOrder = defaultSortingOrder;
-            textMeshPro.text = scriptableObject.Quantity.ToString ();
+
         }
 
     }

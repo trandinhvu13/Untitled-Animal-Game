@@ -17,6 +17,9 @@ public class CupState : MonoBehaviour {
     private SpriteRenderer drink;
     private Collider2D currentCollided;
     private bool isBeingHeld = false;
+    public Vector3 defaultActivePos;
+    public int cupID;
+    private Vector3 pickupPos;
 
     //UI
     [SerializeField]
@@ -24,6 +27,8 @@ public class CupState : MonoBehaviour {
     [SerializeField]
     private string pickUpSortingLayer;
     public SpriteRenderer[] sprites = new SpriteRenderer[4];
+    public LeanTweenType easeType;
+    public float tweenTime;
     #endregion
 
     #region Monos
@@ -71,34 +76,38 @@ public class CupState : MonoBehaviour {
         }
     }
 
-    private void HandleDropItem (string _type, int _colorID) {
-        if (_type == "Fruit") {
-            if (slotIsFull[2] == false) {
-                slotIsFull[2] = true;
-                answers[2] = _colorID;
-                fruit.sprite = CurrentInventory.instance.Fruits[_colorID].cup;
-                GameEvent.instance.DecreaseQuantity ("Fruit", _colorID, 1);
-            } else {
-                return;
-            };
-        } else if (_type == "Cream") {
-            if (slotIsFull[1] == false) {
-                slotIsFull[1] = true;
-                answers[1] = _colorID;
-                cream.sprite = CurrentInventory.instance.Creams[_colorID].cup;
-                GameEvent.instance.DecreaseQuantity ("Cream", _colorID, 1);
-            } else {
-                return;
-            };
-        } else if (_type == "Drink") {
-            if (slotIsFull[0] == false) {
-                slotIsFull[0] = true;
-                answers[0] = _colorID;
-                drink.sprite = CurrentInventory.instance.Drinks[_colorID].cup;
-                GameEvent.instance.DecreaseQuantity ("Drink", _colorID, 1);
-            } else {
-                return;
+    private void HandleDropItem (string _type, int _colorID, bool _isDraggable) {
+        if (_isDraggable) {
+            if (_type == "Fruit") {
+                if (slotIsFull[2] == false) {
+                    slotIsFull[2] = true;
+                    answers[2] = _colorID;
+                    fruit.sprite = CurrentInventory.instance.Fruits[_colorID].cup;
+                    GameEvent.instance.DecreaseQuantity ("Fruit", _colorID, 1);
+                } else {
+                    return;
+                };
+            } else if (_type == "Cream") {
+                if (slotIsFull[1] == false) {
+                    slotIsFull[1] = true;
+                    answers[1] = _colorID;
+                    cream.sprite = CurrentInventory.instance.Creams[_colorID].cup;
+                    GameEvent.instance.DecreaseQuantity ("Cream", _colorID, 1);
+                } else {
+                    return;
+                };
+            } else if (_type == "Drink") {
+                if (slotIsFull[0] == false) {
+                    slotIsFull[0] = true;
+                    answers[0] = _colorID;
+                    drink.sprite = CurrentInventory.instance.Drinks[_colorID].cup;
+                    GameEvent.instance.DecreaseQuantity ("Drink", _colorID, 1);
+                } else {
+                    return;
+                }
             }
+        } else {
+            return;
         }
     }
 
@@ -110,6 +119,7 @@ public class CupState : MonoBehaviour {
 
     public void PickUp () {
         isBeingHeld = true;
+        pickupPos = gameObject.transform.position;
         changeSpriteOrder (pickUpSortingLayer);
     }
 
@@ -120,10 +130,32 @@ public class CupState : MonoBehaviour {
     public void Drop () {
         if (isBeingHeld) {
             isBeingHeld = false;
-            changeSpriteOrder (defaultSortingLayer);
+
+            //Check Collision
+            if (currentCollided != null) {
+                if (currentCollided.gameObject.CompareTag ("Trash")) {
+                    changeSpriteOrder (defaultSortingLayer);
+                    GameEvent.instance.HandleCup (cupID, false);
+                    //gameevent call for cup manager
+                } else if (currentCollided.gameObject.CompareTag ("Customer")) {
+                    changeSpriteOrder (defaultSortingLayer);
+                } else {
+                    StartCoroutine (DropSpriteChange ());
+                    LeanTween.move (this.gameObject, pickupPos, tweenTime).setEase (easeType);
+                }
+
+            } else {
+                LeanTween.move (this.gameObject, pickupPos, tweenTime).setEase (easeType);
+            }
+
         }
 
     }
+    IEnumerator DropSpriteChange () {
+        yield return new WaitForSeconds (0.4f);
+        changeSpriteOrder (defaultSortingLayer);
+    }
+
     #endregion
 
 }

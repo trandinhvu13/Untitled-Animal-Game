@@ -97,11 +97,6 @@ public class GameEvent : MonoBehaviour {
         OnToggleDrinkCollider?.Invoke (isEnabled);
     }
 
-    public event Action<string, int> OnHandleDropItem;
-    public void HandleDropItem (string _type, int _colorId) {
-        OnHandleDropItem?.Invoke (_type, _colorId);
-    }
-
      public event Action<string, int> OnUpdateItemUI;
     public void UpdateItemUI (string _type, int _colorId) {
         OnUpdateItemUI?.Invoke (_type, _colorId);
@@ -143,5 +138,17 @@ public class GameEvent : MonoBehaviour {
     public void RestockItem (string _type, int _colorId) {
         OnRestockItem?.Invoke (_type, _colorId);
     }
+    #endregion
+
+    #region Cup
+    public event Action<string, int, bool> OnHandleDropItem;
+    public void HandleDropItem (string _type, int _colorId, bool _isDraggable) {
+        OnHandleDropItem?.Invoke (_type, _colorId, _isDraggable);
+    }
+    public event Action<int, bool> OnHandleCup;
+    public void HandleCup(int _cupID, bool _state){
+        OnHandleCup?.Invoke(_cupID, _state);
+    }
+
     #endregion
 }
