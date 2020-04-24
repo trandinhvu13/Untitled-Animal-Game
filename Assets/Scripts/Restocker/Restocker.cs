@@ -9,6 +9,8 @@ public class Restocker : MonoBehaviour {
     float time;
     [SerializeField]
     private TextMeshProUGUI timerUI;
+    [SerializeField]
+    private Collider2D col;
 
     bool available = true;
     private void OnEnable () {
@@ -41,7 +43,7 @@ public class Restocker : MonoBehaviour {
 
     private void OnTriggerEnter2D (Collider2D collision) { }
     void HandleItemDrop (string _type, int _colorID) {
-        //start timer
+        col.enabled = false;
         available = false;
         StartCoroutine (IncreaseQuantity (_type, _colorID));
     }
@@ -51,5 +53,6 @@ public class Restocker : MonoBehaviour {
         GameEvent.instance.IncreaseQuantityToMax (_type, _colorId);
         GameEvent.instance.UpdateItemUI(_type, _colorId);
         available = true;
+        col.enabled = true;
     }
 }

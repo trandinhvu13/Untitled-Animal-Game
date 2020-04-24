@@ -4,7 +4,7 @@ using Lean.Touch;
 using TMPro;
 using UnityEngine;
 
-public class InventoryFruitItem : MonoBehaviour{
+public class InventoryFruitItem : MonoBehaviour {
     #region Components
     [SerializeField]
     private BoxCollider2D col;
@@ -35,11 +35,12 @@ public class InventoryFruitItem : MonoBehaviour{
     #endregion
 
     #region Monos
-    private void Awake() {
+    private void Awake () {
         objColorID = scriptableObject.ColorID;
     }
     private void OnEnable () {
         GameEvent.instance.OnToggleFruitCollider += ToggleCollider;
+        GameEvent.instance.OnUpdateItemUI += UpdateUI;
 
         leanDrag.enabled = false;
         isDraggable = true;
@@ -50,6 +51,7 @@ public class InventoryFruitItem : MonoBehaviour{
 
     private void OnDisable () {
         GameEvent.instance.OnToggleFruitCollider -= ToggleCollider;
+        GameEvent.instance.OnUpdateItemUI -= UpdateUI;
     }
     void Start () { }
 
@@ -105,14 +107,15 @@ public class InventoryFruitItem : MonoBehaviour{
                 if (currentCollided.gameObject.CompareTag ("Cup")) {
                     //neu con quantity:
                     //sendmessage drop vao cup (tru quantity, them answer + sprite vao cup, tru UI)
-                    GameEvent.instance.HandleDropItem(objType, objColorID );
+                    GameEvent.instance.HandleDropItem (objType, objColorID);
                     //transform ve pick up pos(hieu ung poof)
-                  
+
                     rect.anchoredPosition = pickUpPos;
 
                 } else if (currentCollided.gameObject.CompareTag ("Restocker")) {
-                    //sendmessage drop vao restocker (restock ingredient)
-                    //transform ve pick up pos (poof)
+                    if (scriptableObject.Quantity < scriptableObject.MaxQuantity) {
+                        GameEvent.instance.RestockItem (objType, objColorID);
+                    }
                     rect.anchoredPosition = pickUpPos;
 
                 } else {
@@ -133,6 +136,12 @@ public class InventoryFruitItem : MonoBehaviour{
     }
     public void ToggleCollider (bool isEnabled) {
         col.enabled = isEnabled;
+    }
+
+    public void UpdateUI (string _type, int _colorID) {
+        if (_type == objType && _colorID == objColorID) {
+            textMeshPro.text = scriptableObject.Quantity.ToString ();
+        }
     }
     #endregion
 

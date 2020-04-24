@@ -118,8 +118,6 @@ public class InventoryDrinkItem : MonoBehaviour {
                     if (scriptableObject.Quantity < scriptableObject.MaxQuantity) {
                         GameEvent.instance.RestockItem (objType, objColorID);
                     }
-                    //sendmessage drop vao restocker (restock ingredient)
-                    //transform ve pick up pos (poof)
                     rect.anchoredPosition = pickUpPos;
 
                 } else {

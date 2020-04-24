@@ -32,13 +32,13 @@ public class InventoryCreamItem : MonoBehaviour {
     #endregion
 
     #region Monos
-   private void Awake() {
+    private void Awake () {
         objColorID = scriptableObject.ColorID;
     }
     private void OnEnable () {
         GameEvent.instance.OnToggleCreamCollider += ToggleCollider;
+        GameEvent.instance.OnUpdateItemUI += UpdateUI;
 
-        
         leanDrag.enabled = false;
         isDraggable = true;
         spriteRenderer.sprite = scriptableObject.playerInventory;
@@ -49,6 +49,7 @@ public class InventoryCreamItem : MonoBehaviour {
 
     private void OnDisable () {
         GameEvent.instance.OnToggleCreamCollider -= ToggleCollider;
+        GameEvent.instance.OnUpdateItemUI -= UpdateUI;
     }
     void Start () {
 
@@ -89,7 +90,7 @@ public class InventoryCreamItem : MonoBehaviour {
             //make pickup sound
             //textMeshPro.color = new Color32 (43, 15, 49, 0);
             spriteRenderer.sortingOrder = selectSortingOrder;
-            
+
         }
 
     }
@@ -105,15 +106,16 @@ public class InventoryCreamItem : MonoBehaviour {
             if (currentCollided != null) {
                 if (currentCollided.gameObject.CompareTag ("Cup")) {
                     //neu con quantity:
-                    
-                    GameEvent.instance.HandleDropItem(objType, objColorID );
+
+                    GameEvent.instance.HandleDropItem (objType, objColorID);
                     //transform ve pick up pos(hieu ung poof)
-                   
+
                     rect.anchoredPosition = pickUpPos;
 
                 } else if (currentCollided.gameObject.CompareTag ("Restocker")) {
-                    //sendmessage drop vao restocker (restock ingredient)
-                    //transform ve pick up pos (poof)
+                    if (scriptableObject.Quantity < scriptableObject.MaxQuantity) {
+                        GameEvent.instance.RestockItem (objType, objColorID);
+                    }
                     rect.anchoredPosition = pickUpPos;
 
                 } else {
@@ -137,6 +139,11 @@ public class InventoryCreamItem : MonoBehaviour {
         col.enabled = isEnabled;
     }
 
+    public void UpdateUI (string _type, int _colorID) {
+        if (_type == objType && _colorID == objColorID) {
+            textMeshPro.text = scriptableObject.Quantity.ToString ();
+        }
+    }
     #endregion
 
 }

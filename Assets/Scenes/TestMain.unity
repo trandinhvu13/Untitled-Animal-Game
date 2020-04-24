@@ -1404,6 +1404,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   timerUI: {fileID: 414699402}
+  col: {fileID: 362426198}
 --- !u!212 &362426200
 SpriteRenderer:
   m_ObjectHideFlags: 0
@@ -4939,7 +4940,7 @@ GameObject:
   - component: {fileID: 1054411613}
   m_Layer: 0
   m_Name: Trash
-  m_TagString: Untagged
+  m_TagString: Trash
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
