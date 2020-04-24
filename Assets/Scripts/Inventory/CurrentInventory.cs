@@ -23,7 +23,7 @@ public class CurrentInventory : MonoBehaviour {
             Creams[i].MaxQuantity = PlayerStats.instance.creamMQuantity;
             Creams[i].Quantity = Creams[i].MaxQuantity;
         }
-       for (int i = 1; i < 9; i++) {
+        for (int i = 1; i < 9; i++) {
             Fruits[i].MaxQuantity = PlayerStats.instance.fruitMQuantity;
             Fruits[i].Quantity = Fruits[i].MaxQuantity;
         }
@@ -36,13 +36,13 @@ public class CurrentInventory : MonoBehaviour {
         }
     }
 
-    void IncreaseQuantity (string _type, int _colorId, int _amount) {
+    void IncreaseQuantityToMax (string _type, int _colorId) {
         if (_type == "Drink") {
-            Drinks[_colorId].Quantity += _amount;
+            Drinks[_colorId].Quantity = Drinks[_colorId].MaxQuantity;
         } else if (_type == "Cream") {
-            Creams[_colorId].Quantity += _amount;
+            Creams[_colorId].Quantity = Creams[_colorId].MaxQuantity;
         } else if (_type == "Fruit") {
-            Fruits[_colorId].Quantity += _amount;
+            Fruits[_colorId].Quantity = Fruits[_colorId].MaxQuantity;
         }
 
     }
@@ -81,14 +81,14 @@ public class CurrentInventory : MonoBehaviour {
 
     private void OnEnable () {
         FirstSetupInventory ();
-        GameEvent.instance.OnIncreaseQuantity += IncreaseQuantity;
+        GameEvent.instance.OnIncreaseQuantityToMax += IncreaseQuantityToMax;
         GameEvent.instance.OnDecreaseQuantity += DecreaseQuantity;
         GameEvent.instance.OnIncreaseMaxQuantity += IncreaseMaxQuantity;
 
     }
 
     private void OnDisable () {
-        GameEvent.instance.OnIncreaseQuantity -= IncreaseQuantity;
+        GameEvent.instance.OnIncreaseQuantityToMax -= IncreaseQuantityToMax;
         GameEvent.instance.OnDecreaseQuantity -= DecreaseQuantity;
         GameEvent.instance.OnIncreaseMaxQuantity -= IncreaseMaxQuantity;
     }

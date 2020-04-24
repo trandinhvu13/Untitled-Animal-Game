@@ -15,6 +15,8 @@ public class CupState : MonoBehaviour {
     private SpriteRenderer cream;
     [SerializeField]
     private SpriteRenderer drink;
+    private Collider2D currentCollided;
+    private bool isBeingHeld = false;
 
     //UI
     [SerializeField]
@@ -38,9 +40,20 @@ public class CupState : MonoBehaviour {
     }
 
     void Update () {
-
+        if (isBeingHeld) {
+            Hold ();
+        }
     }
 
+    #endregion
+
+    #region Collisions
+    private void OnTriggerEnter2D (Collider2D other) {
+        currentCollided = other;
+    }
+    private void OnTriggerExit2D (Collider2D other) {
+        currentCollided = null;
+    }
     #endregion
 
     #region Methods
@@ -96,6 +109,7 @@ public class CupState : MonoBehaviour {
     }
 
     public void PickUp () {
+        isBeingHeld = true;
         changeSpriteOrder (pickUpSortingLayer);
     }
 
@@ -104,7 +118,11 @@ public class CupState : MonoBehaviour {
     }
 
     public void Drop () {
-        changeSpriteOrder (defaultSortingLayer);
+        if (isBeingHeld) {
+            isBeingHeld = false;
+            changeSpriteOrder (defaultSortingLayer);
+        }
+
     }
     #endregion
 

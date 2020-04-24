@@ -67,9 +67,9 @@ public class GameEvent : MonoBehaviour {
         OnDecreaseQuantity?.Invoke (_type, _colorId, _amount);
     }
 
-    public event Action<string, int, int> OnIncreaseQuantity;
-    public void IncreaseQuantity (string _type, int _colorId, int _amount) {
-        OnIncreaseQuantity?.Invoke (_type, _colorId, _amount);
+    public event Action<string, int> OnIncreaseQuantityToMax;
+    public void IncreaseQuantityToMax (string _type, int _colorId) {
+        OnIncreaseQuantityToMax?.Invoke (_type, _colorId);
     }
 
     public event Action<string, int> OnIncreaseMaxQuantity;
@@ -100,6 +100,11 @@ public class GameEvent : MonoBehaviour {
     public event Action<string, int> OnHandleDropItem;
     public void HandleDropItem (string _type, int _colorId) {
         OnHandleDropItem?.Invoke (_type, _colorId);
+    }
+
+     public event Action<string, int> OnUpdateItemUI;
+    public void UpdateItemUI (string _type, int _colorId) {
+        OnUpdateItemUI?.Invoke (_type, _colorId);
     }
 
     #endregion
@@ -133,4 +138,10 @@ public class GameEvent : MonoBehaviour {
     }
     #endregion
 
+    #region Restocker
+    public event Action<string, int> OnRestockItem;
+    public void RestockItem (string _type, int _colorId) {
+        OnRestockItem?.Invoke (_type, _colorId);
+    }
+    #endregion
 }

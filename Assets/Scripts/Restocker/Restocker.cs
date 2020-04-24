@@ -1,54 +1,55 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
+using TMPro;
 using UnityEngine;
 
-public class Restocker : MonoBehaviour
-{
+public class Restocker : MonoBehaviour {
+
+    float deliveryTime;
     float time;
-    
+    [SerializeField]
+    private TextMeshProUGUI timerUI;
+
     bool available = true;
-    void Start()
-    {
-        time = 0;
+    private void OnEnable () {
+        GameEvent.instance.OnRestockItem += HandleItemDrop;
+        deliveryTime = PlayerStats.instance.deliveryTime;
+        time = deliveryTime;
     }
 
-    void Update()
-    {
-        if (time <= 0)
-        {
-            available = true;
-        }
-        else
-        {
-            time -= Time.deltaTime;
-            available = false;
-        }
+    private void OnDisable () {
+        GameEvent.instance.OnRestockItem -= HandleItemDrop;
+    }
+    void Start () {
+
     }
 
-    private void OnTriggerEnter2D(Collider2D collision)
-    {
-        if (collision.CompareTag("Ingredient"))
-        {
-            if (available)
-            {
-                time = PlayerStats.instance.cooldownTime;
-                string type = collision.GetComponent<IInventory>().Type;
-                int colorId = collision.GetComponent<IInventory>().ColorID;
-                int maxQuantity = collision.GetComponent<IInventory>().MaxQuantity;
-                int quantity = collision.GetComponent<IInventory>().Quantity;
-                StartCoroutine(IncreaseQuantity(type, colorId, maxQuantity, quantity));
+    void Update () {
+        if (!available) {
+            timerUI.text = ((int) time).ToString ();
+            if (time > 0) {
+                time -= Time.deltaTime;
+            } else {
+                available = true;
+                time = deliveryTime;
             }
-            else return;
 
-
+        } else {
+            timerUI.text = "+";
         }
-        else return;
-
     }
 
-    IEnumerator IncreaseQuantity(string _type, int _colorId, int _maxQuantity, int _quantity)
-    {
-        yield return new WaitForSeconds(PlayerStats.instance.deliveryTime);
-        GameEvent.instance.IncreaseQuantity(_type, _colorId, _maxQuantity - _quantity);
+    private void OnTriggerEnter2D (Collider2D collision) { }
+    void HandleItemDrop (string _type, int _colorID) {
+        //start timer
+        available = false;
+        StartCoroutine (IncreaseQuantity (_type, _colorID));
+    }
+
+    IEnumerator IncreaseQuantity (string _type, int _colorId) {
+        yield return new WaitForSeconds (PlayerStats.instance.deliveryTime);
+        GameEvent.instance.IncreaseQuantityToMax (_type, _colorId);
+        GameEvent.instance.UpdateItemUI(_type, _colorId);
+        available = true;
     }
 }

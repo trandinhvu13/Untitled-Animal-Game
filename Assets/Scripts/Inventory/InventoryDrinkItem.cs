@@ -34,11 +34,12 @@ public class InventoryDrinkItem : MonoBehaviour {
     #endregion
 
     #region Mono
-    private void Awake() {
+    private void Awake () {
         objColorID = scriptableObject.ColorID;
     }
     private void OnEnable () {
         GameEvent.instance.OnToggleDrinkCollider += ToggleCollider;
+        GameEvent.instance.OnUpdateItemUI += UpdateUI;
 
         leanDrag.enabled = false;
         isDraggable = true;
@@ -50,6 +51,7 @@ public class InventoryDrinkItem : MonoBehaviour {
 
     private void OnDisable () {
         GameEvent.instance.OnToggleDrinkCollider -= ToggleCollider;
+        GameEvent.instance.OnUpdateItemUI -= UpdateUI;
     }
     void Start () {
 
@@ -106,13 +108,16 @@ public class InventoryDrinkItem : MonoBehaviour {
                 if (currentCollided.gameObject.CompareTag ("Cup")) {
                     //neu con quantity:
                     //sendmessage drop vao cup (tru quantity, them answer + sprite vao cup, tru UI)
-                    GameEvent.instance.HandleDropItem(objType, objColorID );
+                    GameEvent.instance.HandleDropItem (objType, objColorID);
                     //transform ve pick up pos(hieu ung poof)
-                  
+
                     //transform ve pick up pos (poof)
                     rect.anchoredPosition = pickUpPos;
 
                 } else if (currentCollided.gameObject.CompareTag ("Restocker")) {
+                    if (scriptableObject.Quantity < scriptableObject.MaxQuantity) {
+                        GameEvent.instance.RestockItem (objType, objColorID);
+                    }
                     //sendmessage drop vao restocker (restock ingredient)
                     //transform ve pick up pos (poof)
                     rect.anchoredPosition = pickUpPos;
@@ -135,6 +140,12 @@ public class InventoryDrinkItem : MonoBehaviour {
     }
     public void ToggleCollider (bool isEnabled) {
         col.enabled = isEnabled;
+    }
+
+    public void UpdateUI (string _type, int _colorID) {
+        if (_type == objType && _colorID == objColorID){
+            textMeshPro.text = scriptableObject.Quantity.ToString ();
+        }
     }
     #endregion
 

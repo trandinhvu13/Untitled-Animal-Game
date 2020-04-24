@@ -38,7 +38,7 @@ public class PlayerStats : MonoBehaviour
 
     //Restocker
     public float cooldownTime;
-    public float deliveryTime;
+    public float deliveryTime = 5;
 
     //Upgrade
     public int maxMultiplierPrice;
