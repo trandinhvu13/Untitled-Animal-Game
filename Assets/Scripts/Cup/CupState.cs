@@ -139,10 +139,10 @@ public class CupState : MonoBehaviour {
                     //gameevent call for cup manager
                 } else if (currentCollided.gameObject.CompareTag ("Customer")) {
                     changeSpriteOrder (defaultSortingLayer);
-                    Debug.Log("Collided");                    
                     int id = currentCollided.gameObject.GetComponent<CustomerScript>().id;
                     string customerType = currentCollided.gameObject.GetComponent<CustomerScript>().customerType;
                     GameEvent.instance.Compare (answers, id, customerType);
+                    GameEvent.instance.HandleCup (cupID, false);
                 } else {
                     StartCoroutine (DropSpriteChange ());
                     LeanTween.move (this.gameObject, pickupPos, tweenTime).setEase (easeType);

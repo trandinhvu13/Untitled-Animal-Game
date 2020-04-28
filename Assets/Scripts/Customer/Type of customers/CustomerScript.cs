@@ -25,6 +25,8 @@ public class CustomerScript : MonoBehaviour, IPoolable {
     public LeanTweenType orderEaseType;
     public LeanTweenType despawnEaseType;
     public SpriteRenderer spriteRenderer;
+    public float shakeDuration;
+    public float shakeAmount;
 
     #endregion
 
@@ -42,14 +44,21 @@ public class CustomerScript : MonoBehaviour, IPoolable {
         void despawn () {
             LeanPool.Despawn (gameObject);
         }
+        void shake () {
+            CameraShake.Shake (shakeDuration, shakeAmount);
+        }
+
         if (_id == id) {
             if (_reason == "Correct") {
-
-            } else if (_reason == "Wrong") {
-
-            } else if (_reason == "Timeout") {
                 LeanTween.scale (order, new Vector3 (0f, 0f, 0), despawnAnimationTime).setEase (despawnEaseType);
-                LeanTween.moveY (gameObject, 0f, despawnAnimationTime).setEase (despawnEaseType).setOnComplete (despawn).setDelay(orderDespawnAnimationTime);
+                LeanTween.moveY (gameObject, 0f, despawnAnimationTime).setEase (despawnEaseType).setOnComplete (despawn).setDelay (orderDespawnAnimationTime);
+                //show particle effect
+
+            } else if (_reason == "Timeout" || _reason == "Wrong") {
+                //add red X animation
+                LeanTween.scale (order, new Vector3 (0f, 0f, 0), despawnAnimationTime).setEase (despawnEaseType).setOnComplete(shake);
+                LeanTween.moveY (gameObject, 0f, despawnAnimationTime).setEase (despawnEaseType).setOnComplete (despawn).setDelay (orderDespawnAnimationTime);
+
             }
 
         }

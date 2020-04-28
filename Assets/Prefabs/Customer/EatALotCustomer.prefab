@@ -277,6 +277,8 @@ MonoBehaviour:
   orderEaseType: 27
   despawnEaseType: 26
   spriteRenderer: {fileID: 7162546757235697962}
+  shakeDuration: 0.1
+  shakeAmount: 0.05
 --- !u!1 &3495255781972514446
 GameObject:
   m_ObjectHideFlags: 0
