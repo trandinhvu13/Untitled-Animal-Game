@@ -1,14 +1,12 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
-using UnityEngine;
 using Lean.Pool;
+using UnityEngine;
 
-public class VIPCustomerRequest : MonoBehaviour, IRequest, IPoolable
-{
+public class VIPCustomerRequest : MonoBehaviour, IRequest, IPoolable {
     #region Variables
-    public int[] orders;
+    public int[] orders { get; set; }
     public int id;
-    public Queue<int[]> queueOfOrders;
     public int numOfOrders;
     [SerializeField]
     GameObject drink;
@@ -16,27 +14,24 @@ public class VIPCustomerRequest : MonoBehaviour, IRequest, IPoolable
     GameObject cream;
     [SerializeField]
     GameObject fruit;
+    public GameObject orderGameObj;
+    public LeanTweenType changeOrderAnimation;
+    public float animationTime;
     #endregion
 
     #region Methods
-    public int[] GenerateOrders()
-    {
+    public int[] GenerateOrders () {
 
         int drink;
         int cream;
         int fruit;
 
-        drink = Random.Range(0, 7);
-        cream = Random.Range(0, 7);
-        fruit = Random.Range(0, 7);
+        drink = Random.Range (1, 8);
+        cream = Random.Range (1, 8);
+        fruit = Random.Range (1, 8);
 
-        while (drink == cream || drink == fruit)
-        {
-            drink = Random.Range(0, 7);
-        }
-        while (cream == fruit)
-        {
-            cream = Random.Range(0, 7);
+        if (cream == fruit) {
+            cream = Random.Range (1, 8);
         }
 
         int[] finalOrder = { drink, cream, fruit };
@@ -44,68 +39,55 @@ public class VIPCustomerRequest : MonoBehaviour, IRequest, IPoolable
         return finalOrder;
     }
 
-    public void GenerateNextOrders(int _id)
-    {
-        if (_id == id)
-        {
-            if (numOfOrders > 0)
-            {
-                queueOfOrders.Dequeue();
-                orders = queueOfOrders.Peek();
-                //show next graphic
-                GameEvent.instance.ReceiveNextVIPOrders(orders, id);
-            }
-            else
-            {
-                GameEvent.instance.FinalVIPOrder(id);
-            }
-
+    public void HandleNextOrder (int _id) {
+        if (_id == id) {
             numOfOrders--;
+            
+            if (numOfOrders > 0) {
+                LeanTween.scale (orderGameObj, new Vector3 (0, 0, 0), animationTime).setFrom (gameObject.transform.localScale).setDelay (0.5f).setEase (changeOrderAnimation).setOnComplete (GenerateNextOrders);
+            } else {
+                GameEvent.instance.FinalVIPOrder (id);
+            }
         }
-
     }
 
-    public void ShowGraphic(int[] _order)
-    {
-        Sprite drinkSprite = CurrentInventory.instance.Drinks[_order[0]].order;
-        Sprite creamSprite = CurrentInventory.instance.Creams[_order[1]].order;
-        Sprite fruitSprite = CurrentInventory.instance.Fruits[_order[2]].order;
-
-        drink.GetComponent<SpriteRenderer>().sprite = drinkSprite;
-        cream.GetComponent<SpriteRenderer>().sprite = creamSprite;
-        fruit.GetComponent<SpriteRenderer>().sprite = fruitSprite;
+    public void GenerateNextOrders () {
+        orders = GenerateOrders ();
+        ShowGraphic(orders);
+        LeanTween.scale (orderGameObj, new Vector3 (0.11f, 0.11f, 0.11f), 0.35f).setFrom (new Vector3 (0, 0, 0)).setEase (LeanTweenType.easeOutBack);
     }
 
-    public int[] GetOrders()
-    {
-        return orders;
-    }
-
-    #endregion
-
-    #region MonoBehaivour
-    public void OnSpawn()
-    {
-        GameEvent.instance.OnRequestNextVIPOrder += GenerateNextOrders;
-
-        numOfOrders = Random.Range(2, 4);
-
-        for (int i = 1; i < numOfOrders; i++)
-        {
-            queueOfOrders.Enqueue(GenerateOrders());
-        }
-        orders = queueOfOrders.Peek();
-        //show graphic
-
-    }
-
-    public void OnDespawn()
-    {
-        Debug.Log("Got despawn");
-    }
-    #endregion
 
 
+public void ShowGraphic (int[] _order) {
+    Sprite drinkSprite = CurrentInventory.instance.Drinks[_order[0]].order;
+    Sprite creamSprite = CurrentInventory.instance.Creams[_order[1]].order;
+    Sprite fruitSprite = CurrentInventory.instance.Fruits[_order[2]].order;
 
+    drink.GetComponent<SpriteRenderer> ().sprite = drinkSprite;
+    cream.GetComponent<SpriteRenderer> ().sprite = creamSprite;
+    fruit.GetComponent<SpriteRenderer> ().sprite = fruitSprite;
+}
+
+public int[] GetOrders () {
+    return orders;
+}
+
+#endregion
+
+#region MonoBehaivour
+public void OnSpawn () {
+    GameEvent.instance.OnRequestNextVIPOrder += HandleNextOrder;
+
+    numOfOrders = Random.Range (2, 4);
+    orders = GenerateOrders ();
+    ShowGraphic (orders);
+
+}
+
+public void OnDespawn () {
+    GameEvent.instance.OnRequestNextVIPOrder -= HandleNextOrder;
+}
+#endregion
 
 }

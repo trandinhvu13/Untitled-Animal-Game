@@ -9,5 +9,5 @@ public interface IRequest
 
     void ShowGraphic(int[] _order);
 
-    int[] GetOrders();
+    int[] orders{get; set;}
 }

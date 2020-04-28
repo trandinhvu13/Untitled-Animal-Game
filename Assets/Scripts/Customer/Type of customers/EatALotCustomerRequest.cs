@@ -6,9 +6,9 @@ using Lean.Pool;
 public class EatALotCustomerRequest : MonoBehaviour, IRequest, IPoolable
 {
     #region Variables
-    public int[] orders;
+    public int[] orders{get; set;}
     public int id;
-    public Queue<int[]> queueOfOrders;
+    public Queue<int[]> queueOfOrders= new Queue<int[]>();
     public int numOfOrders;
     [SerializeField]
     GameObject drink;
@@ -26,17 +26,14 @@ public class EatALotCustomerRequest : MonoBehaviour, IRequest, IPoolable
         int cream;
         int fruit;
 
-        drink = Random.Range(0, 7);
-        cream = Random.Range(0, 7);
-        fruit = Random.Range(0, 7);
+        drink = Random.Range(1, 8);
+        cream = Random.Range(1, 8);
+        fruit = Random.Range(1, 8);
 
-        while (drink == cream || drink == fruit)
+        
+        if (cream == fruit)
         {
-            drink = Random.Range(0, 7);
-        }
-        while (cream == fruit)
-        {
-            cream = Random.Range(0, 7);
+            cream = Random.Range(1, 8);
         }
 
         int[] finalOrder = { drink, cream, fruit };
@@ -95,13 +92,12 @@ public class EatALotCustomerRequest : MonoBehaviour, IRequest, IPoolable
             queueOfOrders.Enqueue(GenerateOrders());
         }
         orders = queueOfOrders.Peek();
-        //show graphic
+        ShowGraphic(orders);
 
     }
 
     public void OnDespawn()
     {
-        Debug.Log("Got despawn");
     }
     #endregion
 

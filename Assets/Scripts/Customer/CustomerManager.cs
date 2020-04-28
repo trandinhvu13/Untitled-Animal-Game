@@ -1,10 +1,9 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
-using UnityEngine;
 using System.Linq;
 using Lean.Pool;
-public class CustomerManager : MonoBehaviour
-{
+using UnityEngine;
+public class CustomerManager : MonoBehaviour {
     #region Variables
     [SerializeField]
     static Transform seat1;
@@ -31,159 +30,121 @@ public class CustomerManager : MonoBehaviour
     public static CustomerManager instance = null;
     #endregion
 
-
     #region Method
-    void SpawnObject(int index)
-    {
+    void SpawnObject (int index) {
         times[index] = 0;
         seatStats[index] = true;
-        var prefabToSpawn = new GameObject();
+        var prefabToSpawn = new GameObject ();
         bool foundObjectToPool = false;
-        while (foundObjectToPool == false)
-        {
-            if (Random.value <= PlayerStats.instance.VIPCustomerChance)
-            {
+        while (foundObjectToPool == false) {
+            if (Random.value <= PlayerStats.instance.VIPCustomerChance) {
                 prefabToSpawn = vipCustomer;
                 foundObjectToPool = true;
-            }
-            else if (Random.value <= PlayerStats.instance.EALCustomerChance)
-            {
+            } else if (Random.value <= PlayerStats.instance.EALCustomerChance) {
                 prefabToSpawn = eatALotCustomer;
                 foundObjectToPool = true;
-            }
-            else
-            {
+            } else {
                 prefabToSpawn = normalCustomer;
                 foundObjectToPool = true;
             }
         }
 
+        GameObject customer = LeanPool.Spawn (prefabToSpawn, seatsPlaces[index], false);
 
-        GameObject customer = LeanPool.Spawn(prefabToSpawn, seatsPlaces[index], false);
-
-        IRequest orderScript = customer.GetComponent<IRequest>();
-        CustomerScript customerScript = customer.GetComponent<CustomerScript>();
+        IRequest orderScript = customer.GetComponent<IRequest> ();
+        CustomerScript customerScript = customer.GetComponent<CustomerScript> ();
 
         customerScript.id = index;
-        seatsOrders[index] = orderScript.GetOrders();
+
+        seatsOrders[index] = orderScript.orders;
     }
 
-    void SetRandomTime(int index)
-    {
+    void SetRandomTime (int index) {
 
-        spawnTimes[index] = Random.Range(PlayerStats.instance.minSpawnTime, PlayerStats.instance.maxSpawnTime);
+        spawnTimes[index] = Random.Range (PlayerStats.instance.minSpawnTime, PlayerStats.instance.maxSpawnTime);
     }
 
-    public void CompareAnswersHandler(int[] order, int id, string type)
-    {
-        
-
-        if (order.SequenceEqual(seatsOrders[id]))
-        {
-            CorrectCustomerHandler(id, type);
-        }
-        else
-        {
-            FalseCustomerHandler(id, type);
+    public void CompareAnswersHandler (int[] order, int id, string type) {
+        if (order.SequenceEqual (seatsOrders[id])) {
+            CorrectCustomerHandler (id, type);
+            Debug.Log("True");
+        } else {
+            FalseCustomerHandler (id, type);
+            Debug.Log("False");
         }
     }
 
-    void CorrectCustomerHandler(int _id, string _type)
-    {
-        if (_type == "Normal")
-        {
+    void CorrectCustomerHandler (int _id, string _type) {
+        if (_type == "Normal") {
             seatStats[_id] = false;
-            GameEvent.instance.DespawnCustomer(_id);
-            GameEvent.instance.IncreaseScore(10);
-        }
-        else if (_type == "VIP")
-        {
-            GameEvent.instance.RequestNextVipOrder(_id);
-        }
-        else if (_type == "EatALot")
-        {
-            return;
+            GameEvent.instance.DespawnCustomer (_id, "Correct");
+            GameEvent.instance.IncreaseScore (10);
+        } else if (_type == "VIP") {
+            GameEvent.instance.RequestNextVipOrder (_id);
+        } else if (_type == "EatALot") {
+            GameEvent.instance.CorrectEALOrder (_id);
         }
     }
 
-    void FalseCustomerHandler(int _id, string _type)
-    {
-        if (_type == "Normal")
-        {
+    void FalseCustomerHandler (int _id, string _type) {
+        if (_type == "Normal") {
             seatStats[_id] = false;
-            GameEvent.instance.DespawnCustomer(_id);
-            GameEvent.instance.DecreaseScore(20);
-        }
-        else if (_type == "VIP")
-        {
+            GameEvent.instance.DecreaseScore (20);
+        } else if (_type == "VIP") {
             seatStats[_id] = false;
-            GameEvent.instance.DespawnCustomer(_id);
-            GameEvent.instance.DecreaseScore(100);
-        }
-        else if (_type == "EatALot")
-        {
+            GameEvent.instance.DecreaseScore (100);
+        } else if (_type == "EatALot") {
             seatStats[_id] = false;
-            GameEvent.instance.DespawnCustomer(_id);
-            GameEvent.instance.DecreaseScore(40);
+            
+            GameEvent.instance.DecreaseScore (40);
         }
-        GameEvent.instance.ChangeLife(-1);
+        GameEvent.instance.DespawnCustomer (_id, "Wrong");
+        GameEvent.instance.ChangeLife (-1);
     }
 
-    void UpdateCustomerOrders( int[] orders, int _id)
-    {
+    void UpdateCustomerOrders (int[] orders, int _id) {
         seatsOrders[_id] = orders;
     }
 
-    void FinalVIPCustomerHandle(int _id)
-    {
+    void FinalVIPCustomerHandle (int _id) {
         seatStats[_id] = false;
-        GameEvent.instance.DespawnCustomer(_id);
-        GameEvent.instance.IncreaseScore(40);
-        GameEvent.instance.ChangeMultiplier(1);
+        GameEvent.instance.DespawnCustomer (_id, "Correct");
+        GameEvent.instance.IncreaseScore (40);
+        GameEvent.instance.ChangeMultiplier (1);
     }
-    
-    void WaitTimeoutHandler(int _id, string _type)
-    {
-        if(_type == "Normal")
-        {
-            GameEvent.instance.DespawnCustomer(_id);
-            GameEvent.instance.DecreaseScore(20);
+
+    void WaitTimeoutHandler (int _id, string _type) {
+        if (_type == "Normal") {
+            GameEvent.instance.DecreaseScore (20);
+        } else if (_type == "VIP") {
+            GameEvent.instance.DecreaseScore (100);
+        } else if (_type == "EatALot") {
+            GameEvent.instance.DecreaseScore (40);
         }
-        else if(_type == "VIP")
-        {
-            GameEvent.instance.DespawnCustomer(_id);
-            GameEvent.instance.DecreaseScore(100);
-        }
-        else if(_type == "EatALot")
-        {
-            GameEvent.instance.DespawnCustomer(_id);
-            GameEvent.instance.DecreaseScore(40);
-        }
+        seatStats[_id] = false;
+        GameEvent.instance.DespawnCustomer (_id, "Timeout");
     }
 
     #endregion
 
-
     #region MonoBehaviour
-    private void Awake()
-    {
-        if (instance == null)
-        {
+    private void Awake () {
+        if (instance == null) {
             instance = this;
+        } else if (instance != this) {
+            Destroy (gameObject);
         }
-        else if (instance != this)
-        {
-            Destroy(gameObject);
-        }
-        
+
     }
 
-    private void OnEnable()
-    {
-        
+    private void OnEnable () {
+        //GameEvent
+        GameEvent.instance.OnCompare += CompareAnswersHandler;
+        GameEvent.instance.OnReceiveNextVIPOrder += UpdateCustomerOrders;
+        GameEvent.instance.OnFinalVIPOrder += FinalVIPCustomerHandle;
+        GameEvent.instance.OnWaitTimeout += WaitTimeoutHandler;
     }
-    private void OnDisable()
-    {
+    private void OnDisable () {
         //GameEvent
         GameEvent.instance.OnCompare -= CompareAnswersHandler;
         GameEvent.instance.OnReceiveNextVIPOrder -= UpdateCustomerOrders;
@@ -191,36 +152,24 @@ public class CustomerManager : MonoBehaviour
         GameEvent.instance.OnWaitTimeout -= WaitTimeoutHandler;
     }
 
-    private void Start()
-    {
-        //GameEvent
-        GameEvent.instance.OnCompare += CompareAnswersHandler;
-        GameEvent.instance.OnReceiveNextVIPOrder += UpdateCustomerOrders;
-        GameEvent.instance.OnFinalVIPOrder += FinalVIPCustomerHandle;
-        GameEvent.instance.OnWaitTimeout += WaitTimeoutHandler;
+    private void Start () {
 
-        for (int i = 0; i < times.Length; i++)
-        { SetRandomTime(i); }
+        for (int i = 0; i < times.Length; i++) { SetRandomTime (i); }
 
         seatsOrders[0] = new int[3];
         seatsOrders[1] = new int[3];
         seatsOrders[2] = new int[3];
         seatsOrders[3] = new int[3];
 
-
     }
 
-    private void Update()
-    {
-        for (int i = 0; i < times.Length; i++)
-        {
-            if (seatStats[i] == false)
-            {
+    private void Update () {
+        for (int i = 0; i < times.Length; i++) {
+            if (seatStats[i] == false) {
                 times[i] += Time.deltaTime;
-                if (times[i] >= spawnTimes[i])
-                {
-                    SpawnObject(i);
-                    SetRandomTime(i);
+                if (times[i] >= spawnTimes[i]) {
+                    SpawnObject (i);
+                    SetRandomTime (i);
                 }
             }
 
@@ -230,4 +179,3 @@ public class CustomerManager : MonoBehaviour
     #endregion
 
 }
-

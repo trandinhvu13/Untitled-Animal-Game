@@ -52,6 +52,9 @@ TagManager:
   - name: Scene
     uniqueID: 2041669133
     locked: 0
+  - name: Order
+    uniqueID: 3183478275
+    locked: 0
   - name: Game
     uniqueID: 1568266737
     locked: 0

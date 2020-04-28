@@ -32,10 +32,10 @@ public class GameEvent : MonoBehaviour {
         OnFalseOrder?.Invoke (_id, _type);
     }
 
-    public event Action<int> OnDespawnCustomer;
+    public event Action<int, string> OnDespawnCustomer;
 
-    public void DespawnCustomer (int _id) {
-        OnDespawnCustomer?.Invoke (_id);
+    public void DespawnCustomer (int _id, string _reason) {
+        OnDespawnCustomer?.Invoke (_id, _reason);
     }
 
     public event Action<int> OnRequestNextVIPOrder;
@@ -53,6 +53,11 @@ public class GameEvent : MonoBehaviour {
 
     public void FinalVIPOrder (int _id) {
         OnFinalVIPOrder?.Invoke (_id);
+    }
+
+    public event Action<int> OnCorrectEALOrder;
+    public void CorrectEALOrder (int _id) {
+        OnCorrectEALOrder?.Invoke (_id);
     }
 
     public event Action<int, string> OnWaitTimeout;

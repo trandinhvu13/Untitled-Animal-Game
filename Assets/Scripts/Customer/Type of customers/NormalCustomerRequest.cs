@@ -6,7 +6,7 @@ using Lean.Pool;
 public class NormalCustomerRequest : MonoBehaviour, IRequest, IPoolable
 {
     #region Variables
-    public int[] orders;
+    public int[] orders{get; set;}
     [SerializeField]
     GameObject drink;
     [SerializeField]
@@ -22,17 +22,13 @@ public class NormalCustomerRequest : MonoBehaviour, IRequest, IPoolable
         int cream;
         int fruit;
 
-        drink = Random.Range(0, 7);
-        cream = Random.Range(0, 7);
-        fruit = Random.Range(0, 7);
+        drink = Random.Range(1, 8);
+        cream = Random.Range(1, 8);
+        fruit = Random.Range(1, 8);
 
-        while(drink == cream || drink == fruit)
+        if(cream == fruit)
         {
-            drink = Random.Range(0, 7);
-        }
-        while(cream == fruit)
-        {
-            cream = Random.Range(0, 7);
+            cream = Random.Range(1, 8);
         }
 
         int[] finalOrder = { drink, cream, fruit };
@@ -62,12 +58,11 @@ public class NormalCustomerRequest : MonoBehaviour, IRequest, IPoolable
     public void OnSpawn()
     {
         orders = GenerateOrders();
-        //ShowGraphic(orders);
+        ShowGraphic(orders);
     }
 
     public void OnDespawn()
     {
-        Debug.Log("Got despawn");
     }
     #endregion
     

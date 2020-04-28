@@ -57,7 +57,7 @@ public class CupState : MonoBehaviour {
         currentCollided = other;
     }
     private void OnTriggerExit2D (Collider2D other) {
-        currentCollided = null;
+        //currentCollided = null;
     }
     #endregion
 
@@ -139,6 +139,10 @@ public class CupState : MonoBehaviour {
                     //gameevent call for cup manager
                 } else if (currentCollided.gameObject.CompareTag ("Customer")) {
                     changeSpriteOrder (defaultSortingLayer);
+                    Debug.Log("Collided");                    
+                    int id = currentCollided.gameObject.GetComponent<CustomerScript>().id;
+                    string customerType = currentCollided.gameObject.GetComponent<CustomerScript>().customerType;
+                    GameEvent.instance.Compare (answers, id, customerType);
                 } else {
                     StartCoroutine (DropSpriteChange ());
                     LeanTween.move (this.gameObject, pickupPos, tweenTime).setEase (easeType);
