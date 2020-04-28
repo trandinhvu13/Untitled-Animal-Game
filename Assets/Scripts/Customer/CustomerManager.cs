@@ -84,6 +84,7 @@ public class CustomerManager : MonoBehaviour {
         } else if (_type == "EatALot") {
             GameEvent.instance.CorrectEALOrder (_id);
         }
+        Debug.Log("Right2");
     }
 
     void FalseCustomerHandler (int _id, string _type) {
@@ -99,6 +100,7 @@ public class CustomerManager : MonoBehaviour {
             GameEvent.instance.DecreaseScore (40);
         }
         GameEvent.instance.DespawnCustomer (_id, "Wrong");
+        Debug.Log("false2");
         GameEvent.instance.ChangeLife (-1);
     }
 
