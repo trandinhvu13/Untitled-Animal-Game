@@ -21,13 +21,17 @@ public class CupManager : MonoBehaviour {
     #endregion
 
     #region Monos
-
+    private void Awake () {
+        
+    }
     private void OnEnable () {
         GameEvent.instance.OnHandleCup += HandleCups;
-        cup1.transform.position = activePos.position;
+        cup1.transform.position = inactivePos.position;
         cup2.transform.position = inactivePos.position;
-        cup1.SetActive(true);
-        cup2.SetActive(false);
+        cup1.transform.localPosition = new Vector2(0, 4.4f);
+        cup1.SetActive (true);
+        cup2.SetActive (false);
+        LeanTween.move (cup1, activePos, 0.7f).setDelay (2.2f).setEase (LeanTweenType.easeOutBack);
 
     }
 
@@ -39,15 +43,15 @@ public class CupManager : MonoBehaviour {
     #region Methods
     private void HandleCups (int cupID, bool state) {
         if (cupID == 1) {
-            cup1.SetActive(state);
+            cup1.SetActive (state);
             cup1.transform.position = inactivePos.position;
-            cup2.SetActive(true);
-            LeanTween.move(cup2, activePos, tweenTime).setDelay(delayTweenTime).setEase(easeType);
-        }else if(cupID==2){
-            cup2.SetActive(state);
+            cup2.SetActive (true);
+            LeanTween.move (cup2, activePos, tweenTime).setDelay (delayTweenTime).setEase (easeType);
+        } else if (cupID == 2) {
+            cup2.SetActive (state);
             cup2.transform.position = inactivePos.position;
-            cup1.SetActive(true);
-            LeanTween.move(cup1, activePos, tweenTime).setDelay(delayTweenTime).setEase(easeType);
+            cup1.SetActive (true);
+            LeanTween.move (cup1, activePos, tweenTime).setDelay (delayTweenTime).setEase (easeType);
         }
     }
     #endregion

@@ -1920,10 +1920,10 @@ MonoBehaviour:
   drinkMQuantity: 3
   creamMQuantity: 3
   fruitMQuantity: 3
-  waitTime: 15
+  waitTime: 6
   customerWaitingTime: 10
-  minSpawnTime: 5
-  maxSpawnTime: 20
+  minSpawnTime: 3
+  maxSpawnTime: 4
   VIPCustomerChance: 0.5
   EALCustomerChance: 0
   cooldownTime: 0
@@ -1964,23 +1964,24 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 41d7c91335e2ba1459c4cafbae323a5e, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  restocker: {fileID: 0}
-  trash: {fileID: 0}
-  inventory: {fileID: 0}
-  pane: {fileID: 0}
-  machine: {fileID: 0}
-  table: {fileID: 0}
-  chair: {fileID: 0}
-  floatAmount: 0
-  machineMoveTime: 0
-  restockerMoveTime: 0
-  trashMoveTime: 0
-  inventoryMoveTime: 0
-  paneMoveTime: 0
-  tableMoveTime: 0
-  chairMoveTime: 0
-  moveEaseType: 0
-  floatingEaseType: 0
+  restocker: {fileID: 362426195}
+  trash: {fileID: 1054411612}
+  inventory: {fileID: 1365346111}
+  pane: {fileID: 173401760}
+  machine: {fileID: 1793057016}
+  table: {fileID: 760865534}
+  chair: {fileID: 941179744}
+  floatAmount: 0.45
+  startUpDelay: 0.3
+  machineMoveTime: 0.5
+  restockerMoveTime: 0.5
+  trashMoveTime: 0.5
+  inventoryMoveTime: 0.5
+  paneMoveTime: 0.5
+  tableMoveTime: 0.5
+  chairMoveTime: 0.5
+  moveEaseType: 27
+  floatingEaseType: 2
 --- !u!114 &461801909 stripped
 MonoBehaviour:
   m_CorrespondingSourceObject: {fileID: 3244304268916772774, guid: 59cb1634b8e009747bac3485605cc541,
@@ -8955,6 +8956,36 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 1324678536}
     m_Modifications:
+    - target: {fileID: 6437384353810150796, guid: d112ee8ba84aec34d92fe3501524525f,
+        type: 3}
+      propertyPath: m_Sprite
+      value: 
+      objectReference: {fileID: 0}
+    - target: {fileID: 6437384353810150796, guid: d112ee8ba84aec34d92fe3501524525f,
+        type: 3}
+      propertyPath: m_WasSpriteAssigned
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 6437384354152123679, guid: d112ee8ba84aec34d92fe3501524525f,
+        type: 3}
+      propertyPath: m_Sprite
+      value: 
+      objectReference: {fileID: 0}
+    - target: {fileID: 6437384354152123679, guid: d112ee8ba84aec34d92fe3501524525f,
+        type: 3}
+      propertyPath: m_WasSpriteAssigned
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 6437384354602157140, guid: d112ee8ba84aec34d92fe3501524525f,
+        type: 3}
+      propertyPath: m_Sprite
+      value: 
+      objectReference: {fileID: 0}
+    - target: {fileID: 6437384354602157140, guid: d112ee8ba84aec34d92fe3501524525f,
+        type: 3}
+      propertyPath: m_WasSpriteAssigned
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 6437384354686362656, guid: d112ee8ba84aec34d92fe3501524525f,
         type: 3}
       propertyPath: m_LocalPosition.x
