@@ -4,6 +4,7 @@ using TMPro;
 using UnityEngine;
 
 public class InventoryUIHandler : MonoBehaviour {
+    [Header ("Components")]
     #region Components
     [SerializeField]
     private TextMeshProUGUI label;
@@ -16,17 +17,20 @@ public class InventoryUIHandler : MonoBehaviour {
     #endregion
 
     #region Variables
+    [Header ("GameObjects")]
     public GameObject scrollViews;
-    public string[] categories = new string[3];
-    public GameObject[] pos = new GameObject[3];
-    [SerializeField]
-    private int currentCategory;
-
     public GameObject buttonUp;
     public GameObject buttonDown;
+    public GameObject[] pos = new GameObject[3];
+
+    [Header ("Variables")]
+    public string[] categories = new string[3];
+    [SerializeField]
+    private int currentCategory;
+    private bool isChanged = false;
+    [Header ("LeanTween")]
     public LeanTweenType easeType;
     public float transitionTime;
-    private bool isChanged = false;
 
     #endregion
 
@@ -39,9 +43,7 @@ public class InventoryUIHandler : MonoBehaviour {
 
     }
     private void Start () {
-        // fruitScrollView.SetActive(true);
-        // creamScrollView.SetActive(true);
-        // drinkScrollView.SetActive(true);
+       
     }
 
     private void Update () {

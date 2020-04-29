@@ -149,6 +149,7 @@ public class CupState : MonoBehaviour {
                 }
 
             } else {
+                StartCoroutine (DropSpriteChange ());
                 LeanTween.move (this.gameObject, pickupPos, tweenTime).setEase (easeType);
             }
 

@@ -5,35 +5,48 @@ using TMPro;
 using UnityEngine;
 
 public class CustomerScript : MonoBehaviour, IPoolable {
+    [Header ("Components")]
     #region Components
     Rigidbody2D rb;
     public CustomerSprite customerSprite;
     public Animator ani;
     public TextMeshProUGUI timerNum;
+    public SpriteRenderer spriteRenderer;
     #endregion
 
-    #region Variables
-    public string customerType;
-
-    public int id;
-    int[] givenOrder = new int[3];
-    float time = 0;
-    public GameObject order;
+    #region LeanTween
+    [Header ("LeanTween Properties")]
     public float spawnAnimationTime;
     public float orderAnimationTime;
     public float despawnAnimationTime;
     public float orderDespawnAnimationTime;
+    public float shakeDuration;
+    public float shakeAmount;
+    public float floatAmount;
+
+    [Header ("LeanTween Ease Type")]
     public LeanTweenType spawnEaseType;
     public LeanTweenType orderEaseType;
     public LeanTweenType despawnEaseType;
     public LeanTweenType floatingEaseType;
-    public SpriteRenderer spriteRenderer;
-    public float shakeDuration;
-    public float shakeAmount;
-    public float floatAmount;
-    bool isWaiting = true;
+    public LeanTweenType flickeringEaseType;
+
+    #endregion
+
+    #region Variables
+    [Header ("GameObject")]
+    public GameObject order;
     public RectTransform timerGameObj;
     public GameObject orderTimer;
+    public GameObject bubble;
+    [Header ("Properties")]
+    public string customerType;
+    public int id;
+    int[] givenOrder = new int[3];
+    float time = 0;
+    bool isWaiting = true;
+
+    bool isFlickering = true;
 
     #endregion
 
@@ -49,6 +62,13 @@ public class CustomerScript : MonoBehaviour, IPoolable {
             }
         }
 
+    }
+
+    void Flickering () {
+        void flickFaster () {
+            LeanTween.alpha (bubble, 0, 0.15f).setLoopPingPong (10).setEase (floatingEaseType);
+        }
+        LeanTween.alpha (bubble, 0, 0.5f).setLoopPingPong (3).setEase (floatingEaseType).setOnComplete (flickFaster);
     }
 
     void DespawnCustomer (int _id, string _reason) {
@@ -77,15 +97,15 @@ public class CustomerScript : MonoBehaviour, IPoolable {
     }
 
     void StartupAnimation () {
-        void hover(){
-            LeanTween.moveLocalY (orderTimer, 0.0083f, floatAmount).setEase (floatingEaseType).setLoopPingPong(-1);
+        void hover () {
+            LeanTween.moveLocalY (orderTimer, 0.0083f, floatAmount).setEase (floatingEaseType).setLoopPingPong (-1);
         }
         int rand = Random.Range (0, 39);
         spriteRenderer.sprite = CustomerDatabase.instance.customer[rand].sprite;
         ani.runtimeAnimatorController = CustomerDatabase.instance.customer[rand].animationController;
         LeanTween.moveLocalY (gameObject, 1.215f, spawnAnimationTime).setEase (spawnEaseType);
         LeanTween.scale (order, new Vector3 (0.11f, 0.11f, 0.11f), orderAnimationTime).setFrom (new Vector3 (0, 0, 0)).setDelay (spawnAnimationTime).setEase (orderEaseType);
-        LeanTween.scale (timerGameObj, new Vector3 (1, 1, 1), orderAnimationTime).setFrom (new Vector3 (0, 0, 0)).setDelay (spawnAnimationTime).setEase (orderEaseType).setOnComplete(hover);
+        LeanTween.scale (timerGameObj, new Vector3 (1, 1, 1), orderAnimationTime).setFrom (new Vector3 (0, 0, 0)).setDelay (spawnAnimationTime).setEase (orderEaseType).setOnComplete (hover);
     }
 
     #endregion
@@ -99,6 +119,10 @@ public class CustomerScript : MonoBehaviour, IPoolable {
     void Update () {
         timerNum.text = ((int) time).ToString ();
         CustomerWait ();
+        if ((int) time == 5 && isFlickering) {
+            isFlickering = false;
+            Flickering ();
+        }
     }
 
     public void OnSpawn () {
@@ -107,13 +131,14 @@ public class CustomerScript : MonoBehaviour, IPoolable {
         GameEvent.instance.OnDespawnCustomer += DespawnCustomer;
         gameObject.transform.localScale = new Vector3 (9.5f, 9.5f, 9.5f);
         StartupAnimation ();
+        isFlickering = true;
     }
 
     public void OnDespawn () {
         GameEvent.instance.OnDespawnCustomer -= DespawnCustomer;
         order.transform.localScale = new Vector3 (0, 0, 0);
         timerGameObj.transform.localScale = new Vector3 (0, 0, 0);
-        //scale to 0 -> do sprite animation
+        isFlickering = true;
     }
 
     #endregion

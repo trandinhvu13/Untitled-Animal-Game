@@ -924,7 +924,7 @@ Transform:
   m_LocalScale: {x: 4, y: 4, z: 1}
   m_Children: []
   m_Father: {fileID: 475655863}
-  m_RootOrder: 5
+  m_RootOrder: 4
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!212 &173401762
 SpriteRenderer:
@@ -965,7 +965,7 @@ SpriteRenderer:
   m_SortingLayerID: 2041669133
   m_SortingLayer: 1
   m_SortingOrder: 8
-  m_Sprite: {fileID: 6719609251141059443, guid: a60410a72d0977e458c514db880813ba,
+  m_Sprite: {fileID: -6846804193380506155, guid: fe70ed45024a4cc45ad570a82b7678fe,
     type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
@@ -1894,6 +1894,7 @@ GameObject:
   m_Component:
   - component: {fileID: 455859788}
   - component: {fileID: 455859787}
+  - component: {fileID: 455859789}
   m_Layer: 0
   m_Name: GameManager
   m_TagString: Untagged
@@ -1951,6 +1952,35 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 10
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &455859789
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 455859786}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 41d7c91335e2ba1459c4cafbae323a5e, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  restocker: {fileID: 0}
+  trash: {fileID: 0}
+  inventory: {fileID: 0}
+  pane: {fileID: 0}
+  machine: {fileID: 0}
+  table: {fileID: 0}
+  chair: {fileID: 0}
+  floatAmount: 0
+  machineMoveTime: 0
+  restockerMoveTime: 0
+  trashMoveTime: 0
+  inventoryMoveTime: 0
+  paneMoveTime: 0
+  tableMoveTime: 0
+  chairMoveTime: 0
+  moveEaseType: 0
+  floatingEaseType: 0
 --- !u!114 &461801909 stripped
 MonoBehaviour:
   m_CorrespondingSourceObject: {fileID: 3244304268916772774, guid: 59cb1634b8e009747bac3485605cc541,
@@ -1994,7 +2024,6 @@ Transform:
   - {fileID: 1793057017}
   - {fileID: 760865535}
   - {fileID: 941179745}
-  - {fileID: 1475023549}
   - {fileID: 173401761}
   m_Father: {fileID: 0}
   m_RootOrder: 12
@@ -5680,6 +5709,7 @@ Transform:
   m_Children:
   - {fileID: 801812450}
   - {fileID: 1382486727}
+  - {fileID: 1475023549}
   m_Father: {fileID: 0}
   m_RootOrder: 3
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
@@ -5700,17 +5730,17 @@ MonoBehaviour:
   creamScrollView: {fileID: 1144810408}
   drinkScrollView: {fileID: 1160451486}
   scrollViews: {fileID: 391588576}
-  categories:
-  - Drink
-  - Cream
-  - Fruit
+  buttonUp: {fileID: 1987738710}
+  buttonDown: {fileID: 409632286}
   pos:
   - {fileID: 2016783474}
   - {fileID: 1878599689}
   - {fileID: 663818358}
+  categories:
+  - Drink
+  - Cream
+  - Fruit
   currentCategory: 2
-  buttonUp: {fileID: 1987738710}
-  buttonDown: {fileID: 409632286}
   easeType: 24
   transitionTime: 0.46
 --- !u!1 &1371600286
@@ -6548,12 +6578,12 @@ Transform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1475023548}
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 4, y: 4, z: 4}
   m_Children: []
-  m_Father: {fileID: 475655863}
-  m_RootOrder: 4
+  m_Father: {fileID: 1365346113}
+  m_RootOrder: 2
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!331 &1475023550
 SpriteMask:
@@ -7375,7 +7405,7 @@ SpriteRenderer:
   m_SortingLayerID: 2041669133
   m_SortingLayer: 1
   m_SortingOrder: 2
-  m_Sprite: {fileID: -1528118896159663225, guid: a60410a72d0977e458c514db880813ba,
+  m_Sprite: {fileID: 8875061962516170692, guid: fe70ed45024a4cc45ad570a82b7678fe,
     type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
