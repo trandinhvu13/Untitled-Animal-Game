@@ -12,6 +12,7 @@ public class CustomerScript : MonoBehaviour, IPoolable {
     public Animator ani;
     public TextMeshProUGUI timerNum;
     public SpriteRenderer spriteRenderer;
+    public BoxCollider2D col;
     #endregion
 
     #region LeanTween
@@ -55,9 +56,10 @@ public class CustomerScript : MonoBehaviour, IPoolable {
     void CustomerWait () {
         if (isWaiting) {
             time -= Time.deltaTime;
-            if (time <= 0) {
+            if (time <= 0.5f) {
                 isWaiting = false;
                 time = 0;
+                col.enabled = false;
                 GameEvent.instance.WaitTimeout (id, customerType);
 
             }
@@ -79,7 +81,7 @@ public class CustomerScript : MonoBehaviour, IPoolable {
         void shake () {
             CameraShake.Shake (shakeDuration, shakeAmount);
         }
-
+        
         if (_id == id) {
             if (_reason == "Correct") {
 
@@ -130,6 +132,7 @@ public class CustomerScript : MonoBehaviour, IPoolable {
 
     public void OnSpawn () {
         time = PlayerStats.instance.waitTime;
+        col.enabled = true;
         isWaiting = true;
         GameEvent.instance.OnDespawnCustomer += DespawnCustomer;
         gameObject.transform.localScale = new Vector3 (9.5f, 9.5f, 9.5f);

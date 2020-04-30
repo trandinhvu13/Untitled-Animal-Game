@@ -303,6 +303,7 @@ MonoBehaviour:
   cream: {fileID: 6437384353810150796}
   defaultActivePos: {x: 0, y: 0, z: 0}
   cupID: 0
+  trash: {fileID: 0}
   drink: {fileID: 6437384354152123679}
   defaultSortingLayer: Cup
   pickUpSortingLayer: PickedUpCup
@@ -380,7 +381,7 @@ BoxCollider2D:
   m_IsTrigger: 1
   m_UsedByEffector: 0
   m_UsedByComposite: 0
-  m_Offset: {x: -0.12302405, y: -0.011823893}
+  m_Offset: {x: -0.12302405, y: 0.30111873}
   m_SpriteTilingProperty:
     border: {x: 0, y: 0, z: 0, w: 0}
     pivot: {x: 0.5, y: 0.5}
@@ -391,7 +392,7 @@ BoxCollider2D:
     adaptiveTiling: 0
   m_AutoTiling: 0
   serializedVersion: 2
-  m_Size: {x: 1.740064, y: 1.4853446}
+  m_Size: {x: 1.740064, y: 2.1112297}
   m_EdgeRadius: 0
 --- !u!50 &6437384354686362658
 Rigidbody2D:

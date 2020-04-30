@@ -333,6 +333,7 @@ MonoBehaviour:
   ani: {fileID: -546907277090490096}
   timerNum: {fileID: 6093600555039400470}
   spriteRenderer: {fileID: 7162546757235697962}
+  col: {fileID: -1168851724984996958}
   spawnAnimationTime: 0.5
   orderAnimationTime: 0.35
   despawnAnimationTime: 0.5

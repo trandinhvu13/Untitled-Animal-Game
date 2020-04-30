@@ -15,6 +15,7 @@ GameObject:
   - component: {fileID: 3244304268916772774}
   - component: {fileID: 3244304268916772795}
   - component: {fileID: 3244304268838684824}
+  - component: {fileID: 2663224585147192657}
   m_Layer: 5
   m_Name: Inventory_Cream
   m_TagString: Untagged
@@ -87,7 +88,7 @@ SpriteRenderer:
   m_AutoUVMaxAngle: 89
   m_LightmapParameters: {fileID: 0}
   m_SortingLayerID: 1103959755
-  m_SortingLayer: 3
+  m_SortingLayer: 5
   m_SortingOrder: 10
   m_Sprite: {fileID: -3778376009814841747, guid: 11b22d7e12ef3bd4a84ecbbb9b09e431,
     type: 3}
@@ -144,18 +145,7 @@ MonoBehaviour:
   IsolateSelectingFingers: 0
   onSelect:
     m_PersistentCalls:
-      m_Calls:
-      - m_Target: {fileID: 3244304268838684824}
-        m_MethodName: PickUp
-        m_Mode: 1
-        m_Arguments:
-          m_ObjectArgument: {fileID: 0}
-          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
-          m_IntArgument: 0
-          m_FloatArgument: 0
-          m_StringArgument: 
-          m_BoolArgument: 0
-        m_CallState: 2
+      m_Calls: []
   onSelectSet:
     m_PersistentCalls:
       m_Calls: []
@@ -217,6 +207,47 @@ MonoBehaviour:
   rect: {fileID: 3244304268916772794}
   textMeshPro: {fileID: 8767356991376152857}
   scriptableObject: {fileID: 11400000, guid: 39d52ee61cefbb643961d6dcdfc947d5, type: 2}
+  isDraggable: 0
+--- !u!114 &2663224585147192657
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3244304268916772797}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 9d71b10bcefcfe047b9ea4c92a92379d, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  IgnoreStartedOverGui: 0
+  IgnoreIsOverGui: 0
+  RequiredSelectable: {fileID: 3244304268916772774}
+  onFinger:
+    m_PersistentCalls:
+      m_Calls:
+      - m_Target: {fileID: 3244304268838684824}
+        m_MethodName: PickUp
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
+  ScreenDepth:
+    Conversion: 1
+    Camera: {fileID: 0}
+    Object: {fileID: 0}
+    Layers:
+      serializedVersion: 2
+      m_Bits: 4294967291
+    Distance: 0
+  onPosition:
+    m_PersistentCalls:
+      m_Calls: []
 --- !u!1 &3914480833060758945
 GameObject:
   m_ObjectHideFlags: 0

@@ -67,3 +67,6 @@ TagManager:
   - name: PickedUpCup
     uniqueID: 1404310049
     locked: 0
+  - name: UI
+    uniqueID: 2675298561
+    locked: 0

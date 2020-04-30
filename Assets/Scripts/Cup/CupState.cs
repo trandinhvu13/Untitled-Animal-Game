@@ -57,7 +57,6 @@ public class CupState : MonoBehaviour {
         if (isBeingHeld) {
             Hold ();
         }
-        Debug.Log (currentCollided);
     }
 
     #endregion
