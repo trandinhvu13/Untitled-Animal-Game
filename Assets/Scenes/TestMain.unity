@@ -876,7 +876,7 @@ MonoBehaviour:
   Notification: 3
   Preload: 5
   Capacity: 8
-  Recycle: 1
+  Recycle: 0
   Persist: 0
   Stamp: 1
   Warnings: 1
@@ -1929,10 +1929,10 @@ MonoBehaviour:
   drinkMQuantity: 3
   creamMQuantity: 3
   fruitMQuantity: 3
-  waitTime: 6
+  waitTime: 10
   customerWaitingTime: 10
   minSpawnTime: 3
-  maxSpawnTime: 4
+  maxSpawnTime: 9
   VIPCustomerChance: 0.5
   EALCustomerChance: 0
   cooldownTime: 0
@@ -1982,13 +1982,13 @@ MonoBehaviour:
   chair: {fileID: 941179744}
   floatAmount: 0.45
   startUpDelay: 0.3
-  machineMoveTime: 0.5
-  restockerMoveTime: 0.5
-  trashMoveTime: 0.5
-  inventoryMoveTime: 0.5
-  paneMoveTime: 0.5
-  tableMoveTime: 0.5
-  chairMoveTime: 0.5
+  machineMoveTime: 0.6
+  restockerMoveTime: 0.3
+  trashMoveTime: 0.4
+  inventoryMoveTime: 0.6
+  paneMoveTime: 0.4
+  tableMoveTime: 0.6
+  chairMoveTime: 0.6
   moveEaseType: 27
   floatingEaseType: 2
 --- !u!114 &461801909 stripped
@@ -2962,6 +2962,36 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: f4688fdb7df04437aeb418b961361dc5, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+--- !u!1 &695773941
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 695773942}
+  m_Layer: 0
+  m_Name: VisualScore
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &695773942
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 695773941}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_Children: []
+  m_Father: {fileID: 843979451}
+  m_RootOrder: 0
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &700593111
 GameObject:
   m_ObjectHideFlags: 0
@@ -3768,7 +3798,8 @@ Transform:
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
-  m_Children: []
+  m_Children:
+  - {fileID: 695773942}
   m_Father: {fileID: 0}
   m_RootOrder: 8
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
@@ -3857,7 +3888,7 @@ MonoBehaviour:
   m_StartCorner: 0
   m_StartAxis: 0
   m_CellSize: {x: 0.4, y: 0.58}
-  m_Spacing: {x: 0.08, y: 0}
+  m_Spacing: {x: 0.09, y: 0}
   m_Constraint: 1
   m_ConstraintCount: 8
 --- !u!114 &902886085 stripped
@@ -5361,7 +5392,7 @@ MonoBehaviour:
   Notification: 3
   Preload: 5
   Capacity: 8
-  Recycle: 1
+  Recycle: 0
   Persist: 0
   Stamp: 1
   Warnings: 1
@@ -7434,8 +7465,8 @@ MonoBehaviour:
   m_ChildAlignment: 0
   m_StartCorner: 0
   m_StartAxis: 0
-  m_CellSize: {x: 0.4, y: 0.61}
-  m_Spacing: {x: 0.08, y: 0}
+  m_CellSize: {x: 0.4, y: 0.58}
+  m_Spacing: {x: 0.09, y: 0}
   m_Constraint: 1
   m_ConstraintCount: 8
 --- !u!1 &1793057016
@@ -8098,7 +8129,7 @@ MonoBehaviour:
   Notification: 3
   Preload: 5
   Capacity: 8
-  Recycle: 1
+  Recycle: 0
   Persist: 0
   Stamp: 1
   Warnings: 1
@@ -8526,8 +8557,8 @@ MonoBehaviour:
   m_ChildAlignment: 0
   m_StartCorner: 0
   m_StartAxis: 0
-  m_CellSize: {x: 0.4, y: 0.62}
-  m_Spacing: {x: 0.08, y: 0}
+  m_CellSize: {x: 0.4, y: 0.58}
+  m_Spacing: {x: 0.09, y: 0}
   m_Constraint: 1
   m_ConstraintCount: 8
 --- !u!1001 &2114199810
@@ -8993,6 +9024,11 @@ PrefabInstance:
         type: 3}
       propertyPath: m_Name
       value: Main Camera
+      objectReference: {fileID: 0}
+    - target: {fileID: 6221280596230803224, guid: c774d73bcb437fb4396b66e99cc25e3d,
+        type: 3}
+      propertyPath: m_Enabled
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 6221280596230803226, guid: c774d73bcb437fb4396b66e99cc25e3d,
         type: 3}

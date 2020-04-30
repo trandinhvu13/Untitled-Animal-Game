@@ -26,6 +26,9 @@ public class SceneAnimationStuffs : MonoBehaviour {
     public float tableMoveTime;
     public float chairMoveTime;
 
+    private int trashHoverID;
+    private int restockerHoverID;
+
     [Header ("LeanTween Ease Type")]
     public LeanTweenType moveEaseType;
     public LeanTweenType floatingEaseType;
@@ -70,8 +73,8 @@ public class SceneAnimationStuffs : MonoBehaviour {
 
     #region Methods
         void floatingButton(){
-            LeanTween.moveLocalY (restocker, 0.04f, floatAmount).setEase (floatingEaseType).setLoopPingPong (-1);
-            LeanTween.moveLocalY (trash, 0.04f, floatAmount).setEase (floatingEaseType).setLoopPingPong (-1);
+            restockerHoverID = LeanTween.moveLocalY (restocker, 0.04f, floatAmount).setEase (floatingEaseType).setLoopPingPong (-1).id;
+            trashHoverID = LeanTween.moveLocalY (trash, 0.04f, floatAmount).setEase (floatingEaseType).setLoopPingPong (-1).id;
             //LeanTween.moveLocalY (inventory, 0.04f, floatAmount).setEase (floatingEaseType).setLoopPingPong (-1);
         }
     #endregion

@@ -57,6 +57,7 @@ public class CupState : MonoBehaviour {
         if (isBeingHeld) {
             Hold ();
         }
+        Debug.Log (currentCollided);
     }
 
     #endregion
@@ -64,11 +65,15 @@ public class CupState : MonoBehaviour {
     #region Collisions
     private void OnTriggerEnter2D (Collider2D other) {
         currentCollided = other;
-        if (other.gameObject.CompareTag ("Fruit") || other.gameObject.CompareTag ("Drink") || other.gameObject.CompareTag ("Cream")) {
+        if ((other.gameObject.CompareTag ("Fruit") || other.gameObject.CompareTag ("Drink") || other.gameObject.CompareTag ("Cream")) && isBeingHeld == false) {
             LeanTween.scale (gameObject, new Vector3 (0.23f, 0.23f, 0.23f), itemTweenTime).setEase (itemEaseType);
         }
     }
     private void OnTriggerExit2D (Collider2D other) {
+        if (other.gameObject.CompareTag ("Cup")) {
+            currentCollided = null;
+        }
+
         if (other.gameObject.CompareTag ("Fruit") || other.gameObject.CompareTag ("Drink") || other.gameObject.CompareTag ("Cream")) {
             LeanTween.scale (gameObject, new Vector3 (0.2f, 0.2f, 0.2f), itemTweenTime).setEase (itemEaseType);
         }
@@ -143,20 +148,22 @@ public class CupState : MonoBehaviour {
     }
 
     public void Drop () {
+
         void handle () {
             GameEvent.instance.HandleCup (cupID, false);
-            if (currentCollided.gameObject.CompareTag ("Trash")) {
-                LeanTween.scale (trash, new Vector3 (1, 1, 1), 0.2f).setEase (LeanTweenType.easeInOutQuad);
-            } else if (currentCollided.gameObject.CompareTag ("Customer")) {
-                LeanTween.scale (currentCollided.gameObject, new Vector3 (10, 10, 10), 0.2f).setEase (LeanTweenType.easeInOutQuad);
-            }
-
         }
+
         if (isBeingHeld) {
             isBeingHeld = false;
-
             //Check Collision
             if (currentCollided != null) {
+
+                if (currentCollided.gameObject.CompareTag ("Customer")) {
+                    LeanTween.scale (currentCollided.gameObject, new Vector3 (10, 10, 10), 0.2f).setEase (LeanTweenType.easeInOutQuad);
+                } else if (currentCollided.gameObject.CompareTag ("Trash")) {
+                    LeanTween.scale (trash, new Vector3 (1, 1, 1), 0.2f).setEase (LeanTweenType.easeInOutQuad);
+                }
+
                 if (currentCollided.gameObject.CompareTag ("Trash")) {
                     changeSpriteOrder (defaultSortingLayer);
                     LeanTween.scale (gameObject, new Vector3 (0, 0, 0), trashTweenTime).setEase (trashEaseType).setOnComplete (handle);

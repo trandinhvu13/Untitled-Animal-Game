@@ -29,8 +29,9 @@ public class ScoreManager : MonoBehaviour
     public int currentLife;
     //public int scoreTo1Up;
 
-    void Start()
+    private void OnEnable()
     {
+        currentLife = PlayerStats.instance.maxLife;
         GameEvent.instance.OnIncreaseScore += IncreaseScore;
         GameEvent.instance.OnIncreaseScore += DecreaseScore;
         GameEvent.instance.OnIncreaseScore += ChangeMultiplier;

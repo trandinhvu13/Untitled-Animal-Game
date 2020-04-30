@@ -30,6 +30,7 @@ public class CustomerScript : MonoBehaviour, IPoolable {
     public LeanTweenType despawnEaseType;
     public LeanTweenType floatingEaseType;
     public LeanTweenType flickeringEaseType;
+    private int hoverID;
 
     #endregion
 
@@ -97,8 +98,10 @@ public class CustomerScript : MonoBehaviour, IPoolable {
     }
 
     void StartupAnimation () {
+        //LeanTween.resume(hoverID);
         void hover () {
-            LeanTween.moveLocalY (orderTimer, 0.0083f, floatAmount).setEase (floatingEaseType).setLoopPingPong (-1);
+            hoverID = LeanTween.moveLocalY (orderTimer, 0.0083f, floatAmount).setEase (floatingEaseType).setLoopPingPong (-1).id;
+            //LeanTween.moveLocalY (orderTimer, 0.0083f, floatAmount).setEase (floatingEaseType).setLoopPingPong (-1);
         }
         int rand = Random.Range (0, 39);
         spriteRenderer.sprite = CustomerDatabase.instance.customer[rand].sprite;
@@ -139,16 +142,22 @@ public class CustomerScript : MonoBehaviour, IPoolable {
         order.transform.localScale = new Vector3 (0, 0, 0);
         timerGameObj.transform.localScale = new Vector3 (0, 0, 0);
         isFlickering = true;
+        LeanTween.cancel (hoverID);
     }
 
     #endregion
 
     #region Trigger
     private void OnTriggerEnter2D (Collider2D other) {
-        LeanTween.scale (gameObject, new Vector3 (11.5f, 11.5f, 11.5f), 0.2f).setEase (LeanTweenType.easeInOutQuad);
+        if (other.gameObject.CompareTag ("Cup")) {
+            LeanTween.scale (gameObject, new Vector3 (11.5f, 11.5f, 11.5f), 0.2f).setEase (LeanTweenType.easeInOutQuad);
+        }
+
     }
     private void OnTriggerExit2D (Collider2D other) {
-        LeanTween.scale (gameObject, new Vector3 (9.5f, 9.5f, 9.5f), 0.2f).setEase (LeanTweenType.easeInOutQuad);
+        if (other.gameObject.CompareTag ("Cup")) {
+            LeanTween.scale (gameObject, new Vector3 (9.5f, 9.5f, 9.5f), 0.2f).setEase (LeanTweenType.easeInOutQuad);
+        }
     }
     #endregion
 

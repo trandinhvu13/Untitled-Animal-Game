@@ -514,7 +514,7 @@ SpriteRenderer:
   m_FlipX: 0
   m_FlipY: 0
   m_DrawMode: 0
-  m_Size: {x: 2.56, y: 2.56}
+  m_Size: {x: 0.125, y: 0.125}
   m_AdaptiveModeThreshold: 0.5
   m_SpriteTileMode: 0
   m_WasSpriteAssigned: 0
@@ -554,7 +554,7 @@ BoxCollider2D:
   m_IsTrigger: 1
   m_UsedByEffector: 0
   m_UsedByComposite: 0
-  m_Offset: {x: -0.00035370514, y: -0.011273418}
+  m_Offset: {x: -0.000022898428, y: -0.011273418}
   m_SpriteTilingProperty:
     border: {x: 0, y: 0, z: 0, w: 0}
     pivot: {x: 0.5, y: 0.5}
@@ -565,7 +565,7 @@ BoxCollider2D:
     adaptiveTiling: 0
   m_AutoTiling: 0
   serializedVersion: 2
-  m_Size: {x: 0.04876203, y: 0.0867191}
+  m_Size: {x: 0.032221675, y: 0.0867191}
   m_EdgeRadius: 0
 --- !u!95 &3458667026324946976
 Animator:
@@ -601,25 +601,25 @@ MonoBehaviour:
   customerSprite: {fileID: 0}
   ani: {fileID: 3458667026324946976}
   timerNum: {fileID: 5542621084638392076}
+  spriteRenderer: {fileID: 7162546757235697962}
   spawnAnimationTime: 0.5
   orderAnimationTime: 0.35
   despawnAnimationTime: 0.5
   orderDespawnAnimationTime: 0.5
+  shakeDuration: 0.1
+  shakeAmount: 0.05
+  floatAmount: 0.45
   spawnEaseType: 32
   orderEaseType: 27
   despawnEaseType: 26
   floatingEaseType: 4
   flickeringEaseType: 4
-  spriteRenderer: {fileID: 7162546757235697962}
-  customerType: VIP
-  id: 0
   order: {fileID: 5678959474465400519}
-  shakeDuration: 0.1
-  shakeAmount: 0.05
-  floatAmount: 0.45
   timerGameObj: {fileID: 1995771751481718038}
   orderTimer: {fileID: 1793725699104843953}
   bubble: {fileID: 1040442929074660974}
+  customerType: VIP
+  id: 0
 --- !u!114 &-7363888771405337717
 MonoBehaviour:
   m_ObjectHideFlags: 0
