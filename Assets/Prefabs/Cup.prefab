@@ -301,9 +301,9 @@ MonoBehaviour:
   answers: 000000000000000000000000
   fruit: {fileID: 6437384354602157140}
   cream: {fileID: 6437384353810150796}
-  drink: {fileID: 6437384354152123679}
   defaultActivePos: {x: 0, y: 0, z: 0}
   cupID: 0
+  drink: {fileID: 6437384354152123679}
   defaultSortingLayer: Cup
   pickUpSortingLayer: PickedUpCup
   sprites:
@@ -311,8 +311,12 @@ MonoBehaviour:
   - {fileID: 6437384354602157140}
   - {fileID: 6437384353810150796}
   - {fileID: 6437384354152123679}
-  easeType: 0
-  tweenTime: 0
+  easeType: 24
+  tweenTime: 0.4
+  itemEaseType: 4
+  itemTweenTime: 0.2
+  trashEaseType: 4
+  trashTweenTime: 0.3
 --- !u!212 &6437384354686362657
 SpriteRenderer:
   m_ObjectHideFlags: 0

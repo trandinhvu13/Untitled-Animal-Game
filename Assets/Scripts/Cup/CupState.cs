@@ -7,28 +7,36 @@ public class CupState : MonoBehaviour {
     #endregion
 
     #region Variables
+    [Header ("Variables")]
     public bool[] slotIsFull = { false, false, false };
     public int[] answers = { 0, 0, 0 };
     [SerializeField]
     private SpriteRenderer fruit;
     [SerializeField]
     private SpriteRenderer cream;
-    [SerializeField]
-    private SpriteRenderer drink;
+
     private Collider2D currentCollided;
     private bool isBeingHeld = false;
     public Vector3 defaultActivePos;
     public int cupID;
     private Vector3 pickupPos;
 
-    //UI
+    [Header ("Sprite")]
+    [SerializeField]
+    private SpriteRenderer drink;
     [SerializeField]
     private string defaultSortingLayer;
     [SerializeField]
     private string pickUpSortingLayer;
     public SpriteRenderer[] sprites = new SpriteRenderer[4];
+
+    [Header ("LeanTween")]
     public LeanTweenType easeType;
     public float tweenTime;
+    public LeanTweenType itemEaseType;
+    public float itemTweenTime;
+    public LeanTweenType trashEaseType;
+    public float trashTweenTime;
     #endregion
 
     #region Monos
@@ -55,14 +63,20 @@ public class CupState : MonoBehaviour {
     #region Collisions
     private void OnTriggerEnter2D (Collider2D other) {
         currentCollided = other;
+        if (other.gameObject.CompareTag ("Fruit") || other.gameObject.CompareTag ("Drink") || other.gameObject.CompareTag ("Cream")) {
+            LeanTween.scale (gameObject, new Vector3 (0.23f, 0.23f, 0.23f), itemTweenTime).setEase (itemEaseType);
+        }
     }
     private void OnTriggerExit2D (Collider2D other) {
-        //currentCollided = null;
+        if (other.gameObject.CompareTag ("Fruit") || other.gameObject.CompareTag ("Drink") || other.gameObject.CompareTag ("Cream")) {
+            LeanTween.scale (gameObject, new Vector3 (0.2f, 0.2f, 0.2f), itemTweenTime).setEase (itemEaseType);
+        }
     }
     #endregion
 
     #region Methods
     void SetUp () {
+        gameObject.transform.localScale = new Vector3 (0.2f, 0.2f, 0.2f);
         fruit.sprite = null;
         cream.sprite = null;
         drink.sprite = null;
@@ -128,6 +142,9 @@ public class CupState : MonoBehaviour {
     }
 
     public void Drop () {
+        void handle(){
+            GameEvent.instance.HandleCup (cupID, false);
+        }
         if (isBeingHeld) {
             isBeingHeld = false;
 
@@ -135,14 +152,13 @@ public class CupState : MonoBehaviour {
             if (currentCollided != null) {
                 if (currentCollided.gameObject.CompareTag ("Trash")) {
                     changeSpriteOrder (defaultSortingLayer);
-                    GameEvent.instance.HandleCup (cupID, false);
-                    //gameevent call for cup manager
+                    LeanTween.scale (gameObject, new Vector3 (0, 0, 0), trashTweenTime).setEase (trashEaseType).setOnComplete(handle);
                 } else if (currentCollided.gameObject.CompareTag ("Customer")) {
                     changeSpriteOrder (defaultSortingLayer);
-                    int id = currentCollided.gameObject.GetComponent<CustomerScript>().id;
-                    string customerType = currentCollided.gameObject.GetComponent<CustomerScript>().customerType;
+                    int id = currentCollided.gameObject.GetComponent<CustomerScript> ().id;
+                    string customerType = currentCollided.gameObject.GetComponent<CustomerScript> ().customerType;
                     GameEvent.instance.Compare (answers, id, customerType);
-                    GameEvent.instance.HandleCup (cupID, false);
+                    LeanTween.scale (gameObject, new Vector3 (0, 0, 0), trashTweenTime).setEase (trashEaseType).setOnComplete(handle);
                 } else {
                     StartCoroutine (DropSpriteChange ());
                     LeanTween.move (this.gameObject, pickupPos, tweenTime).setEase (easeType);
