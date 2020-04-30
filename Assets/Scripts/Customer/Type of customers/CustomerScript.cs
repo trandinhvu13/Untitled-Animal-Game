@@ -144,7 +144,12 @@ public class CustomerScript : MonoBehaviour, IPoolable {
     #endregion
 
     #region Trigger
-
+    private void OnTriggerEnter2D (Collider2D other) {
+        LeanTween.scale (gameObject, new Vector3 (11.5f, 11.5f, 11.5f), 0.2f).setEase (LeanTweenType.easeInOutQuad);
+    }
+    private void OnTriggerExit2D (Collider2D other) {
+        LeanTween.scale (gameObject, new Vector3 (9.5f, 9.5f, 9.5f), 0.2f).setEase (LeanTweenType.easeInOutQuad);
+    }
     #endregion
 
 }

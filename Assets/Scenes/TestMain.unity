@@ -1104,6 +1104,9 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   timerUI: {fileID: 414699402}
   col: {fileID: 362426198}
+  itemEaseType: 4
+  itemTweenTime: 0.2
+  visual: {fileID: 1568631490}
 --- !u!212 &362426200
 SpriteRenderer:
   m_ObjectHideFlags: 0
@@ -1426,6 +1429,11 @@ PrefabInstance:
       propertyPath: tweenTime
       value: 0.4
       objectReference: {fileID: 0}
+    - target: {fileID: 6437384354686362663, guid: d112ee8ba84aec34d92fe3501524525f,
+        type: 3}
+      propertyPath: trash
+      value: 
+      objectReference: {fileID: 557090409}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: d112ee8ba84aec34d92fe3501524525f, type: 3}
 --- !u!1 &380321344 stripped
@@ -4442,6 +4450,7 @@ GameObject:
   - component: {fileID: 1054411616}
   - component: {fileID: 1054411614}
   - component: {fileID: 1054411613}
+  - component: {fileID: 1054411615}
   m_Layer: 0
   m_Name: Trash
   m_TagString: Trash
@@ -4496,6 +4505,21 @@ Rigidbody2D:
   m_SleepingMode: 1
   m_CollisionDetection: 0
   m_Constraints: 7
+--- !u!114 &1054411615
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1054411612}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 5b1e0375a8b0867488be37554d83f2f1, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  trashEaseType: 4
+  trashTweenTime: 0.2
+  visual: {fileID: 557090409}
 --- !u!4 &1054411616
 Transform:
   m_ObjectHideFlags: 0
@@ -5581,7 +5605,6 @@ GameObject:
   - component: {fileID: 1326153826}
   - component: {fileID: 1326153829}
   - component: {fileID: 1326153828}
-  - component: {fileID: 1326153827}
   m_Layer: 5
   m_Name: Canvas
   m_TagString: Untagged
@@ -5609,23 +5632,6 @@ RectTransform:
   m_AnchoredPosition: {x: -0.945, y: -1.6122}
   m_SizeDelta: {x: 0.36355162, y: 0.47127402}
   m_Pivot: {x: 0.5, y: 0.5}
---- !u!114 &1326153827
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1326153825}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: dc42784cf147c0c48a680349fa168899, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  m_IgnoreReversedGraphics: 1
-  m_BlockingObjects: 0
-  m_BlockingMask:
-    serializedVersion: 2
-    m_Bits: 4294967295
 --- !u!114 &1326153828
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -6126,7 +6132,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   m_Material: {fileID: 0}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
-  m_RaycastTarget: 1
+  m_RaycastTarget: 0
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
@@ -7294,7 +7300,6 @@ GameObject:
   - component: {fileID: 1789789960}
   - component: {fileID: 1789789963}
   - component: {fileID: 1789789962}
-  - component: {fileID: 1789789961}
   m_Layer: 5
   m_Name: Canvas
   m_TagString: Untagged
@@ -7322,23 +7327,6 @@ RectTransform:
   m_AnchoredPosition: {x: 0.947, y: -1.609}
   m_SizeDelta: {x: 0.36355162, y: 0.47127402}
   m_Pivot: {x: 0.5, y: 0.5}
---- !u!114 &1789789961
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1789789959}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: dc42784cf147c0c48a680349fa168899, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  m_IgnoreReversedGraphics: 1
-  m_BlockingObjects: 0
-  m_BlockingMask:
-    serializedVersion: 2
-    m_Bits: 4294967295
 --- !u!114 &1789789962
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -9185,6 +9173,11 @@ PrefabInstance:
       propertyPath: trashEaseType
       value: 4
       objectReference: {fileID: 0}
+    - target: {fileID: 6437384354686362663, guid: d112ee8ba84aec34d92fe3501524525f,
+        type: 3}
+      propertyPath: trash
+      value: 
+      objectReference: {fileID: 557090409}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: d112ee8ba84aec34d92fe3501524525f, type: 3}
 --- !u!1001 &8344683993588511440

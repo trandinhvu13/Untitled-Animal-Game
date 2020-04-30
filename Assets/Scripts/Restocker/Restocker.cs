@@ -13,6 +13,13 @@ public class Restocker : MonoBehaviour {
     private Collider2D col;
 
     bool available = true;
+
+    public LeanTweenType itemEaseType;
+
+    public float itemTweenTime;
+    public GameObject visual;
+
+
     private void OnEnable () {
         GameEvent.instance.OnRestockItem += HandleItemDrop;
         deliveryTime = PlayerStats.instance.deliveryTime;
@@ -41,7 +48,16 @@ public class Restocker : MonoBehaviour {
         }
     }
 
-    private void OnTriggerEnter2D (Collider2D collision) { }
+    private void OnTriggerEnter2D (Collider2D collision) { 
+        if(collision.gameObject.CompareTag("Fruit") || collision.gameObject.CompareTag("Cream")||collision.gameObject.CompareTag("Drink")){
+            LeanTween.scale (visual, new Vector3 (1.2f, 1.2f, 1.2f), itemTweenTime).setEase (itemEaseType);
+        }
+    }
+    private void OnTriggerExit2D(Collider2D other) {
+        if (other.gameObject.CompareTag ("Fruit") || other.gameObject.CompareTag ("Drink") || other.gameObject.CompareTag ("Cream")) {
+            LeanTween.scale (visual, new Vector3 (1f, 1f, 1f), itemTweenTime).setEase (itemEaseType);
+        }
+    }
     void HandleItemDrop (string _type, int _colorID) {
         col.enabled = false;
         available = false;

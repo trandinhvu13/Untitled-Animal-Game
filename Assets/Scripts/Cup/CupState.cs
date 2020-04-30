@@ -20,6 +20,7 @@ public class CupState : MonoBehaviour {
     public Vector3 defaultActivePos;
     public int cupID;
     private Vector3 pickupPos;
+    public GameObject trash;
 
     [Header ("Sprite")]
     [SerializeField]
@@ -142,8 +143,14 @@ public class CupState : MonoBehaviour {
     }
 
     public void Drop () {
-        void handle(){
+        void handle () {
             GameEvent.instance.HandleCup (cupID, false);
+            if (currentCollided.gameObject.CompareTag ("Trash")) {
+                LeanTween.scale (trash, new Vector3 (1, 1, 1), 0.2f).setEase (LeanTweenType.easeInOutQuad);
+            } else if (currentCollided.gameObject.CompareTag ("Customer")) {
+                LeanTween.scale (currentCollided.gameObject, new Vector3 (10, 10, 10), 0.2f).setEase (LeanTweenType.easeInOutQuad);
+            }
+
         }
         if (isBeingHeld) {
             isBeingHeld = false;
@@ -152,13 +159,13 @@ public class CupState : MonoBehaviour {
             if (currentCollided != null) {
                 if (currentCollided.gameObject.CompareTag ("Trash")) {
                     changeSpriteOrder (defaultSortingLayer);
-                    LeanTween.scale (gameObject, new Vector3 (0, 0, 0), trashTweenTime).setEase (trashEaseType).setOnComplete(handle);
+                    LeanTween.scale (gameObject, new Vector3 (0, 0, 0), trashTweenTime).setEase (trashEaseType).setOnComplete (handle);
                 } else if (currentCollided.gameObject.CompareTag ("Customer")) {
                     changeSpriteOrder (defaultSortingLayer);
                     int id = currentCollided.gameObject.GetComponent<CustomerScript> ().id;
                     string customerType = currentCollided.gameObject.GetComponent<CustomerScript> ().customerType;
                     GameEvent.instance.Compare (answers, id, customerType);
-                    LeanTween.scale (gameObject, new Vector3 (0, 0, 0), trashTweenTime).setEase (trashEaseType).setOnComplete(handle);
+                    LeanTween.scale (gameObject, new Vector3 (0, 0, 0), trashTweenTime).setEase (trashEaseType).setOnComplete (handle);
                 } else {
                     StartCoroutine (DropSpriteChange ());
                     LeanTween.move (this.gameObject, pickupPos, tweenTime).setEase (easeType);
