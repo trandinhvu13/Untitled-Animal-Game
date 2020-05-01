@@ -79,7 +79,6 @@ public class CustomerManager : MonoBehaviour {
             seatStats[_id] = false;
             GameEvent.instance.DespawnCustomer (_id, "Correct");
             GameEvent.instance.IncreaseScore (10);
-            Debug.Log("Right2");
         } else if (_type == "VIP") {
             GameEvent.instance.RequestNextVipOrder (_id);
         } else if (_type == "EatALot") {
@@ -125,6 +124,7 @@ public class CustomerManager : MonoBehaviour {
             GameEvent.instance.DecreaseScore (40);
         }
         seatStats[_id] = false;
+        GameEvent.instance.ChangeLife (-1);
         GameEvent.instance.DespawnCustomer (_id, "Timeout");
     }
 

@@ -18,17 +18,18 @@ public class PlayerStats : MonoBehaviour
         }
     }
 
-    //Score
+    [Header ("Score")]
     public int totalScore;
+    public int ordersToIncreaseMult;
     public int maxMultiplier;
     public int maxLife;
 
-    //Invetory
+    [Header ("Inventory")]
     public int drinkMQuantity;
     public int creamMQuantity;
     public int fruitMQuantity;
 
-    //Customer
+    [Header ("Customer")]
     public float waitTime;
     public float customerWaitingTime = 10;
     public float minSpawnTime = 3;
@@ -36,17 +37,16 @@ public class PlayerStats : MonoBehaviour
     public float VIPCustomerChance;
     public float EALCustomerChance;
 
-    //Restocker
-    public float cooldownTime;
+    [Header ("Restocker")]
     public float deliveryTime = 5;
 
-    //Upgrade
+    [Header ("Update")]
     public int maxMultiplierPrice;
+    public int ordersToIncreaseMultPrice;
     public int drinksMaxQuantityPrice;
     public int creamsMaxQuantityPrice;
     public int fruitsMaxQuantityPrice;
     public int maxLifePrice;
-    public int restockTimePrice;
     public int restockCooldownPrice;
     public int VIPChancePrice;
     public int EALChancePrice;
@@ -56,9 +56,7 @@ public class PlayerStats : MonoBehaviour
     private void OnEnable()
     {
         //Change with players pref
-        drinkMQuantity = 3;
-        creamMQuantity = 3;
-        fruitMQuantity = 3;
+       
     }
 
 }

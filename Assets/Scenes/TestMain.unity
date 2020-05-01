@@ -151,7 +151,7 @@ RectTransform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 1125739186}
-  m_RootOrder: 1
+  m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
@@ -859,7 +859,7 @@ RectTransform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 1125739186}
-  m_RootOrder: 0
+  m_RootOrder: 1
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
@@ -2236,25 +2236,25 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   totalScore: 0
-  maxMultiplier: 0
+  ordersToIncreaseMult: 2
+  maxMultiplier: 4
   maxLife: 3
   drinkMQuantity: 3
   creamMQuantity: 3
   fruitMQuantity: 3
-  waitTime: 20
+  waitTime: 100
   customerWaitingTime: 20
   minSpawnTime: 3
-  maxSpawnTime: 9
+  maxSpawnTime: 20
   VIPCustomerChance: 0
   EALCustomerChance: 0
-  cooldownTime: 0
   deliveryTime: 5
   maxMultiplierPrice: 0
+  ordersToIncreaseMultPrice: 0
   drinksMaxQuantityPrice: 0
   creamsMaxQuantityPrice: 0
   fruitsMaxQuantityPrice: 0
   maxLifePrice: 0
-  restockTimePrice: 0
   restockCooldownPrice: 0
   VIPChancePrice: 0
   EALChancePrice: 0
@@ -4100,12 +4100,11 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   currentScoreText: {fileID: 103523602}
   multiplierText: {fileID: 44540934}
+  score: {fileID: 103523600}
+  multiplier: {fileID: 44540932}
   currentScore: 0
-  currentMultiplier: 2
-  multiplierDuration: 0
+  currentMultiplier: 1
   correctOrderStreak: 0
-  currentMultiplierTime: 0
-  multiplierOrderStep: 0
   isOnMultiplier: 0
   currentLife: 0
 --- !u!1 &851267408
@@ -5082,8 +5081,8 @@ RectTransform:
   m_LocalPosition: {x: 0, y: 0, z: 90}
   m_LocalScale: {x: 0.002090236, y: 0.002090236, z: 0.002090236}
   m_Children:
-  - {fileID: 103523601}
   - {fileID: 44540933}
+  - {fileID: 103523601}
   m_Father: {fileID: 843979451}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}

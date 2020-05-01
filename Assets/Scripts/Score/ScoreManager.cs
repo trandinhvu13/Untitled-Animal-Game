@@ -19,13 +19,15 @@ public class ScoreManager : MonoBehaviour {
     public TextMeshProUGUI multiplierText;
     #endregion
 
+    #region UI
+    public GameObject score;
+    public GameObject multiplier;
+    #endregion
+
     #region Variables
     public int currentScore = 0;
     public int currentMultiplier = 1;
-    public float multiplierDuration;
     public int correctOrderStreak = 0;
-    public float currentMultiplierTime;
-    public int multiplierOrderStep;
     public bool isOnMultiplier;
 
     public int currentLife;
@@ -36,9 +38,10 @@ public class ScoreManager : MonoBehaviour {
     private void OnEnable () {
         currentLife = PlayerStats.instance.maxLife;
         currentScore = 0;
+        currentMultiplier = 1;
         GameEvent.instance.OnIncreaseScore += IncreaseScore;
-        GameEvent.instance.OnIncreaseScore += DecreaseScore;
-        GameEvent.instance.OnIncreaseScore += ChangeMultiplier;
+        GameEvent.instance.OnDecreaseScore += DecreaseScore;
+        GameEvent.instance.OnChangeMultiplier += ChangeMultiplier;
         GameEvent.instance.OnChangeLife += ChangeCurrentLife;
         GameEvent.instance.OnChangeMaxLife += ChangeCurrentMaxLife;
 
@@ -46,49 +49,46 @@ public class ScoreManager : MonoBehaviour {
 
     private void OnDisable () {
         GameEvent.instance.OnIncreaseScore -= IncreaseScore;
-        GameEvent.instance.OnIncreaseScore -= DecreaseScore;
-        GameEvent.instance.OnIncreaseScore -= ChangeMultiplier;
+        GameEvent.instance.OnDecreaseScore -= DecreaseScore;
+        GameEvent.instance.OnChangeMultiplier -= ChangeMultiplier;
         GameEvent.instance.OnChangeLife -= ChangeCurrentLife;
         GameEvent.instance.OnChangeMaxLife -= ChangeCurrentMaxLife;
     }
 
     void Update () {
         UI ();
-        ScoreTrack ();
-        //MultiplierTrack ();
+        MultiplierTrack ();
         LifeTrack ();
-       // StreakTrack ();
+        StreakTrack ();
     }
     #endregion
 
     #region Methods
     void UI () {
-        currentScoreText.text = currentScore.ToString ();
-        multiplierText.color = HSBColor.ToColor(new HSBColor( Mathf.PingPong(Time.time * 1, 1), 1, 1));
+        if (currentScore > 0) {
+            currentScoreText.text = currentScore.ToString ();
+        } else {
+            currentScoreText.text = "0";
+        }
+
         if (currentMultiplier <= 1) {
             multiplierText.text = null;
         } else {
             multiplierText.text = "x " + currentMultiplier.ToString ();
+            multiplierText.color = HSBColor.ToColor (new HSBColor (Mathf.PingPong (Time.time * 1, 1), 1, 1));
         }
 
     }
-    void ScoreTrack () {
-       
-    }
 
     void MultiplierTrack () {
-        if (currentMultiplierTime <= 0) {
-            isOnMultiplier = false;
-            currentMultiplier = 1;
-        } else {
-            isOnMultiplier = true;
-            currentMultiplierTime -= Time.deltaTime;
+        if (currentMultiplier >= PlayerStats.instance.maxMultiplier) {
+            currentMultiplier = PlayerStats.instance.maxMultiplier;
         }
     }
 
     void LifeTrack () {
         if (currentLife <= 0) {
-            //Endgame
+            Debug.Log ("EndGame");
         }
         // if (currentScore % scoreTo1Up==0)
         // {
@@ -96,20 +96,9 @@ public class ScoreManager : MonoBehaviour {
         // }
     }
     void StreakTrack () {
-        if (isOnMultiplier) {
-            if (correctOrderStreak >= multiplierOrderStep) {
-                correctOrderStreak = 0;
-                currentMultiplierTime = multiplierDuration;
-                if (currentMultiplier <= PlayerStats.instance.maxMultiplier) {
-                    currentMultiplier++;
-                } else {
-                    currentMultiplier = PlayerStats.instance.maxMultiplier;
-                }
-            }
-        } else {
-            if (correctOrderStreak == 1) {
-                currentMultiplierTime = multiplierDuration;
-            }
+        if (correctOrderStreak == PlayerStats.instance.ordersToIncreaseMult) {
+            ChangeMultiplier (1);
+            correctOrderStreak = 0;
         }
 
     }
@@ -118,21 +107,24 @@ public class ScoreManager : MonoBehaviour {
         PlayerStats.instance.totalScore += amount;
     }
     void IncreaseScore (int scoreAmount) {
-        currentScore += scoreAmount * currentMultiplier;
-        Debug.Log("IncreaseScore");
+        currentScore = currentScore + (scoreAmount * currentMultiplier);
+        Debug.Log ("IncreaseScore");
+        LeanTween.scale(score, new Vector3(1.5f,1.5f,1.5f),0.35f).setEase(LeanTweenType.easeOutBack).setLoopPingPong(1);
         correctOrderStreak++;
-
     }
 
     void DecreaseScore (int scoreAmount) {
-        currentScore -= scoreAmount;
+        currentScore = currentScore - scoreAmount;
+        LeanTween.scale(score, new Vector3(1.5f,1.5f,1.5f),0.35f).setEase(LeanTweenType.easeOutBack).setLoopPingPong(1);
         currentMultiplier = 1;
         correctOrderStreak = 0;
     }
 
     void ChangeMultiplier (int multiplierAmount) {
         currentMultiplier += multiplierAmount;
-        
+        LeanTween.scale(multiplier, new Vector3(1.5f,1.5f,1.5f),0.35f).setEase(LeanTweenType.easeOutBack).setLoopPingPong(1);
+        //ui effects
+
     }
 
     void ChangeCurrentLife (int amount) {
