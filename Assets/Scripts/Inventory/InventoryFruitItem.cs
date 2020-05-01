@@ -40,7 +40,6 @@ public class InventoryFruitItem : MonoBehaviour {
     }
     private void OnEnable () {
         GameEvent.instance.OnToggleFruitCollider += ToggleCollider;
-        GameEvent.instance.OnUpdateItemUI += UpdateUI;
 
         leanDrag.enabled = false;
         isDraggable = true;
@@ -51,11 +50,11 @@ public class InventoryFruitItem : MonoBehaviour {
 
     private void OnDisable () {
         GameEvent.instance.OnToggleFruitCollider -= ToggleCollider;
-        GameEvent.instance.OnUpdateItemUI -= UpdateUI;
     }
     void Start () { }
 
     void Update () {
+        textMeshPro.text = scriptableObject.Quantity.ToString ();
         if (scriptableObject.Quantity > 0) {
             isDraggable = true;
         } else {
@@ -127,7 +126,7 @@ public class InventoryFruitItem : MonoBehaviour {
             leanDrag.enabled = false;
             //textMeshPro.color = new Color32 (43, 15, 49, 255);
             spriteRenderer.sortingOrder = defaultSortingOrder;
-            textMeshPro.text = scriptableObject.Quantity.ToString ();
+            
         }
 
     }
@@ -135,11 +134,7 @@ public class InventoryFruitItem : MonoBehaviour {
         col.enabled = isEnabled;
     }
 
-    public void UpdateUI (string _type, int _colorID) {
-        if (_type == objType && _colorID == objColorID) {
-            textMeshPro.text = scriptableObject.Quantity.ToString ();
-        }
-    }
+    
     #endregion
 
 }

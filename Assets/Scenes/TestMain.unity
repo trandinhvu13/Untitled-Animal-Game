@@ -2111,18 +2111,6 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 414699400}
   m_CullTransparentMesh: 0
---- !u!114 &419250871 stripped
-MonoBehaviour:
-  m_CorrespondingSourceObject: {fileID: 3244304268916772774, guid: 59cb1634b8e009747bac3485605cc541,
-    type: 3}
-  m_PrefabInstance: {fileID: 3244304268838684822}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 0}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 83dcd8dace8b7fe449d796b980cb121d, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
 --- !u!1 &442921254
 GameObject:
   m_ObjectHideFlags: 0
@@ -3754,18 +3742,6 @@ RectTransform:
     type: 3}
   m_PrefabInstance: {fileID: 774221127}
   m_PrefabAsset: {fileID: 0}
---- !u!114 &777973911 stripped
-MonoBehaviour:
-  m_CorrespondingSourceObject: {fileID: 5440509481652589352, guid: 566dfc5dd79e3f646b99cf1a533bd711,
-    type: 3}
-  m_PrefabInstance: {fileID: 2695107888210836733}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 0}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: f4688fdb7df04437aeb418b961361dc5, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
 --- !u!1 &801812446
 GameObject:
   m_ObjectHideFlags: 0
@@ -7273,18 +7249,6 @@ RectTransform:
     type: 3}
   m_PrefabInstance: {fileID: 1480010377}
   m_PrefabAsset: {fileID: 0}
---- !u!114 &1529242627 stripped
-MonoBehaviour:
-  m_CorrespondingSourceObject: {fileID: 6730873817608096886, guid: c98310124d80c0c448ecba8332878b2f,
-    type: 3}
-  m_PrefabInstance: {fileID: 8344683993588511440}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 0}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: f4688fdb7df04437aeb418b961361dc5, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
 --- !u!1 &1555689375
 GameObject:
   m_ObjectHideFlags: 0
@@ -9141,11 +9105,6 @@ PrefabInstance:
       propertyPath: m_Name
       value: Inventory_Fruit
       objectReference: {fileID: 0}
-    - target: {fileID: 603737243714717504, guid: 566dfc5dd79e3f646b99cf1a533bd711,
-        type: 3}
-      propertyPath: m_TagString
-      value: Fruit
-      objectReference: {fileID: 0}
     - target: {fileID: 603737243714717510, guid: 566dfc5dd79e3f646b99cf1a533bd711,
         type: 3}
       propertyPath: Camera
@@ -9256,11 +9215,6 @@ PrefabInstance:
       propertyPath: m_Pivot.y
       value: 0.74
       objectReference: {fileID: 0}
-    - target: {fileID: 3244304269811317694, guid: 566dfc5dd79e3f646b99cf1a533bd711,
-        type: 3}
-      propertyPath: textMeshPro
-      value: 
-      objectReference: {fileID: 777973911}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 566dfc5dd79e3f646b99cf1a533bd711, type: 3}
 --- !u!224 &3244304268420601192 stripped
@@ -9276,11 +9230,6 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 851267409}
     m_Modifications:
-    - target: {fileID: 3244304268838684824, guid: 59cb1634b8e009747bac3485605cc541,
-        type: 3}
-      propertyPath: leanSelectable
-      value: 
-      objectReference: {fileID: 419250871}
     - target: {fileID: 3244304268916772794, guid: 59cb1634b8e009747bac3485605cc541,
         type: 3}
       propertyPath: m_LocalPosition.x
@@ -9395,11 +9344,6 @@ PrefabInstance:
         type: 3}
       propertyPath: m_Name
       value: Inventory_Cream
-      objectReference: {fileID: 0}
-    - target: {fileID: 3244304268916772797, guid: 59cb1634b8e009747bac3485605cc541,
-        type: 3}
-      propertyPath: m_TagString
-      value: Cream
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 59cb1634b8e009747bac3485605cc541, type: 3}
@@ -9739,15 +9683,5 @@ PrefabInstance:
       propertyPath: m_Name
       value: Inventory_Drink
       objectReference: {fileID: 0}
-    - target: {fileID: 6829797252559890367, guid: c98310124d80c0c448ecba8332878b2f,
-        type: 3}
-      propertyPath: m_TagString
-      value: Drink
-      objectReference: {fileID: 0}
-    - target: {fileID: 8344683994068627796, guid: c98310124d80c0c448ecba8332878b2f,
-        type: 3}
-      propertyPath: textMeshPro
-      value: 
-      objectReference: {fileID: 1529242627}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: c98310124d80c0c448ecba8332878b2f, type: 3}

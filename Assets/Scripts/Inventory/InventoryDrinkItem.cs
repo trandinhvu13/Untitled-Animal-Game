@@ -39,25 +39,24 @@ public class InventoryDrinkItem : MonoBehaviour {
     }
     private void OnEnable () {
         GameEvent.instance.OnToggleDrinkCollider += ToggleCollider;
-        GameEvent.instance.OnUpdateItemUI += UpdateUI;
 
         leanDrag.enabled = false;
         isDraggable = true;
         spriteRenderer.sprite = scriptableObject.playerInventory;
-        textMeshPro.text = scriptableObject.Quantity.ToString ();
+        
         spriteRenderer.sortingOrder = defaultSortingOrder;
 
     }
 
     private void OnDisable () {
         GameEvent.instance.OnToggleDrinkCollider -= ToggleCollider;
-        GameEvent.instance.OnUpdateItemUI -= UpdateUI;
     }
     void Start () {
 
     }
 
     void Update () {
+        textMeshPro.text = scriptableObject.Quantity.ToString ();
         if (scriptableObject.Quantity > 0) {
             isDraggable = true;
         } else {
@@ -135,11 +134,7 @@ public class InventoryDrinkItem : MonoBehaviour {
         col.enabled = isEnabled;
     }
 
-    public void UpdateUI (string _type, int _colorID) {
-        if (_type == objType && _colorID == objColorID) {
-            textMeshPro.text = scriptableObject.Quantity.ToString ();
-        }
-    }
+    
     #endregion
 
 }

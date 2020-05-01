@@ -174,7 +174,7 @@ GameObject:
   - component: {fileID: 8160314406532548197}
   m_Layer: 5
   m_Name: Inventory_Drink
-  m_TagString: Untagged
+  m_TagString: Drink
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -271,7 +271,7 @@ BoxCollider2D:
   m_IsTrigger: 1
   m_UsedByEffector: 0
   m_UsedByComposite: 0
-  m_Offset: {x: -0.03233871, y: -0.18595797}
+  m_Offset: {x: -0.030394912, y: -0.1509701}
   m_SpriteTilingProperty:
     border: {x: 0, y: 0, z: 0, w: 0}
     pivot: {x: 0.5, y: 0.5}
@@ -282,7 +282,7 @@ BoxCollider2D:
     adaptiveTiling: 0
   m_AutoTiling: 0
   serializedVersion: 2
-  m_Size: {x: 0.43225503, y: 0.5023335}
+  m_Size: {x: 0.5683191, y: 0.6889355}
   m_EdgeRadius: 0
 --- !u!114 &6829797252559890340
 MonoBehaviour:
@@ -361,7 +361,7 @@ MonoBehaviour:
   leanDrag: {fileID: 6829797252559890361}
   spriteRenderer: {fileID: 6829797252559890342}
   rect: {fileID: 6829797252559890360}
-  textMeshPro: {fileID: 0}
+  textMeshPro: {fileID: 6730873817608096886}
   scriptableObject: {fileID: 11400000, guid: 8a76de1a8dc31f140a5765773f7c544e, type: 2}
   isBeingHeld: 0
 --- !u!114 &8160314406532548197

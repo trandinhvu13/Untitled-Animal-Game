@@ -37,7 +37,6 @@ public class InventoryCreamItem : MonoBehaviour {
     }
     private void OnEnable () {
         GameEvent.instance.OnToggleCreamCollider += ToggleCollider;
-        GameEvent.instance.OnUpdateItemUI += UpdateUI;
 
         leanDrag.enabled = false;
         isDraggable = true;
@@ -49,13 +48,14 @@ public class InventoryCreamItem : MonoBehaviour {
 
     private void OnDisable () {
         GameEvent.instance.OnToggleCreamCollider -= ToggleCollider;
-        GameEvent.instance.OnUpdateItemUI -= UpdateUI;
+        
     }
     void Start () {
 
     }
 
     void Update () {
+        textMeshPro.text = scriptableObject.Quantity.ToString ();
         if (scriptableObject.Quantity > 0) {
             isDraggable = true;
         } else {
@@ -105,7 +105,7 @@ public class InventoryCreamItem : MonoBehaviour {
             GameEvent.instance.ToggleScroll (true);
             leanDrag.enabled = false;
             spriteRenderer.sortingOrder = defaultSortingOrder;
-            textMeshPro.text = scriptableObject.Quantity.ToString ();
+            
 
             //Check Collision
 
@@ -137,11 +137,7 @@ public class InventoryCreamItem : MonoBehaviour {
         col.enabled = isEnabled;
     }
 
-    public void UpdateUI (string _type, int _colorID) {
-        if (_type == objType && _colorID == objColorID) {
-            textMeshPro.text = scriptableObject.Quantity.ToString ();
-        }
-    }
+    
     #endregion
 
 }
