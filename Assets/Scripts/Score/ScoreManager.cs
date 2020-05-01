@@ -1,23 +1,25 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
+using TMPro;
 using UnityEngine;
 
-public class ScoreManager : MonoBehaviour
-{
+public class ScoreManager : MonoBehaviour {
     public static ScoreManager instance = null;
 
-    private void Awake()
-    {
-        if (instance == null)
-        {
+    private void Awake () {
+        if (instance == null) {
             instance = this;
-        }
-        else if (instance != this)
-        {
-            Destroy(gameObject);
+        } else if (instance != this) {
+            Destroy (gameObject);
         }
     }
 
+    #region GameObj
+    public TextMeshProUGUI currentScoreText;
+    public TextMeshProUGUI multiplierText;
+    #endregion
+
+    #region Variables
     public int currentScore = 0;
     public int currentMultiplier = 1;
     public float multiplierDuration;
@@ -25,13 +27,15 @@ public class ScoreManager : MonoBehaviour
     public float currentMultiplierTime;
     public int multiplierOrderStep;
     public bool isOnMultiplier;
-   
+
     public int currentLife;
     //public int scoreTo1Up;
+    #endregion
 
-    private void OnEnable()
-    {
+    #region Monos
+    private void OnEnable () {
         currentLife = PlayerStats.instance.maxLife;
+        currentScore = 0;
         GameEvent.instance.OnIncreaseScore += IncreaseScore;
         GameEvent.instance.OnIncreaseScore += DecreaseScore;
         GameEvent.instance.OnIncreaseScore += ChangeMultiplier;
@@ -40,8 +44,7 @@ public class ScoreManager : MonoBehaviour
 
     }
 
-    private void OnDisable()
-    {
+    private void OnDisable () {
         GameEvent.instance.OnIncreaseScore -= IncreaseScore;
         GameEvent.instance.OnIncreaseScore -= DecreaseScore;
         GameEvent.instance.OnIncreaseScore -= ChangeMultiplier;
@@ -49,97 +52,96 @@ public class ScoreManager : MonoBehaviour
         GameEvent.instance.OnChangeMaxLife -= ChangeCurrentMaxLife;
     }
 
-    void Update()
-    {
-        if (currentScore <= 0)
-        {
-            currentScore = 0;
+    void Update () {
+        UI ();
+        ScoreTrack ();
+        //MultiplierTrack ();
+        LifeTrack ();
+       // StreakTrack ();
+    }
+    #endregion
+
+    #region Methods
+    void UI () {
+        currentScoreText.text = currentScore.ToString ();
+        multiplierText.color = HSBColor.ToColor(new HSBColor( Mathf.PingPong(Time.time * 1, 1), 1, 1));
+        if (currentMultiplier <= 1) {
+            multiplierText.text = null;
+        } else {
+            multiplierText.text = "x " + currentMultiplier.ToString ();
         }
 
-        if (currentMultiplierTime <= 0)
-        {
+    }
+    void ScoreTrack () {
+       
+    }
+
+    void MultiplierTrack () {
+        if (currentMultiplierTime <= 0) {
             isOnMultiplier = false;
             currentMultiplier = 1;
-        }
-        else
-        {
+        } else {
             isOnMultiplier = true;
             currentMultiplierTime -= Time.deltaTime;
         }
+    }
 
+    void LifeTrack () {
+        if (currentLife <= 0) {
+            //Endgame
+        }
         // if (currentScore % scoreTo1Up==0)
         // {
         //     ChangeCurrentLife(1);
         // }
-
-        if (currentLife <= 0)
-        {
-            //Endgame
-        }
-
-        TrackStreak();
     }
-
-    void TrackStreak()
-    {
-        if (isOnMultiplier)
-        {
-            if (correctOrderStreak >= multiplierOrderStep)
-            {
+    void StreakTrack () {
+        if (isOnMultiplier) {
+            if (correctOrderStreak >= multiplierOrderStep) {
                 correctOrderStreak = 0;
                 currentMultiplierTime = multiplierDuration;
-                if (currentMultiplier <= PlayerStats.instance.maxMultiplier)
-                {
+                if (currentMultiplier <= PlayerStats.instance.maxMultiplier) {
                     currentMultiplier++;
-                }
-                else
-                {
+                } else {
                     currentMultiplier = PlayerStats.instance.maxMultiplier;
                 }
             }
-        }
-        else
-        {
-            if (correctOrderStreak == 1)
-            {
+        } else {
+            if (correctOrderStreak == 1) {
                 currentMultiplierTime = multiplierDuration;
             }
         }
 
-
     }
 
-    void AddToTotalScore(int amount)
-    {
+    void AddToTotalScore (int amount) {
         PlayerStats.instance.totalScore += amount;
     }
-    void IncreaseScore(int scoreAmount)
-    {
+    void IncreaseScore (int scoreAmount) {
         currentScore += scoreAmount * currentMultiplier;
+        Debug.Log("IncreaseScore");
         correctOrderStreak++;
 
     }
 
-    void DecreaseScore(int scoreAmount)
-    {
+    void DecreaseScore (int scoreAmount) {
         currentScore -= scoreAmount;
         currentMultiplier = 1;
         correctOrderStreak = 0;
     }
 
-    void ChangeMultiplier(int multiplierAmount)
-    {
+    void ChangeMultiplier (int multiplierAmount) {
         currentMultiplier += multiplierAmount;
+        
     }
 
-    void ChangeCurrentLife(int amount)
-    {
+    void ChangeCurrentLife (int amount) {
         currentLife += amount;
     }
 
-    void ChangeCurrentMaxLife(int amount)
-    {
+    void ChangeCurrentMaxLife (int amount) {
         PlayerStats.instance.maxLife += amount;
     }
+    #endregion
 
 }

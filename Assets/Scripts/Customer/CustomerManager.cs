@@ -79,12 +79,13 @@ public class CustomerManager : MonoBehaviour {
             seatStats[_id] = false;
             GameEvent.instance.DespawnCustomer (_id, "Correct");
             GameEvent.instance.IncreaseScore (10);
+            Debug.Log("Right2");
         } else if (_type == "VIP") {
             GameEvent.instance.RequestNextVipOrder (_id);
         } else if (_type == "EatALot") {
             GameEvent.instance.CorrectEALOrder (_id);
         }
-        Debug.Log("Right2");
+        
     }
 
     void FalseCustomerHandler (int _id, string _type) {
