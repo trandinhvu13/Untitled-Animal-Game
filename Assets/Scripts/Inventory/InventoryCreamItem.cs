@@ -48,7 +48,7 @@ public class InventoryCreamItem : MonoBehaviour {
 
     private void OnDisable () {
         GameEvent.instance.OnToggleCreamCollider -= ToggleCollider;
-        
+
     }
     void Start () {
 
@@ -87,7 +87,7 @@ public class InventoryCreamItem : MonoBehaviour {
         //make pickup sound
         spriteRenderer.sortingOrder = selectSortingOrder;
 
-        LeanTween.scale(gameObject, new Vector3(0.65f,0.65f, 0.65f), 0.25f).setEase(LeanTweenType.easeOutQuad);
+        LeanTween.scale (gameObject, new Vector3 (0.65f, 0.65f, 0.65f), 0.25f).setEase (LeanTweenType.easeOutQuad);
 
     }
 
@@ -97,34 +97,51 @@ public class InventoryCreamItem : MonoBehaviour {
     }
 
     public void Drop () {
+        void changeBackMask () {
+            spriteRenderer.maskInteraction = SpriteMaskInteraction.VisibleInsideMask;
+        }
+
+        void resizeBig () {
+            changeBackMask ();
+            LeanTween.scale (gameObject, new Vector3 (0.5f, 0.5f, 0.5f), 0.25f).setEase (LeanTweenType.easeOutQuad);
+        }
+
+        void restockerMove () {
+            changeBackMask ();
+            rect.anchoredPosition = pickUpPos;
+            LeanTween.scale (gameObject, new Vector3 (0.5f, 0.5f, 0.5f), 0.25f).setEase (LeanTweenType.easeOutQuad);
+        }
+
         if (isBeingHeld) {
             isBeingHeld = false;
-            spriteRenderer.maskInteraction = SpriteMaskInteraction.VisibleInsideMask;
+
             GameEvent.instance.ToggleScroll (true);
             leanDrag.enabled = false;
             spriteRenderer.sortingOrder = defaultSortingOrder;
-            
 
             //Check Collision
 
             if (currentCollided != null) {
                 if (currentCollided.gameObject.CompareTag ("Cup")) {
-                        GameEvent.instance.HandleDropItem (objType, objColorID,isDraggable);
-                        //transform ve pick up pos(hieu ung poof)
+                    GameEvent.instance.HandleDropItem (objType, objColorID, isDraggable);
+                    LeanTween.scale (gameObject, new Vector3 (0, 0, 0), 0f);
+                    LeanTween.moveLocal (gameObject, pickUpPos, 0).setOnComplete (resizeBig);
 
-                        rect.anchoredPosition = pickUpPos;
                 } else if (currentCollided.gameObject.CompareTag ("Restocker")) {
                     if (scriptableObject.Quantity < scriptableObject.MaxQuantity) {
                         GameEvent.instance.RestockItem (objType, objColorID);
+                        LeanTween.scale (gameObject, new Vector3 (0, 0, 0), 0.25f).setEase (LeanTweenType.easeOutQuad).setOnComplete (restockerMove);
+                    } else {
+                        rect.anchoredPosition = pickUpPos;
+                        resizeBig ();
                     }
-                    rect.anchoredPosition = pickUpPos;
 
                 } else {
                     //transform ve pick up pos(hieu ung bay lai ve cho cu)
-                    rect.anchoredPosition = pickUpPos;
+                    LeanTween.moveLocal (gameObject, pickUpPos, 0.3f).setEase (LeanTweenType.easeOutBack).setOnComplete (resizeBig);
                 }
             } else {
-                rect.anchoredPosition = pickUpPos;
+                LeanTween.moveLocal (gameObject, pickUpPos, 0.3f).setEase (LeanTweenType.easeOutBack).setOnComplete (resizeBig);
             }
 
         }
@@ -135,7 +152,6 @@ public class InventoryCreamItem : MonoBehaviour {
         col.enabled = isEnabled;
     }
 
-    
     #endregion
 
 }

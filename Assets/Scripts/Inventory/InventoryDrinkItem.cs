@@ -43,7 +43,7 @@ public class InventoryDrinkItem : MonoBehaviour {
         leanDrag.enabled = false;
         isDraggable = true;
         spriteRenderer.sprite = scriptableObject.playerInventory;
-        
+
         spriteRenderer.sortingOrder = defaultSortingOrder;
 
     }
@@ -98,35 +98,53 @@ public class InventoryDrinkItem : MonoBehaviour {
     }
 
     public void Drop () {
+        void changeBackMask () {
+            spriteRenderer.maskInteraction = SpriteMaskInteraction.VisibleInsideMask;
+        }
+
+        void resizeBig () {
+            changeBackMask ();
+            LeanTween.scale (gameObject, new Vector3 (0.5f, 0.5f, 0.5f), 0.25f).setEase (LeanTweenType.easeOutQuad);
+        }
+
+        void restockerMove () {
+            changeBackMask ();
+            rect.anchoredPosition = pickUpPos;
+            LeanTween.scale (gameObject, new Vector3 (0.5f, 0.5f, 0.5f), 0.25f).setEase (LeanTweenType.easeOutQuad);
+        }
+
         if (isBeingHeld) {
             isBeingHeld = false;
+
+            GameEvent.instance.ToggleScroll (true);
+            leanDrag.enabled = false;
+            spriteRenderer.sortingOrder = defaultSortingOrder;
+
+            //Check Collision
+
             if (currentCollided != null) {
                 if (currentCollided.gameObject.CompareTag ("Cup")) {
                     GameEvent.instance.HandleDropItem (objType, objColorID, isDraggable);
-                    //transform ve pick up pos(hieu ung poof)
-
-                    //transform ve pick up pos (poof)
-                    rect.anchoredPosition = pickUpPos;
+                    LeanTween.scale (gameObject, new Vector3 (0, 0, 0), 0f);
+                    LeanTween.moveLocal (gameObject, pickUpPos, 0).setOnComplete (resizeBig);
 
                 } else if (currentCollided.gameObject.CompareTag ("Restocker")) {
                     if (scriptableObject.Quantity < scriptableObject.MaxQuantity) {
                         GameEvent.instance.RestockItem (objType, objColorID);
+                        LeanTween.scale (gameObject, new Vector3 (0, 0, 0), 0.25f).setEase (LeanTweenType.easeOutQuad).setOnComplete (restockerMove);
+                    } else {
+                        rect.anchoredPosition = pickUpPos;
+                        resizeBig ();
                     }
-                    rect.anchoredPosition = pickUpPos;
 
                 } else {
                     //transform ve pick up pos(hieu ung bay lai ve cho cu)
-                    rect.anchoredPosition = pickUpPos;
+                    LeanTween.moveLocal (gameObject, pickUpPos, 0.3f).setEase (LeanTweenType.easeOutBack).setOnComplete (resizeBig);
                 }
             } else {
-                rect.anchoredPosition = pickUpPos;
+                LeanTween.moveLocal (gameObject, pickUpPos, 0.3f).setEase (LeanTweenType.easeOutBack).setOnComplete (resizeBig);
             }
-            spriteRenderer.maskInteraction = SpriteMaskInteraction.VisibleInsideMask;
-            GameEvent.instance.ToggleScroll (true);
-            leanDrag.enabled = false;
-            //textMeshPro.color = new Color32 (43, 15, 49, 255);
-            spriteRenderer.sortingOrder = defaultSortingOrder;
-            textMeshPro.text = scriptableObject.Quantity.ToString ();
+
         }
 
     }
@@ -134,7 +152,6 @@ public class InventoryDrinkItem : MonoBehaviour {
         col.enabled = isEnabled;
     }
 
-    
     #endregion
 
 }
