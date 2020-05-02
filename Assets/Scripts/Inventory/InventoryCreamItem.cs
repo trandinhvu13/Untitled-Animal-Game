@@ -81,15 +81,13 @@ public class InventoryCreamItem : MonoBehaviour {
     public void PickUp () {
 
         isBeingHeld = true;
-        //send message stop scroll
         GameEvent.instance.ToggleScroll (false);
-        //change mask interaction
         spriteRenderer.maskInteraction = SpriteMaskInteraction.None;
-        //save pickup pos
         pickUpPos = rect.anchoredPosition;
         //make pickup sound
-        //textMeshPro.color = new Color32 (43, 15, 49, 0);
         spriteRenderer.sortingOrder = selectSortingOrder;
+
+        LeanTween.scale(gameObject, new Vector3(0.65f,0.65f, 0.65f), 0.25f).setEase(LeanTweenType.easeOutQuad);
 
     }
 
