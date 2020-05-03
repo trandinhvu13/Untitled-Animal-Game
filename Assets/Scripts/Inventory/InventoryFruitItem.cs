@@ -89,7 +89,7 @@ public class InventoryFruitItem : MonoBehaviour {
         //make pickup sound
         //textMeshPro.color = new Color32 (43, 15, 49, 0);
         spriteRenderer.sortingOrder = selectSortingOrder;
-        LeanTween.scale (gameObject, new Vector3 (0.65f, 0.65f, 0.65f), 0.25f).setEase (LeanTweenType.easeOutQuad);
+        LeanTween.scale (gameObject, new Vector3 (0.65f, 0.65f, 0.65f), 0.1f).setEase (LeanTweenType.easeOutQuad);
     }
 
     public void BeingHold () {

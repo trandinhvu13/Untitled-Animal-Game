@@ -87,7 +87,7 @@ public class InventoryCreamItem : MonoBehaviour {
         //make pickup sound
         spriteRenderer.sortingOrder = selectSortingOrder;
 
-        LeanTween.scale (gameObject, new Vector3 (0.65f, 0.65f, 0.65f), 0.25f).setEase (LeanTweenType.easeOutQuad);
+        LeanTween.scale (gameObject, new Vector3 (0.65f, 0.65f, 0.65f), 0.1f).setEase (LeanTweenType.easeOutQuad);
 
     }
 

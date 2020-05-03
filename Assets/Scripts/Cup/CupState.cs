@@ -69,9 +69,10 @@ public class CupState : MonoBehaviour {
         }
     }
     private void OnTriggerExit2D (Collider2D other) {
-        // if (other.gameObject.CompareTag ("Cup")) {
-        //     currentCollided = null;
-        // }
+       
+        if (other.gameObject.CompareTag ("Cup")||other.gameObject.CompareTag ("Trash")) {
+            currentCollided = null;
+         }
 
         if (other.gameObject.CompareTag ("Fruit") || other.gameObject.CompareTag ("Drink") || other.gameObject.CompareTag ("Cream")) {
             LeanTween.scale (gameObject, new Vector3 (0.2f, 0.2f, 0.2f), itemTweenTime).setEase (itemEaseType);

@@ -2280,17 +2280,20 @@ MonoBehaviour:
   machine: {fileID: 1793057016}
   table: {fileID: 760865534}
   chair: {fileID: 941179744}
+  score: {fileID: 843979450}
   floatAmount: 0.45
   startUpDelay: 0.3
   machineMoveTime: 0.6
-  restockerMoveTime: 0.3
-  trashMoveTime: 0.4
-  inventoryMoveTime: 0.6
+  restockerMoveTime: 0.7
+  trashMoveTime: 0.7
+  inventoryMoveTime: 0.5
   paneMoveTime: 0.4
   tableMoveTime: 0.6
   chairMoveTime: 0.6
+  scoreMoveTime: 1
   moveEaseType: 27
   floatingEaseType: 2
+  scoreEaseType: 27
 --- !u!114 &461801909 stripped
 MonoBehaviour:
   m_CorrespondingSourceObject: {fileID: 3244304268916772774, guid: 59cb1634b8e009747bac3485605cc541,
@@ -4055,7 +4058,7 @@ Transform:
   m_GameObject: {fileID: 843979450}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_LocalScale: {x: 0, y: 0, z: 0}
   m_Children:
   - {fileID: 1125739186}
   - {fileID: 1125825568}
@@ -4124,8 +4127,8 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: -0.547454, y: 0.23538214}
-  m_SizeDelta: {x: 3.781999, y: 0.47075975}
+  m_AnchoredPosition: {x: -0.547, y: 0.23538214}
+  m_SizeDelta: {x: 3.555759, y: 0.47075975}
   m_Pivot: {x: 0, y: 1}
 --- !u!114 &851267410
 MonoBehaviour:
@@ -4148,7 +4151,7 @@ MonoBehaviour:
   m_StartCorner: 0
   m_StartAxis: 0
   m_CellSize: {x: 0.4, y: 0.58}
-  m_Spacing: {x: 0.09, y: 0}
+  m_Spacing: {x: 0.04, y: 0}
   m_Constraint: 1
   m_ConstraintCount: 8
 --- !u!114 &902886085 stripped
@@ -6242,7 +6245,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 1fc98219a83dff145947365dc914d06e, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  TapThreshold: 0.12
+  TapThreshold: 0.2
   SwipeThreshold: 100
   ReferenceDpi: 200
   GuiLayers:
@@ -7802,8 +7805,8 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: -0.54749, y: 0.23538}
-  m_SizeDelta: {x: 3.781999, y: 0.47075975}
+  m_AnchoredPosition: {x: -0.54749, y: 0.235}
+  m_SizeDelta: {x: 3.555759, y: 0.47075975}
   m_Pivot: {x: 0, y: 1}
 --- !u!114 &1792231707
 MonoBehaviour:
@@ -7826,7 +7829,7 @@ MonoBehaviour:
   m_StartCorner: 0
   m_StartAxis: 0
   m_CellSize: {x: 0.4, y: 0.58}
-  m_Spacing: {x: 0.09, y: 0}
+  m_Spacing: {x: 0.04, y: 0}
   m_Constraint: 1
   m_ConstraintCount: 8
 --- !u!1 &1793057016
@@ -8894,8 +8897,8 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: -0.54748607, y: 0.23538226}
-  m_SizeDelta: {x: 3.781999, y: 0.47075975}
+  m_AnchoredPosition: {x: -0.547, y: 0.23538226}
+  m_SizeDelta: {x: 3.555759, y: 0.47075975}
   m_Pivot: {x: 0, y: 1}
 --- !u!114 &2071876206
 MonoBehaviour:
@@ -8918,7 +8921,7 @@ MonoBehaviour:
   m_StartCorner: 0
   m_StartAxis: 0
   m_CellSize: {x: 0.4, y: 0.58}
-  m_Spacing: {x: 0.09, y: 0}
+  m_Spacing: {x: 0.04, y: 0}
   m_Constraint: 1
   m_ConstraintCount: 8
 --- !u!1001 &2114199810
@@ -9334,6 +9337,11 @@ PrefabInstance:
         type: 3}
       propertyPath: m_Pivot.y
       value: 0.74
+      objectReference: {fileID: 0}
+    - target: {fileID: 3244304268916772794, guid: 59cb1634b8e009747bac3485605cc541,
+        type: 3}
+      propertyPath: m_LocalScale.x
+      value: 0.5
       objectReference: {fileID: 0}
     - target: {fileID: 3244304268916772795, guid: 59cb1634b8e009747bac3485605cc541,
         type: 3}

@@ -1,4 +1,6 @@
-﻿using System.Collections;
+﻿using System.Security.Cryptography.X509Certificates;
+using System;
+using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
@@ -12,6 +14,7 @@ public class SceneAnimationStuffs : MonoBehaviour {
     public GameObject machine;
     public GameObject table;
     public GameObject chair;
+public GameObject score;
     #endregion
 
     #region LeanTween
@@ -25,13 +28,14 @@ public class SceneAnimationStuffs : MonoBehaviour {
     public float paneMoveTime;
     public float tableMoveTime;
     public float chairMoveTime;
-
+    public float scoreMoveTime;
     private int trashHoverID;
     private int restockerHoverID;
 
     [Header ("LeanTween Ease Type")]
     public LeanTweenType moveEaseType;
     public LeanTweenType floatingEaseType;
+    public LeanTweenType scoreEaseType;
     #endregion
 
     #region Variable
@@ -60,6 +64,7 @@ public class SceneAnimationStuffs : MonoBehaviour {
             LeanTween.moveLocalX (restocker, 0, restockerMoveTime).setFrom (-3f).setDelay (startUpDelay + tableMoveTime + chairMoveTime + inventoryMoveTime).setEase (moveEaseType);
             LeanTween.moveLocalX (trash, 0, trashMoveTime).setFrom (3f).setDelay (startUpDelay + tableMoveTime + chairMoveTime + inventoryMoveTime).setEase (moveEaseType);
             LeanTween.moveLocalY (pane, 0, inventoryMoveTime).setFrom (-2f).setDelay (startUpDelay + tableMoveTime + chairMoveTime + inventoryMoveTime).setEase (moveEaseType).setOnComplete(floatingButton);
+            LeanTween.scale(score, new Vector3(1,1,1), scoreMoveTime).setEase(scoreEaseType).setDelay(startUpDelay + tableMoveTime + chairMoveTime + inventoryMoveTime+inventoryMoveTime);
 
         }
 
