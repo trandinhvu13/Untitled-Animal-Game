@@ -102,7 +102,7 @@ public class GameEvent : MonoBehaviour {
         OnToggleDrinkCollider?.Invoke (isEnabled);
     }
 
-     public event Action<string, int> OnUpdateItemUI;
+    public event Action<string, int> OnUpdateItemUI;
     public void UpdateItemUI (string _type, int _colorId) {
         OnUpdateItemUI?.Invoke (_type, _colorId);
     }
@@ -151,8 +151,12 @@ public class GameEvent : MonoBehaviour {
         OnHandleDropItem?.Invoke (_type, _colorId, _isDraggable);
     }
     public event Action<int, bool> OnHandleCup;
-    public void HandleCup(int _cupID, bool _state){
-        OnHandleCup?.Invoke(_cupID, _state);
+    public void HandleCup (int _cupID, bool _state) {
+        OnHandleCup?.Invoke (_cupID, _state);
+    }
+    public event Action OnResizeAfterDrop;
+    public void ResizeAfterDrop () {
+        OnResizeAfterDrop?.Invoke ();
     }
 
     #endregion

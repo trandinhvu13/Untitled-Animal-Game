@@ -68,6 +68,7 @@ public class ScoreManager : MonoBehaviour {
         if (currentScore > 0) {
             currentScoreText.text = currentScore.ToString ();
         } else {
+            currentScore = 0;
             currentScoreText.text = "0";
         }
 
@@ -109,20 +110,20 @@ public class ScoreManager : MonoBehaviour {
     void IncreaseScore (int scoreAmount) {
         currentScore = currentScore + (scoreAmount * currentMultiplier);
         Debug.Log ("IncreaseScore");
-        LeanTween.scale(score, new Vector3(1.5f,1.5f,1.5f),0.35f).setEase(LeanTweenType.easeOutBack).setLoopPingPong(1);
+        LeanTween.scale (score, new Vector3 (1.5f, 1.5f, 1.5f), 0.35f).setEase (LeanTweenType.easeOutBack).setLoopPingPong (1);
         correctOrderStreak++;
     }
 
     void DecreaseScore (int scoreAmount) {
         currentScore = currentScore - scoreAmount;
-        LeanTween.scale(score, new Vector3(1.5f,1.5f,1.5f),0.35f).setEase(LeanTweenType.easeOutBack).setLoopPingPong(1);
+        LeanTween.scale (score, new Vector3 (1.5f, 1.5f, 1.5f), 0.35f).setEase (LeanTweenType.easeOutBack).setLoopPingPong (1);
         currentMultiplier = 1;
         correctOrderStreak = 0;
     }
 
     void ChangeMultiplier (int multiplierAmount) {
         currentMultiplier += multiplierAmount;
-        LeanTween.scale(multiplier, new Vector3(1.5f,1.5f,1.5f),0.35f).setEase(LeanTweenType.easeOutBack).setLoopPingPong(1);
+        LeanTween.scale (multiplier, new Vector3 (1.5f, 1.5f, 1.5f), 0.35f).setEase (LeanTweenType.easeOutBack).setLoopPingPong (1);
         //ui effects
 
     }

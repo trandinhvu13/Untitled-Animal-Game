@@ -44,11 +44,13 @@ public class CupState : MonoBehaviour {
     void Awake () { }
     private void OnEnable () {
         SetUp ();
+        GameEvent.instance.OnResizeAfterDrop += ResizeAfterItemDrop;
         GameEvent.instance.OnHandleDropItem += HandleDropItem;
 
     }
 
     private void OnDisable () {
+        GameEvent.instance.OnResizeAfterDrop -= ResizeAfterItemDrop;
         GameEvent.instance.OnHandleDropItem -= HandleDropItem;
 
     }
@@ -64,23 +66,27 @@ public class CupState : MonoBehaviour {
     #region Collisions
     private void OnTriggerEnter2D (Collider2D other) {
         currentCollided = other;
-        if ((other.gameObject.CompareTag ("Fruit") || other.gameObject.CompareTag ("Drink") || other.gameObject.CompareTag ("Cream")) && isBeingHeld == false) {
+        if ((other.gameObject.CompareTag ("Fruit") || other.gameObject.CompareTag ("Drink") || other.gameObject.CompareTag ("Cream")) && isBeingHeld == false && other.gameObject.GetComponent<IInventoryItem>().isBeingHeld == true) {
             LeanTween.scale (gameObject, new Vector3 (0.23f, 0.23f, 0.23f), itemTweenTime).setEase (itemEaseType);
         }
     }
     private void OnTriggerExit2D (Collider2D other) {
-       
-        if (other.gameObject.CompareTag ("Cup")||other.gameObject.CompareTag ("Trash")) {
-            currentCollided = null;
-         }
 
-        if (other.gameObject.CompareTag ("Fruit") || other.gameObject.CompareTag ("Drink") || other.gameObject.CompareTag ("Cream")) {
+        if (other.gameObject.CompareTag ("Cup") || other.gameObject.CompareTag ("Trash")) {
+            currentCollided = null;
+        }
+
+        if (other.gameObject.CompareTag ("Fruit") || other.gameObject.CompareTag ("Drink") || other.gameObject.CompareTag ("Cream") && isBeingHeld == false && other.gameObject.GetComponent<IInventoryItem>().isBeingHeld == true) {
             LeanTween.scale (gameObject, new Vector3 (0.2f, 0.2f, 0.2f), itemTweenTime).setEase (itemEaseType);
         }
     }
     #endregion
 
     #region Methods
+
+    void ResizeAfterItemDrop () {
+        LeanTween.scale (gameObject, new Vector3 (0.2f, 0.2f, 0.2f), itemTweenTime).setEase (itemEaseType);
+    }
     void SetUp () {
         gameObject.transform.localScale = new Vector3 (0.2f, 0.2f, 0.2f);
         fruit.sprite = null;

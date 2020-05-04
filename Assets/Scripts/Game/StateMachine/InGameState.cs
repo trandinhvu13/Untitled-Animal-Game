@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public interface IInventoryItem 
+public class InGameState : ByTheTale.StateMachine.State
 {
-    bool isBeingHeld { get; set; }
+    
 }

@@ -4,7 +4,7 @@ using Lean.Touch;
 using TMPro;
 using UnityEngine;
 
-public class InventoryCreamItem : MonoBehaviour {
+public class InventoryCreamItem : MonoBehaviour, IInventoryItem {
     #region Components
     [SerializeField]
     private BoxCollider2D col;
@@ -22,7 +22,7 @@ public class InventoryCreamItem : MonoBehaviour {
     #region Variables
     private Collider2D currentCollided;
     private Vector2 pickUpPos;
-    private bool isBeingHeld = false;
+    public bool isBeingHeld { get; set; }
     public Cream scriptableObject;
     public bool isDraggable;
     private int defaultSortingOrder = 10;
@@ -37,7 +37,7 @@ public class InventoryCreamItem : MonoBehaviour {
     }
     private void OnEnable () {
         GameEvent.instance.OnToggleCreamCollider += ToggleCollider;
-
+        isBeingHeld = false;
         leanDrag.enabled = false;
         isDraggable = true;
         spriteRenderer.sprite = scriptableObject.playerInventory;
@@ -126,6 +126,7 @@ public class InventoryCreamItem : MonoBehaviour {
                     GameEvent.instance.HandleDropItem (objType, objColorID, isDraggable);
                     LeanTween.scale (gameObject, new Vector3 (0, 0, 0), 0f);
                     LeanTween.moveLocal (gameObject, pickUpPos, 0).setOnComplete (resizeBig);
+                    GameEvent.instance.ResizeAfterDrop ();
 
                 } else if (currentCollided.gameObject.CompareTag ("Restocker")) {
                     if (scriptableObject.Quantity < scriptableObject.MaxQuantity) {

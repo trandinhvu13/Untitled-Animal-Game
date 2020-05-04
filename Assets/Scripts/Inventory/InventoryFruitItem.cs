@@ -4,7 +4,7 @@ using Lean.Touch;
 using TMPro;
 using UnityEngine;
 
-public class InventoryFruitItem : MonoBehaviour {
+public class InventoryFruitItem : MonoBehaviour, IInventoryItem {
     #region Components
     [SerializeField]
     private BoxCollider2D col;
@@ -24,7 +24,7 @@ public class InventoryFruitItem : MonoBehaviour {
     private Vector2 pickUpPos;
 
     [SerializeField]
-    private bool isBeingHeld = false;
+    public bool isBeingHeld { get; set; }
     public Fruit scriptableObject;
     private bool isDraggable;
     private int defaultSortingOrder = 10;
@@ -40,7 +40,7 @@ public class InventoryFruitItem : MonoBehaviour {
     }
     private void OnEnable () {
         GameEvent.instance.OnToggleFruitCollider += ToggleCollider;
-
+        isBeingHeld = false;
         leanDrag.enabled = false;
         isDraggable = true;
         spriteRenderer.sprite = scriptableObject.playerInventory;
@@ -127,6 +127,7 @@ public class InventoryFruitItem : MonoBehaviour {
                     GameEvent.instance.HandleDropItem (objType, objColorID, isDraggable);
                     LeanTween.scale (gameObject, new Vector3 (0, 0, 0), 0f);
                     LeanTween.moveLocal (gameObject, pickUpPos, 0).setOnComplete (resizeBig);
+                    GameEvent.instance.ResizeAfterDrop ();
 
                 } else if (currentCollided.gameObject.CompareTag ("Restocker")) {
                     if (scriptableObject.Quantity < scriptableObject.MaxQuantity) {
