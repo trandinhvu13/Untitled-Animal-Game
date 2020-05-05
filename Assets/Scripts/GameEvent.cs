@@ -8,6 +8,7 @@ public class GameEvent : MonoBehaviour {
     public static GameEvent instance = null;
 
     private void Awake () {
+        DontDestroyOnLoad (this.gameObject);
         if (instance == null) {
             instance = this;
         } else if (instance != this) {

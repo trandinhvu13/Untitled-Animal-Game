@@ -17,11 +17,13 @@ public class ScoreManager : MonoBehaviour {
     #region GameObj
     public TextMeshProUGUI currentScoreText;
     public TextMeshProUGUI multiplierText;
+    public TextMeshProUGUI lifeText;
     #endregion
 
     #region UI
     public GameObject score;
     public GameObject multiplier;
+    public GameObject life;
     #endregion
 
     #region Variables
@@ -71,7 +73,12 @@ public class ScoreManager : MonoBehaviour {
             currentScore = 0;
             currentScoreText.text = "0";
         }
-
+        if (currentLife > 0) {
+            lifeText.text = currentLife.ToString ();
+        } else {
+            currentLife = 0;
+            lifeText.text = "0";
+        }
         if (currentMultiplier <= 1) {
             multiplierText.text = null;
         } else {
@@ -111,12 +118,14 @@ public class ScoreManager : MonoBehaviour {
         currentScore = currentScore + (scoreAmount * currentMultiplier);
         Debug.Log ("IncreaseScore");
         LeanTween.scale (score, new Vector3 (1.5f, 1.5f, 1.5f), 0.35f).setEase (LeanTweenType.easeOutBack).setLoopPingPong (1);
+        LeanTween.scale (life, new Vector3 (3.5f, 3.5f, 3.5f), 0.35f).setEase (LeanTweenType.easeOutBack).setLoopPingPong (1);
         correctOrderStreak++;
     }
 
     void DecreaseScore (int scoreAmount) {
         currentScore = currentScore - scoreAmount;
         LeanTween.scale (score, new Vector3 (1.5f, 1.5f, 1.5f), 0.35f).setEase (LeanTweenType.easeOutBack).setLoopPingPong (1);
+        LeanTween.scale (life, new Vector3 (3.5f, 3.5f, 3.5f), 0.35f).setEase (LeanTweenType.easeOutBack).setLoopPingPong (1);
         currentMultiplier = 1;
         correctOrderStreak = 0;
     }
