@@ -9563,6 +9563,11 @@ PrefabInstance:
       propertyPath: score
       value: 
       objectReference: {fileID: 843979450}
+    - target: {fileID: 8466025337904338151, guid: de43f19cce495d5478cae4b1ce6c6a44,
+        type: 3}
+      propertyPath: startUpDelay
+      value: 0.55
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: de43f19cce495d5478cae4b1ce6c6a44, type: 3}
 --- !u!1001 &9022838103476182725

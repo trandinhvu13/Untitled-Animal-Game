@@ -79,7 +79,7 @@ public class MainMenuHandler : MonoBehaviour {
         }
 
         void execute () {
-           SceneManager.LoadScene(1, LoadSceneMode.Single);
+           GameEvent.instance.PlayButtonPress();
         }
     }
 
