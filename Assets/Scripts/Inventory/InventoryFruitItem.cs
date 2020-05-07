@@ -79,17 +79,24 @@ public class InventoryFruitItem : MonoBehaviour, IInventoryItem {
 
     #region Methods
     public void PickUp () {
+        if (currentCollided != null) {
+            if (currentCollided.gameObject.CompareTag ("InventoryVisual")) {
+                return;
+            }
+
+        }
         isBeingHeld = true;
-        //send message stop scroll
-        GameEvent.instance.ToggleScroll (false);
-        //change mask interaction
-        spriteRenderer.maskInteraction = SpriteMaskInteraction.None;
-        //save pickup pos
-        pickUpPos = rect.anchoredPosition;
-        //make pickup sound
-        //textMeshPro.color = new Color32 (43, 15, 49, 0);
-        spriteRenderer.sortingOrder = selectSortingOrder;
-        LeanTween.scale (gameObject, new Vector3 (0.65f, 0.65f, 0.65f), 0.1f).setEase (LeanTweenType.easeOutQuad);
+                //send message stop scroll
+                GameEvent.instance.ToggleScroll (false);
+                //change mask interaction
+                spriteRenderer.maskInteraction = SpriteMaskInteraction.None;
+                //save pickup pos
+                pickUpPos = rect.anchoredPosition;
+                //make pickup sound
+                //textMeshPro.color = new Color32 (43, 15, 49, 0);
+                spriteRenderer.sortingOrder = selectSortingOrder;
+                LeanTween.scale (gameObject, new Vector3 (0.65f, 0.65f, 0.65f), 0.1f).setEase (LeanTweenType.easeOutQuad);
+
     }
 
     public void BeingHold () {

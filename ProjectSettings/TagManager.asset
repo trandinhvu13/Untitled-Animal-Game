@@ -19,6 +19,7 @@ TagManager:
   - GameManager
   - CupManager
   - LeanTouch
+  - InventoryVisual
   layers:
   - Default
   - TransparentFX

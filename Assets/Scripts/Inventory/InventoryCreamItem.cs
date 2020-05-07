@@ -79,7 +79,11 @@ public class InventoryCreamItem : MonoBehaviour, IInventoryItem {
 
     #region Methods
     public void PickUp () {
-
+        if (currentCollided != null) {
+            if (currentCollided.gameObject.CompareTag ("InventoryVisual")) {
+                return;
+            }
+        }
         isBeingHeld = true;
         GameEvent.instance.ToggleScroll (false);
         spriteRenderer.maskInteraction = SpriteMaskInteraction.None;

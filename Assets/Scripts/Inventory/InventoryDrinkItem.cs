@@ -25,7 +25,7 @@ public class InventoryDrinkItem : MonoBehaviour, IInventoryItem {
     private Vector2 pickUpPos;
 
     [SerializeField]
-    public bool isBeingHeld { get; set;}
+    public bool isBeingHeld { get; set; }
     private bool isDraggable;
     private int defaultSortingOrder = 10;
     private int selectSortingOrder = 105;
@@ -62,7 +62,7 @@ public class InventoryDrinkItem : MonoBehaviour, IInventoryItem {
         } else {
             isDraggable = false;
         }
-
+       
         if (isBeingHeld) {
             BeingHold ();
         }
@@ -80,6 +80,13 @@ public class InventoryDrinkItem : MonoBehaviour, IInventoryItem {
 
     #region Methods
     public void PickUp () {
+
+        if (currentCollided != null) {
+            if (currentCollided.gameObject.CompareTag ("InventoryVisual")) {
+
+                return;
+            }
+        }
         isBeingHeld = true;
         //send message stop scroll
         GameEvent.instance.ToggleScroll (false);
@@ -91,6 +98,7 @@ public class InventoryDrinkItem : MonoBehaviour, IInventoryItem {
         //textMeshPro.color = new Color32 (43, 15, 49, 0);
         spriteRenderer.sortingOrder = selectSortingOrder;
         LeanTween.scale (gameObject, new Vector3 (0.65f, 0.65f, 0.65f), 0.1f).setEase (LeanTweenType.easeOutQuad);
+
     }
 
     public void BeingHold () {
