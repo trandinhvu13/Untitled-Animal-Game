@@ -1695,7 +1695,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   transitionBall: {fileID: 287764510}
   transitionEase: 4
-  transitionTime: 0.75
+  transitionTime: 0.65
 --- !u!114 &804534602
 MonoBehaviour:
   m_ObjectHideFlags: 0

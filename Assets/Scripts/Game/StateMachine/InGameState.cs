@@ -4,5 +4,27 @@ using UnityEngine;
 
 public class InGameState : ByTheTale.StateMachine.State
 {
-    
+    public override void Initialize () {
+
+  }
+
+  public override void Enter () {
+   GameEvent.instance.SetActiveTouch(true);
+   GameEvent.instance.BeginPlay();
+   Debug.Log("playin");
+  }
+
+  public override void Execute () {
+
+  }
+  public override void PhysicsExecute () {
+
+  }
+  public override void PostExecute () {
+
+  }
+
+  public override void Exit () {
+
+  }
 }

@@ -168,6 +168,13 @@ public class GameEvent : MonoBehaviour {
         OnPlayButtonPress?.Invoke ();
     }
     #endregion
+
+    #region In Game
+        public event Action<bool> OnSetActiveTouch;
+    public void SetActiveTouch (bool _bool) {
+        OnSetActiveTouch?.Invoke (_bool);
+    }
+    #endregion
     #endregion
 
     #region Transition
@@ -179,6 +186,11 @@ public class GameEvent : MonoBehaviour {
     public event Action OnInGameState;
     public void InGameState () {
         OnInGameState?.Invoke ();
+    }
+
+    public event Action OnBeginPlay;
+    public void BeginPlay () {
+        OnBeginPlay?.Invoke ();
     }
     #endregion
 }
