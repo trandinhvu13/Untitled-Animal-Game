@@ -8,7 +8,6 @@ public class GameEvent : MonoBehaviour {
     public static GameEvent instance = null;
 
     private void Awake () {
-        DontDestroyOnLoad (this.gameObject);
         if (instance == null) {
             instance = this;
         } else if (instance != this) {
@@ -160,5 +159,26 @@ public class GameEvent : MonoBehaviour {
         OnResizeAfterDrop?.Invoke ();
     }
 
+    #endregion
+
+    #region Game States
+    #region Menu
+    public event Action OnPlayButtonPress;
+    public void PlayButtonPress () {
+        OnPlayButtonPress?.Invoke ();
+    }
+    #endregion
+    #endregion
+
+    #region Transition
+    public event Action<int> OnChangeScene;
+    public void ChangeScene (int index ) {
+        OnChangeScene?.Invoke (index);
+    }
+
+    public event Action OnInGameState;
+    public void InGameState () {
+        OnInGameState?.Invoke ();
+    }
     #endregion
 }

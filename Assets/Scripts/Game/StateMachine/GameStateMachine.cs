@@ -7,7 +7,6 @@ public class GameStateMachine : MachineBehaviour {
     public static GameStateMachine instance = null;
 
     private void Awake () {
-        DontDestroyOnLoad (this.gameObject);
         if (instance == null) {
             instance = this;
         } else if (instance != this) {

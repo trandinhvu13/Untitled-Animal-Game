@@ -206,7 +206,6 @@ MonoBehaviour:
   spriteRenderer: {fileID: 603737243714717529}
   rect: {fileID: 603737243714717511}
   textMeshPro: {fileID: 5440509481652589352}
-  isBeingHeld: 0
   scriptableObject: {fileID: 11400000, guid: ddb231800d4a41c49ab60707d540f1d8, type: 2}
 --- !u!114 &9127215109160627523
 MonoBehaviour:

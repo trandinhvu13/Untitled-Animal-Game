@@ -363,7 +363,6 @@ MonoBehaviour:
   rect: {fileID: 6829797252559890360}
   textMeshPro: {fileID: 6730873817608096886}
   scriptableObject: {fileID: 11400000, guid: 8a76de1a8dc31f140a5765773f7c544e, type: 2}
-  isBeingHeld: 0
 --- !u!114 &8160314406532548197
 MonoBehaviour:
   m_ObjectHideFlags: 0

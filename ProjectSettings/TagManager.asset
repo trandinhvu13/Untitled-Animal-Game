@@ -12,6 +12,13 @@ TagManager:
   - Drink
   - Trash
   - Customer
+  - Inventory
+  - CustomerManager
+  - GameEvent
+  - ScoreManager
+  - GameManager
+  - CupManager
+  - LeanTouch
   layers:
   - Default
   - TransparentFX
@@ -26,7 +33,7 @@ TagManager:
   - 
   - Cup
   - Restocker
-  - 
+  - InventoryPanel
   - 
   - 
   - 
