@@ -146,6 +146,7 @@ public class CustomerScript : MonoBehaviour, IPoolable {
         timerGameObj.transform.localScale = new Vector3 (0, 0, 0);
         isFlickering = true;
         LeanTween.cancel (hoverID);
+        orderTimer.transform.localPosition = new Vector3(0, -0.01f, 0);
     }
 
     #endregion

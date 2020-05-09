@@ -133,5 +133,13 @@ public class SceneAnimationStuffs : MonoBehaviour {
     void UpdateFadeBlackAlpha (float val, float ratio) {
         fadeBlackImage.color = new Color (0, 0, 0, val);
     }
+
+    void HandlePauseIn () {
+
+    }
+
+    void HandlePauseOut () {
+
+    }
     #endregion
 }

@@ -170,16 +170,26 @@ public class GameEvent : MonoBehaviour {
     #endregion
 
     #region In Game
-        public event Action<bool> OnSetActiveTouch;
+    public event Action<bool> OnSetActiveTouch;
     public void SetActiveTouch (bool _bool) {
         OnSetActiveTouch?.Invoke (_bool);
     }
+
+    public event Action OnPauseIn;
+    public void PauseIn () {
+        OnPauseIn?.Invoke ();
+    }
+    public event Action OnPauseOut;
+    public void PauseOut () {
+        OnPauseOut?.Invoke ();
+    }
+
     #endregion
     #endregion
 
     #region Transition
     public event Action<int> OnChangeScene;
-    public void ChangeScene (int index ) {
+    public void ChangeScene (int index) {
         OnChangeScene?.Invoke (index);
     }
 
