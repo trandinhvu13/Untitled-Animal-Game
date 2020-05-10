@@ -23,6 +23,10 @@ public class SceneAnimationStuffs : MonoBehaviour {
     public GameObject countDownObject;
     public GameObject customerManager;
     public Image fadeBlackImage;
+    public GameObject pauseMenu;
+    public GameObject scoreObj;
+    public GameObject lifeObj;
+
     #endregion
 
     #region LeanTween
@@ -42,12 +46,16 @@ public class SceneAnimationStuffs : MonoBehaviour {
     public float fadeAmount;
     public float fadeTime;
     public float countDownTweenTime;
+    public float pauseMenuMoveTime;
+    public float buttonTweenTime;
 
     [Header ("LeanTween Ease Type")]
     public LeanTweenType moveEaseType;
     public LeanTweenType floatingEaseType;
     public LeanTweenType scoreEaseType;
     public LeanTweenType countDownEaseType;
+    public LeanTweenType pauseMenuEaseType;
+    public LeanTweenType buttonEase;
     #endregion
 
     #region Variable
@@ -69,6 +77,8 @@ public class SceneAnimationStuffs : MonoBehaviour {
 
     private void OnEnable () {
         GameEvent.instance.OnBeginPlay += SetUpBeginPlaying;
+        GameEvent.instance.OnPauseIn += HandlePauseIn;
+
         fadeBlack.SetActive (false);
         customerManager.SetActive (false);
         SetActiveTouch (false);
@@ -89,6 +99,7 @@ public class SceneAnimationStuffs : MonoBehaviour {
 
     private void OnDisable () {
         GameEvent.instance.OnBeginPlay -= SetUpBeginPlaying;
+        GameEvent.instance.OnPauseIn -= HandlePauseIn;
         isStartedUp = true;
         LeanTween.cancelAll (true);
     }
@@ -99,8 +110,8 @@ public class SceneAnimationStuffs : MonoBehaviour {
         leanTouch.SetActive (_bool);
     }
     void SetUpBeginPlaying () {
-        restockerHoverID = LeanTween.moveLocalY (restocker, 0.04f, floatAmount).setEase (floatingEaseType).setLoopPingPong (-1).id;
-        trashHoverID = LeanTween.moveLocalY (trash, 0.04f, floatAmount).setEase (floatingEaseType).setLoopPingPong (-1).id;
+        restockerHoverID = LeanTween.moveLocalY (restocker, 0.04f, floatAmount).setEase (floatingEaseType).setFrom(0).setLoopPingPong (-1).id;
+        trashHoverID = LeanTween.moveLocalY (trash, 0.04f, floatAmount).setEase (floatingEaseType).setFrom(0).setLoopPingPong (-1).id;
         customerManager.SetActive (true);
 
     }
@@ -127,19 +138,53 @@ public class SceneAnimationStuffs : MonoBehaviour {
         LeanTween.scale (countDownObject, new Vector3 (1, 1, 1), countDownTweenTime).setEase (countDownEaseType);
         yield return new WaitForSeconds (0.85f);
         countDownObject.transform.localScale = Vector3.zero;
-        LeanTween.value (gameObject, UpdateFadeBlackAlpha, fadeAmount, 0, fadeTime).setEase (LeanTweenType.easeInOutQuad).setOnComplete (() => { fadeBlack.SetActive (false); SetActiveTouch (true);; GameStateMachine.instance.ChangeState<InGameState> (); });
+        LeanTween.value (gameObject, UpdateFadeBlackAlpha, fadeAmount, 0, fadeTime).setEase (LeanTweenType.easeInOutQuad).setOnComplete (() => { fadeBlack.SetActive (false); SetActiveTouch (true); GameStateMachine.instance.ChangeState<InGameState> (); });
 
     }
     void UpdateFadeBlackAlpha (float val, float ratio) {
         fadeBlackImage.color = new Color (0, 0, 0, val);
     }
+    #region Pause Menu
+    public void HandlePauseIn () {
+        fadeBlack.SetActive (true);
 
-    void HandlePauseIn () {
+        LeanTween.value (gameObject, UpdateFadeBlackAlpha, 0, 0, 0);
+        LeanTween.value (gameObject, UpdateFadeBlackAlpha, 0, fadeAmount, fadeTime).setEase (LeanTweenType.easeInOutQuad).setOnComplete (pauseMenuUp);
+
+        void pauseMenuUp () {
+
+            LeanTween.moveY (pauseMenu, 0, pauseMenuMoveTime).setEase (pauseMenuEaseType).setOnComplete (() => GameStateMachine.instance.ChangeState<PauseState> ());
+        }
 
     }
 
-    void HandlePauseOut () {
+    public void HandlePauseOutToGame (GameObject _gameObject) {
+        if (!LeanTween.isTweening (_gameObject)) {
+            LeanTween.scale (_gameObject, new Vector3 (3.5f, 3.5f, 3.5f), buttonTweenTime).setLoopPingPong (1).setEase (buttonEase).setIgnoreTimeScale (true).setOnComplete (execute);
+        }
+
+        void execute () {
+            LeanTween.moveY (pauseMenu, -4.3f, pauseMenuMoveTime).setEase (pauseMenuEaseType).setOnComplete (fadeOut).setIgnoreTimeScale (true);
+
+            void fadeOut () {
+
+                LeanTween.value (gameObject, UpdateFadeBlackAlpha, fadeAmount, 0, fadeTime).setEase (LeanTweenType.easeInOutQuad).setIgnoreTimeScale (true).setOnComplete (() => { GameStateMachine.instance.ChangeState<InGameState> (); fadeBlack.SetActive (false); });
+            }
+        }
 
     }
+
+    public void HandlePauseOutToMenu (GameObject _gameObject) {
+        if (!LeanTween.isTweening (_gameObject)) {
+            LeanTween.scale (_gameObject, new Vector3 (3.5f, 3.5f, 3.5f), buttonTweenTime).setLoopPingPong (1).setEase (buttonEase).setIgnoreTimeScale (true).setOnComplete (execute);
+        }
+
+        void execute () {
+            GameEvent.instance.ChangeScene(0);
+            
+        }
+    }
+    #endregion
+
     #endregion
 }

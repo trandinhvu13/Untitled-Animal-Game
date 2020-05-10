@@ -777,7 +777,7 @@ GameObject:
   - component: {fileID: 287764513}
   - component: {fileID: 287764512}
   - component: {fileID: 287764511}
-  m_Layer: 0
+  m_Layer: 5
   m_Name: Sphere
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -840,7 +840,7 @@ Transform:
   m_GameObject: {fileID: 287764510}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 0, y: 0, z: 1}
+  m_LocalScale: {x: 0, y: 0, z: 2}
   m_Children: []
   m_Father: {fileID: 804534604}
   m_RootOrder: 0
@@ -1718,7 +1718,7 @@ Transform:
   m_GameObject: {fileID: 804534600}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_LocalScale: {x: 1, y: 1, z: 2}
   m_Children:
   - {fileID: 287764513}
   m_Father: {fileID: 0}
@@ -2267,7 +2267,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: SETTINGS
+  m_text: OPTIONS
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: a67d1d1f27decbc408f9908cf44c829b, type: 2}
   m_sharedMaterial: {fileID: 2969018671353182964, guid: a67d1d1f27decbc408f9908cf44c829b,
@@ -2337,7 +2337,7 @@ MonoBehaviour:
   m_margin: {x: 0.05351585, y: 0, z: 0.030630112, w: 0}
   m_textInfo:
     textComponent: {fileID: 866558867}
-    characterCount: 8
+    characterCount: 7
     spriteCount: 0
     spaceCount: 0
     wordCount: 1

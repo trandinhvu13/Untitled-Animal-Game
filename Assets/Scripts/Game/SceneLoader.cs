@@ -34,7 +34,8 @@ public class SceneLoader : MonoBehaviour {
 
     #region Methods
     void HandleChangeScene (int sceneID) {
-        LeanTween.scale (transitionBall, new Vector3 (7, 7, 7), transitionTime).setFrom (Vector3.zero).setEase (transitionEase).setOnComplete (() => { SceneManager.LoadScene (sceneID); });
+        LeanTween.scale (transitionBall, new Vector3 (7, 7, 9), transitionTime).setFrom (new Vector3(0,0,9)).setEase (transitionEase).setIgnoreTimeScale (true).setOnComplete (() => { Time.timeScale = 1; SceneManager.LoadScene (sceneID); });
+
     }
     IEnumerator LoadYourAsyncScene (int id) {
         AsyncOperation asyncLoad = SceneManager.LoadSceneAsync (id, LoadSceneMode.Single);

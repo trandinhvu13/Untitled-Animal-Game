@@ -2,8 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class PauseButton : MonoBehaviour
-{
+public class PauseButton : MonoBehaviour {
     public LeanTweenType buttonEase;
     public float buttonTweenTime;
 
@@ -13,7 +12,7 @@ public class PauseButton : MonoBehaviour
         }
 
         void execute () {
-           GameEvent.instance.PauseIn();
+            GameEvent.instance.PauseIn ();
         }
     }
 }
