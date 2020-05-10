@@ -67,10 +67,10 @@ public class CustomerManager : MonoBehaviour {
     public void CompareAnswersHandler (int[] order, int id, string type) {
         if (order.SequenceEqual (seatsOrders[id])) {
             CorrectCustomerHandler (id, type);
-            Debug.Log("True");
+            Debug.Log ("True");
         } else {
             FalseCustomerHandler (id, type);
-            Debug.Log("False");
+            Debug.Log ("False");
         }
     }
 
@@ -84,7 +84,7 @@ public class CustomerManager : MonoBehaviour {
         } else if (_type == "EatALot") {
             GameEvent.instance.CorrectEALOrder (_id);
         }
-        
+
     }
 
     void FalseCustomerHandler (int _id, string _type) {
@@ -96,11 +96,11 @@ public class CustomerManager : MonoBehaviour {
             GameEvent.instance.DecreaseScore (100);
         } else if (_type == "EatALot") {
             seatStats[_id] = false;
-            
+
             GameEvent.instance.DecreaseScore (40);
         }
         GameEvent.instance.DespawnCustomer (_id, "Wrong");
-        Debug.Log("false2");
+        Debug.Log ("false2");
         GameEvent.instance.ChangeLife (-1);
     }
 
@@ -154,7 +154,12 @@ public class CustomerManager : MonoBehaviour {
         GameEvent.instance.OnFinalVIPOrder -= FinalVIPCustomerHandle;
         GameEvent.instance.OnWaitTimeout -= WaitTimeoutHandler;
     }
-
+    private void OnDestroy () {
+        GameEvent.instance.OnCompare -= CompareAnswersHandler;
+        GameEvent.instance.OnReceiveNextVIPOrder -= UpdateCustomerOrders;
+        GameEvent.instance.OnFinalVIPOrder -= FinalVIPCustomerHandle;
+        GameEvent.instance.OnWaitTimeout -= WaitTimeoutHandler;
+    }
     private void Start () {
 
         for (int i = 0; i < times.Length; i++) { SetRandomTime (i); }

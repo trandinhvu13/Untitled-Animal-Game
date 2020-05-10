@@ -39,6 +39,9 @@ public class CupManager : MonoBehaviour {
     private void OnDisable () {
         GameEvent.instance.OnHandleCup -= HandleCups;
     }
+    private void OnDestroy() {
+        GameEvent.instance.OnHandleCup -= HandleCups;
+    }
     #endregion
 
     #region Methods

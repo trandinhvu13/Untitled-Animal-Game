@@ -56,7 +56,13 @@ public class ScoreManager : MonoBehaviour {
         GameEvent.instance.OnChangeLife -= ChangeCurrentLife;
         GameEvent.instance.OnChangeMaxLife -= ChangeCurrentMaxLife;
     }
-
+    private void OnDestroy () {
+        GameEvent.instance.OnIncreaseScore -= IncreaseScore;
+        GameEvent.instance.OnDecreaseScore -= DecreaseScore;
+        GameEvent.instance.OnChangeMultiplier -= ChangeMultiplier;
+        GameEvent.instance.OnChangeLife -= ChangeCurrentLife;
+        GameEvent.instance.OnChangeMaxLife -= ChangeCurrentMaxLife;
+    }
     void Update () {
         UI ();
         MultiplierTrack ();
@@ -117,22 +123,22 @@ public class ScoreManager : MonoBehaviour {
     void IncreaseScore (int scoreAmount) {
         currentScore = currentScore + (scoreAmount * currentMultiplier);
         Debug.Log ("IncreaseScore");
-        LeanTween.scale (score, new Vector3 (1.5f, 1.5f, 1.5f), 0.35f).setEase (LeanTweenType.easeOutBack).setFrom(new Vector3(1,1f,1f)).setLoopPingPong (1);
-        LeanTween.scale (life, new Vector3 (3.5f, 3.5f, 3.5f), 0.35f).setEase (LeanTweenType.easeOutBack).setFrom(new Vector3(2.5f,2.5f,2.5f)).setLoopPingPong (1);
+        LeanTween.scale (score, new Vector3 (1.5f, 1.5f, 1.5f), 0.35f).setEase (LeanTweenType.easeOutBack).setFrom (new Vector3 (1, 1f, 1f)).setLoopPingPong (1);
+        LeanTween.scale (life, new Vector3 (3.5f, 3.5f, 3.5f), 0.35f).setEase (LeanTweenType.easeOutBack).setFrom (new Vector3 (2.5f, 2.5f, 2.5f)).setLoopPingPong (1);
         correctOrderStreak++;
     }
 
     void DecreaseScore (int scoreAmount) {
         currentScore = currentScore - scoreAmount;
-        LeanTween.scale (score, new Vector3 (1.5f, 1.5f, 1.5f), 0.35f).setFrom(new Vector3(1f,1f,1f)).setEase (LeanTweenType.easeOutBack).setLoopPingPong (1);
-        LeanTween.scale (life, new Vector3 (3.5f, 3.5f, 3.5f), 0.35f).setEase (LeanTweenType.easeOutBack).setFrom(new Vector3(2.5f,2.5f,2.5f)).setLoopPingPong (1);
+        LeanTween.scale (score, new Vector3 (1.5f, 1.5f, 1.5f), 0.35f).setFrom (new Vector3 (1f, 1f, 1f)).setEase (LeanTweenType.easeOutBack).setLoopPingPong (1);
+        LeanTween.scale (life, new Vector3 (3.5f, 3.5f, 3.5f), 0.35f).setEase (LeanTweenType.easeOutBack).setFrom (new Vector3 (2.5f, 2.5f, 2.5f)).setLoopPingPong (1);
         currentMultiplier = 1;
         correctOrderStreak = 0;
     }
 
     void ChangeMultiplier (int multiplierAmount) {
         currentMultiplier += multiplierAmount;
-        LeanTween.scale (multiplier, new Vector3 (1.5f, 1.5f, 1.5f), 0.35f).setFrom(new Vector3(1f,1f,1f)).setEase (LeanTweenType.easeOutBack).setLoopPingPong (1);
+        LeanTween.scale (multiplier, new Vector3 (1.5f, 1.5f, 1.5f), 0.35f).setFrom (new Vector3 (1f, 1f, 1f)).setEase (LeanTweenType.easeOutBack).setLoopPingPong (1);
         //ui effects
 
     }

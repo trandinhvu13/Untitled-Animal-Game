@@ -34,7 +34,11 @@ public class SceneLoader : MonoBehaviour {
 
     #region Methods
     void HandleChangeScene (int sceneID) {
-        LeanTween.scale (transitionBall, new Vector3 (7, 7, 9), transitionTime).setFrom (new Vector3(0,0,9)).setEase (transitionEase).setIgnoreTimeScale (true).setOnComplete (() => { Time.timeScale = 1; SceneManager.LoadScene (sceneID); });
+        if (sceneID == 3) {
+            LeanTween.scale (transitionBall, new Vector3 (7, 7, 9), 0).setEase (transitionEase).setIgnoreTimeScale (true).setOnComplete (() => { Time.timeScale = 1; SceneManager.LoadScene (1); });
+        } else {
+            LeanTween.scale (transitionBall, new Vector3 (7, 7, 9), transitionTime).setFrom (new Vector3 (0, 0, 9)).setEase (transitionEase).setIgnoreTimeScale (true).setOnComplete (() => { Time.timeScale = 1; SceneManager.LoadScene (sceneID); });
+        }
 
     }
     IEnumerator LoadYourAsyncScene (int id) {
@@ -48,15 +52,16 @@ public class SceneLoader : MonoBehaviour {
 
     }
     void HandleSceneChanged (Scene scene, LoadSceneMode mode) {
-        if (scene.buildIndex != currentScene.buildIndex) {
-            if (scene.buildIndex == 1) {
-                currentScene = SceneManager.GetSceneByBuildIndex (scene.buildIndex);
-                LeanTween.scale (transitionBall, new Vector3 (0, 0, 0), transitionTime).setEase (transitionEase).setOnComplete (() => { GameStateMachine.instance.ChangeState<StartGameState> (); });
-            } else if (scene.buildIndex == 0) {
-                currentScene = SceneManager.GetSceneByBuildIndex (scene.buildIndex);
-                LeanTween.scale (transitionBall, new Vector3 (0, 0, 0), transitionTime).setEase (transitionEase).setOnComplete (() => { GameStateMachine.instance.ChangeState<MenuState> (); });
 
-            }
+        if (scene.buildIndex == 1) {
+            currentScene = SceneManager.GetSceneByBuildIndex (scene.buildIndex);
+            LeanTween.scale (transitionBall, new Vector3 (0, 0, 0), transitionTime).setEase (transitionEase).setOnComplete (() => { GameStateMachine.instance.ChangeState<StartGameState> (); });
+        } else if (scene.buildIndex == 0) {
+            currentScene = SceneManager.GetSceneByBuildIndex (scene.buildIndex);
+            LeanTween.scale (transitionBall, new Vector3 (0, 0, 0), transitionTime).setEase (transitionEase).setOnComplete (() => { GameStateMachine.instance.ChangeState<MenuState> (); });
+
+        } else if (scene.buildIndex == 2) {
+            GameStateMachine.instance.ChangeState<ResetGameState> ();
         }
 
         #endregion

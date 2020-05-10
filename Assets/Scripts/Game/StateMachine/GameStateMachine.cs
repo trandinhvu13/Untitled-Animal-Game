@@ -21,7 +21,7 @@ public class GameStateMachine : MachineBehaviour {
         AddState<InGameState> ();
         AddState<PauseState> ();
         AddState<LoseState> ();
-        AddState<PostGameState> ();
+        AddState<ResetGameState> ();
 
 
         SetInitialState<MenuState> ();

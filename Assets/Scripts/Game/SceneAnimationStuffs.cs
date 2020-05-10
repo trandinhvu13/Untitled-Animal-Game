@@ -64,6 +64,10 @@ public class SceneAnimationStuffs : MonoBehaviour {
 
     #region Monos
     private void Awake () {
+
+    }
+
+    private void OnEnable () {
         leanTouch = GameObject.FindWithTag ("LeanTouch");
         machine.transform.localPosition = new Vector2 (0, -2f);
         table.transform.localPosition = new Vector2 (0, 3.2f);
@@ -72,10 +76,6 @@ public class SceneAnimationStuffs : MonoBehaviour {
         restocker.transform.localPosition = new Vector2 (-3f, 0);
         trash.transform.localPosition = new Vector2 (3f, 0);
         pane.transform.localPosition = new Vector2 (0, -2f);
-
-    }
-
-    private void OnEnable () {
         GameEvent.instance.OnBeginPlay += SetUpBeginPlaying;
         GameEvent.instance.OnPauseIn += HandlePauseIn;
 
@@ -96,7 +96,11 @@ public class SceneAnimationStuffs : MonoBehaviour {
         }
 
     }
-
+    private void OnDestroy () {
+        GameEvent.instance.OnBeginPlay -= SetUpBeginPlaying;
+        GameEvent.instance.OnPauseIn -= HandlePauseIn;
+        isStartedUp = true;
+    }
     private void OnDisable () {
         GameEvent.instance.OnBeginPlay -= SetUpBeginPlaying;
         GameEvent.instance.OnPauseIn -= HandlePauseIn;
@@ -110,8 +114,8 @@ public class SceneAnimationStuffs : MonoBehaviour {
         leanTouch.SetActive (_bool);
     }
     void SetUpBeginPlaying () {
-        restockerHoverID = LeanTween.moveLocalY (restocker, 0.04f, floatAmount).setEase (floatingEaseType).setFrom(0).setLoopPingPong (-1).id;
-        trashHoverID = LeanTween.moveLocalY (trash, 0.04f, floatAmount).setEase (floatingEaseType).setFrom(0).setLoopPingPong (-1).id;
+        restockerHoverID = LeanTween.moveLocalY (restocker, 0.04f, floatAmount).setEase (floatingEaseType).setFrom (0).setLoopPingPong (-1).id;
+        trashHoverID = LeanTween.moveLocalY (trash, 0.04f, floatAmount).setEase (floatingEaseType).setFrom (0).setLoopPingPong (-1).id;
         customerManager.SetActive (true);
 
     }
@@ -180,8 +184,19 @@ public class SceneAnimationStuffs : MonoBehaviour {
         }
 
         void execute () {
-            GameEvent.instance.ChangeScene(0);
-            
+            GameEvent.instance.ChangeScene (0);
+
+        }
+    }
+
+    public void HandleRestart (GameObject _gameObject) {
+        if (!LeanTween.isTweening (_gameObject)) {
+            LeanTween.scale (_gameObject, new Vector3 (3.5f, 3.5f, 3.5f), buttonTweenTime).setLoopPingPong (1).setEase (buttonEase).setIgnoreTimeScale (true).setOnComplete (execute);
+        }
+
+        void execute () {
+            GameEvent.instance.ChangeScene (2);
+
         }
     }
     #endregion

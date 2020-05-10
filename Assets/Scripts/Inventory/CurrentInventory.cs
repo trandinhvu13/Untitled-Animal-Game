@@ -86,7 +86,11 @@ public class CurrentInventory : MonoBehaviour {
         GameEvent.instance.OnIncreaseMaxQuantity += IncreaseMaxQuantity;
 
     }
-
+    private void OnDestroy () {
+        GameEvent.instance.OnIncreaseQuantityToMax -= IncreaseQuantityToMax;
+        GameEvent.instance.OnDecreaseQuantity -= DecreaseQuantity;
+        GameEvent.instance.OnIncreaseMaxQuantity -= IncreaseMaxQuantity;
+    }
     private void OnDisable () {
         GameEvent.instance.OnIncreaseQuantityToMax -= IncreaseQuantityToMax;
         GameEvent.instance.OnDecreaseQuantity -= DecreaseQuantity;
