@@ -2,19 +2,14 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class PlayerStats : MonoBehaviour
-{
+public class PlayerStats : MonoBehaviour {
     public static PlayerStats instance = null;
 
-    private void Awake()
-    {
-        if (instance == null)
-        {
+    private void Awake () {
+        if (instance == null) {
             instance = this;
-        }
-        else if (instance != this)
-        {
-            Destroy(gameObject);
+        } else if (instance != this) {
+            Destroy (gameObject);
         }
     }
 
@@ -23,6 +18,7 @@ public class PlayerStats : MonoBehaviour
     public int ordersToIncreaseMult;
     public int maxMultiplier;
     public int maxLife;
+    public int highScore = 0;
 
     [Header ("Inventory")]
     public int drinkMQuantity;
@@ -52,11 +48,9 @@ public class PlayerStats : MonoBehaviour
     public int EALChancePrice;
     public int customerWaitingTimePrice;
 
-
-    private void OnEnable()
-    {
+    private void OnEnable () {
         //Change with players pref
-       
+
     }
 
 }

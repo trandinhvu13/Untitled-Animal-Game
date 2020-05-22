@@ -20,6 +20,8 @@ public class SceneAnimationStuffs : MonoBehaviour {
     public GameObject leanTouch;
     public GameObject fadeBlack;
     public TextMeshProUGUI countDown;
+    public TextMeshProUGUI gameOverScore;
+    public TextMeshProUGUI gameOverHighScore;
     public GameObject countDownObject;
     public GameObject customerManager;
     public Image fadeBlackImage;
@@ -27,6 +29,8 @@ public class SceneAnimationStuffs : MonoBehaviour {
     public GameObject scoreObj;
     public GameObject lifeObj;
     public GameObject gameOverMenu;
+    public GameObject highScoreGameOverObj;
+    public GameObject scoreGameOverObj;
 
     #endregion
 
@@ -104,7 +108,7 @@ public class SceneAnimationStuffs : MonoBehaviour {
     private void OnDestroy () {
         GameEvent.instance.OnBeginPlay -= SetUpBeginPlaying;
         GameEvent.instance.OnPauseIn -= HandlePauseIn;
-    GameEvent.instance.OnGameOver -= HandleGameOver;
+        GameEvent.instance.OnGameOver -= HandleGameOver;
 
         isStartedUp = true;
     }
@@ -211,18 +215,42 @@ public class SceneAnimationStuffs : MonoBehaviour {
     public void HandleGameOver () {
         fadeBlack.SetActive (true);
 
-        LeanTween.value (gameObject, UpdateFadeBlackAlpha, 0, 0, 0).setIgnoreTimeScale(true);
-        LeanTween.value (gameObject, UpdateFadeBlackAlpha, 0, fadeAmount, fadeTime).setEase (LeanTweenType.easeInOutQuad).setOnComplete (gameOverMenuAni).setIgnoreTimeScale(true);
+        LeanTween.value (gameObject, UpdateFadeBlackAlpha, 0, 0, 0).setIgnoreTimeScale (true);
+        LeanTween.value (gameObject, UpdateFadeBlackAlpha, 0, fadeAmount, fadeTime).setEase (LeanTweenType.easeInOutQuad).setOnComplete (gameOverMenuAni).setIgnoreTimeScale (true);
+        gameOverScore.text = "0";
         void gameOverMenuAni () {
             gameOverMenu.transform.localScale = Vector3.zero;
-            LeanTween.scale (gameOverMenu, new Vector3 (1, 1, 1), gameOverTweenTime).setFrom (Vector3.zero).setEase (gameOverEaseType).setOnComplete (runScore).setIgnoreTimeScale(true);
+            LeanTween.scale (gameOverMenu, new Vector3 (1, 1, 1), gameOverTweenTime).setFrom (Vector3.zero).setEase (gameOverEaseType).setOnComplete (runScore).setIgnoreTimeScale (true);
             void runScore () {
-GameStateMachine.instance.ChangeState<LoseState> ();
+                GameStateMachine.instance.ChangeState<LoseState> ();
+                // int score = ScoreManager.instance.currentScore;
+                int score = ScoreManager.instance.currentScore;
+                int currentScore = 0;
+                float animationScoreTime = 1f / score;
+                StartCoroutine (ScoreUpdater ());
+                IEnumerator ScoreUpdater () {
+                    while (true) {
+                        gameOverScore.color = HSBColor.ToColor (new HSBColor (Mathf.PingPong (Time.unscaledTime * 0.5f, 1), 1, 1));
+                        if (currentScore < score) {
+                            currentScore += 50; //Increment the display score by 1
+                            gameOverScore.text = currentScore.ToString (); //Write it to the UI\
+                            Debug.Log ("Incre");
+                        }else{
+                            if(currentScore >= PlayerStats.instance.highScore){
+                                gameOverHighScore.text = "New highscore!"; 
+                                PlayerStats.instance.highScore = currentScore;
+                            }else{
+                                gameOverHighScore.text = "Highscore: " + PlayerStats.instance.highScore;
+                            }
+                        }
+                        yield return new WaitForSecondsRealtime (1/50000000); // I used .2 secs but you can update it as fast as you want
+                    }
+                }
             }
+
         }
+        #endregion
 
+        #endregion
     }
-    #endregion
-
-    #endregion
 }
