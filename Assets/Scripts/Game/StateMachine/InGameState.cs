@@ -2,16 +2,14 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class InGameState : ByTheTale.StateMachine.State
-{
-    public override void Initialize () {
+public class InGameState : ByTheTale.StateMachine.State {
+  public override void Initialize () {
 
   }
 
   public override void Enter () {
-   GameEvent.instance.SetActiveTouch(true);
-   GameEvent.instance.BeginPlay();
-   Debug.Log("playin");
+    GameEvent.instance.SetActiveTouch (true);
+    GameEvent.instance.BeginPlay ();
   }
 
   public override void Execute () {
@@ -25,6 +23,7 @@ public class InGameState : ByTheTale.StateMachine.State
   }
 
   public override void Exit () {
-
   }
+
+  
 }

@@ -183,6 +183,10 @@ public class GameEvent : MonoBehaviour {
     public void PauseOut () {
         OnPauseOut?.Invoke ();
     }
+    public event Action OnGameOver;
+    public void GameOver () {
+        OnGameOver?.Invoke ();
+    } 
 
     #endregion
     #endregion

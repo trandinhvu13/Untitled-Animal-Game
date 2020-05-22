@@ -26,6 +26,7 @@ public class SceneAnimationStuffs : MonoBehaviour {
     public GameObject pauseMenu;
     public GameObject scoreObj;
     public GameObject lifeObj;
+    public GameObject gameOverMenu;
 
     #endregion
 
@@ -48,6 +49,7 @@ public class SceneAnimationStuffs : MonoBehaviour {
     public float countDownTweenTime;
     public float pauseMenuMoveTime;
     public float buttonTweenTime;
+    public float gameOverTweenTime;
 
     [Header ("LeanTween Ease Type")]
     public LeanTweenType moveEaseType;
@@ -56,6 +58,7 @@ public class SceneAnimationStuffs : MonoBehaviour {
     public LeanTweenType countDownEaseType;
     public LeanTweenType pauseMenuEaseType;
     public LeanTweenType buttonEase;
+    public LeanTweenType gameOverEaseType;
     #endregion
 
     #region Variable
@@ -76,8 +79,10 @@ public class SceneAnimationStuffs : MonoBehaviour {
         restocker.transform.localPosition = new Vector2 (-3f, 0);
         trash.transform.localPosition = new Vector2 (3f, 0);
         pane.transform.localPosition = new Vector2 (0, -2f);
+        gameOverMenu.transform.localScale = Vector3.zero;
         GameEvent.instance.OnBeginPlay += SetUpBeginPlaying;
         GameEvent.instance.OnPauseIn += HandlePauseIn;
+        GameEvent.instance.OnGameOver += HandleGameOver;
 
         fadeBlack.SetActive (false);
         customerManager.SetActive (false);
@@ -99,11 +104,14 @@ public class SceneAnimationStuffs : MonoBehaviour {
     private void OnDestroy () {
         GameEvent.instance.OnBeginPlay -= SetUpBeginPlaying;
         GameEvent.instance.OnPauseIn -= HandlePauseIn;
+    GameEvent.instance.OnGameOver -= HandleGameOver;
+
         isStartedUp = true;
     }
     private void OnDisable () {
         GameEvent.instance.OnBeginPlay -= SetUpBeginPlaying;
         GameEvent.instance.OnPauseIn -= HandlePauseIn;
+        GameEvent.instance.OnGameOver -= HandleGameOver;
         isStartedUp = true;
         LeanTween.cancelAll (true);
     }
@@ -198,6 +206,21 @@ public class SceneAnimationStuffs : MonoBehaviour {
             GameEvent.instance.ChangeScene (2);
 
         }
+    }
+
+    public void HandleGameOver () {
+        fadeBlack.SetActive (true);
+
+        LeanTween.value (gameObject, UpdateFadeBlackAlpha, 0, 0, 0).setIgnoreTimeScale(true);
+        LeanTween.value (gameObject, UpdateFadeBlackAlpha, 0, fadeAmount, fadeTime).setEase (LeanTweenType.easeInOutQuad).setOnComplete (gameOverMenuAni).setIgnoreTimeScale(true);
+        void gameOverMenuAni () {
+            gameOverMenu.transform.localScale = Vector3.zero;
+            LeanTween.scale (gameOverMenu, new Vector3 (1, 1, 1), gameOverTweenTime).setFrom (Vector3.zero).setEase (gameOverEaseType).setOnComplete (runScore).setIgnoreTimeScale(true);
+            void runScore () {
+GameStateMachine.instance.ChangeState<LoseState> ();
+            }
+        }
+
     }
     #endregion
 

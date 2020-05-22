@@ -27,6 +27,7 @@ public class ScoreManager : MonoBehaviour {
     #endregion
 
     #region Variables
+    public bool isGameOver = false;
     public int currentScore = 0;
     public int currentMultiplier = 1;
     public int correctOrderStreak = 0;
@@ -41,6 +42,7 @@ public class ScoreManager : MonoBehaviour {
         currentLife = PlayerStats.instance.maxLife;
         currentScore = 0;
         currentMultiplier = 1;
+        isGameOver = false;
         GameEvent.instance.OnIncreaseScore += IncreaseScore;
         GameEvent.instance.OnDecreaseScore += DecreaseScore;
         GameEvent.instance.OnChangeMultiplier += ChangeMultiplier;
@@ -101,13 +103,11 @@ public class ScoreManager : MonoBehaviour {
     }
 
     void LifeTrack () {
-        if (currentLife <= 0) {
-            Debug.Log ("EndGame");
+        if (currentLife <= 0 && isGameOver == false) {
+            isGameOver = true;
+            GameEvent.instance.GameOver();
         }
-        // if (currentScore % scoreTo1Up==0)
-        // {
-        //     ChangeCurrentLife(1);
-        // }
+       
     }
     void StreakTrack () {
         if (correctOrderStreak == PlayerStats.instance.ordersToIncreaseMult) {
