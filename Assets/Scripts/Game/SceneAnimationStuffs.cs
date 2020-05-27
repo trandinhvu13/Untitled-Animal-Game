@@ -54,6 +54,7 @@ public class SceneAnimationStuffs : MonoBehaviour {
     public float pauseMenuMoveTime;
     public float buttonTweenTime;
     public float gameOverTweenTime;
+    public float scoreGameOverTweenTime;
 
     [Header ("LeanTween Ease Type")]
     public LeanTweenType moveEaseType;
@@ -63,6 +64,7 @@ public class SceneAnimationStuffs : MonoBehaviour {
     public LeanTweenType pauseMenuEaseType;
     public LeanTweenType buttonEase;
     public LeanTweenType gameOverEaseType;
+    public LeanTweenType scoreGameOverEaseType;
     #endregion
 
     #region Variable
@@ -235,15 +237,22 @@ public class SceneAnimationStuffs : MonoBehaviour {
                             currentScore += 50; //Increment the display score by 1
                             gameOverScore.text = currentScore.ToString (); //Write it to the UI\
                             Debug.Log ("Incre");
-                        }else{
-                            if(currentScore >= PlayerStats.instance.highScore){
-                                gameOverHighScore.text = "New highscore!"; 
-                                PlayerStats.instance.highScore = currentScore;
-                            }else{
-                                gameOverHighScore.text = "Highscore: " + PlayerStats.instance.highScore;
-                            }
+                        } else {
+                            currentScore = score;
+                            gameOverScore.text = currentScore.ToString ();
+                            LeanTween.scale (scoreGameOverObj, new Vector3 (1.5f, 1.5f, 1.5f), scoreGameOverTweenTime).setEase (scoreGameOverEaseType).setLoopPingPong (1).setIgnoreTimeScale(true).setOnComplete (() => {
+                                if (currentScore >= PlayerStats.instance.highScore) {
+                                    gameOverHighScore.text = "New highscore!";
+                                    PlayerStats.instance.highScore = currentScore;
+                                } else {
+                                    gameOverHighScore.text = "Highscore: " + PlayerStats.instance.highScore;
+                                }
+                                LeanTween.scale (highScoreGameOverObj, new Vector3 (1.5f, 1.5f, 1.5f), scoreGameOverTweenTime).setEase (scoreGameOverEaseType).setLoopPingPong (1).setIgnoreTimeScale(true);
+                            });
+                            yield break;
+
                         }
-                        yield return new WaitForSecondsRealtime (1/50000000); // I used .2 secs but you can update it as fast as you want
+                        yield return new WaitForSecondsRealtime (1 / 50000000); // I used .2 secs but you can update it as fast as you want
                     }
                 }
             }

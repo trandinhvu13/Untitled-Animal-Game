@@ -26,6 +26,7 @@ public class CustomerManager : MonoBehaviour {
     public bool[] seatStats = { false, false, false, false };
     public float[] spawnTimes = { 0, 0, 0, 0 };
     public float[] times = { 0, 0, 0, 0 }; //Current time
+    public int currentCustomerCount = 0;
 
     public static CustomerManager instance = null;
     #endregion
@@ -172,16 +173,19 @@ public class CustomerManager : MonoBehaviour {
     }
 
     private void Update () {
-        for (int i = 0; i < times.Length; i++) {
-            if (seatStats[i] == false) {
-                times[i] += Time.deltaTime;
-                if (times[i] >= spawnTimes[i]) {
-                    SpawnObject (i);
-                    SetRandomTime (i);
+        currentCustomerCount = seatStats.Count (s => s == true);
+        if (currentCustomerCount < PlayerStats.instance.maxCustomerCount) {
+            for (int i = 0; i < times.Length; i++) {
+                if (seatStats[i] == false) {
+                    times[i] += Time.deltaTime;
+                    if (times[i] >= spawnTimes[i]) {
+                        SpawnObject (i);
+                        SetRandomTime (i);
+                    }
                 }
-            }
 
-        }
+            }
+        } else { return; }
 
     }
     #endregion

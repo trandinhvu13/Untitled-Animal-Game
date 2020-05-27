@@ -32,6 +32,7 @@ public class PlayerStats : MonoBehaviour {
     public float maxSpawnTime = 10;
     public float VIPCustomerChance;
     public float EALCustomerChance;
+    public int maxCustomerCount;
 
     [Header ("Restocker")]
     public float deliveryTime = 5;

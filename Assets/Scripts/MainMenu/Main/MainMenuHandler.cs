@@ -7,7 +7,6 @@ using UnityEngine.SceneManagement;
 public class MainMenuHandler : MonoBehaviour {
     #region Game Objects
     public GameObject playButton;
-    public GameObject upgradesButton;
     public GameObject scoreButton;
     public GameObject settingsButton;
     public GameObject aboutButton;
@@ -57,19 +56,17 @@ public class MainMenuHandler : MonoBehaviour {
         playButton.transform.localScale = Vector3.zero;
         title.transform.localScale = Vector3.zero;
         playButton.transform.localScale = Vector3.zero;
-        upgradesButton.transform.localScale = Vector3.zero;
         settingsButton.transform.localScale = Vector3.zero;
         scoreButton.transform.localScale = Vector3.zero;
         aboutButton.transform.localScale = Vector3.zero;
 
         LeanTween.scale (title, new Vector3 (0.37586f, 0.37586f, 0.37586f), titleStartUpTweenTime).setEase (titleStartUpEase).setFrom (Vector3.zero).setDelay (titleStartUpDelayTime);
         LeanTween.scale (playButton, new Vector3 (7.5f, 7.5f, 7.5f), buttonStartUpTweenTime).setEase (buttonStartUpEase).setFrom (Vector3.zero).setDelay (titleStartUpDelayTime + buttonStartUpDelay);
-        LeanTween.scale (upgradesButton, new Vector3 (7.5f, 7.5f, 7.5f), buttonStartUpTweenTime).setEase (buttonStartUpEase).setFrom (Vector3.zero).setDelay (titleStartUpDelayTime + buttonStartUpDelay + 0.15f);
         LeanTween.scale (scoreButton, new Vector3 (7.5f, 7.5f, 7.5f), buttonStartUpTweenTime).setEase (buttonStartUpEase).setFrom (Vector3.zero).setDelay (titleStartUpDelayTime + buttonStartUpDelay + 0.3f);
         LeanTween.scale (settingsButton, new Vector3 (7.5f, 7.5f, 7.5f), buttonStartUpTweenTime).setEase (buttonStartUpEase).setFrom (Vector3.zero).setDelay (titleStartUpDelayTime + buttonStartUpDelay + 0.45f);
         LeanTween.scale (aboutButton, new Vector3 (7.5f, 7.5f, 7.5f), buttonStartUpTweenTime).setEase (buttonStartUpEase).setFrom (Vector3.zero).setDelay (titleStartUpDelayTime + buttonStartUpDelay + 0.6f);
-        LeanTween.moveLocalY (character1, -4.8f, charStartUpTweenTime).setEase (charStartUpEase).setDelay (charStartUpDelay);
-        LeanTween.moveLocalY (character2, -4.8f, charStartUpTweenTime).setEase (charStartUpEase).setDelay (charStartUpDelay);
+        LeanTween.moveLocalY (character1, -4.29f, charStartUpTweenTime).setEase (charStartUpEase).setDelay (charStartUpDelay);
+        LeanTween.moveLocalY (character2, -4.29f, charStartUpTweenTime).setEase (charStartUpEase).setDelay (charStartUpDelay);
 
     }
 

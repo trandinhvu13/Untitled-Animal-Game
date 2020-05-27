@@ -71,6 +71,7 @@ public class CustomerScript : MonoBehaviour, IPoolable {
         void flickFaster () {
             LeanTween.alpha (bubble, 0, 0.15f).setLoopPingPong (10).setEase (floatingEaseType);
         }
+        LeanTween.alpha (bubble, 1, 0);
         LeanTween.alpha (bubble, 0, 0.5f).setLoopPingPong (3).setEase (floatingEaseType).setOnComplete (flickFaster);
     }
 
@@ -81,7 +82,7 @@ public class CustomerScript : MonoBehaviour, IPoolable {
         void shake () {
             CameraShake.Shake (shakeDuration, shakeAmount);
         }
-        
+
         if (_id == id) {
             if (_reason == "Correct") {
 
@@ -91,9 +92,11 @@ public class CustomerScript : MonoBehaviour, IPoolable {
                 //add red X animation
 
             }
-            LeanTween.scale (order, new Vector3 (0f, 0f, 0), despawnAnimationTime).setEase (despawnEaseType).setOnComplete (shake);
-            LeanTween.scale (timerGameObj, new Vector3 (0f, 0f, 0), despawnAnimationTime).setEase (despawnEaseType);
-            LeanTween.moveY (gameObject, 0f, despawnAnimationTime).setEase (despawnEaseType).setOnComplete (despawn).setDelay (orderDespawnAnimationTime);
+            if (order != null && timerGameObj != null) {
+                LeanTween.scale (order, new Vector3 (0f, 0f, 0), despawnAnimationTime).setEase (despawnEaseType).setOnComplete (shake);
+                LeanTween.scale (timerGameObj, new Vector3 (0f, 0f, 0), despawnAnimationTime).setEase (despawnEaseType).setOnComplete (shake);
+                LeanTween.moveY (gameObject, 0f, despawnAnimationTime).setEase (despawnEaseType).setOnComplete (despawn).setDelay (orderDespawnAnimationTime);
+            }
 
         }
 
@@ -146,7 +149,7 @@ public class CustomerScript : MonoBehaviour, IPoolable {
         timerGameObj.transform.localScale = new Vector3 (0, 0, 0);
         isFlickering = true;
         LeanTween.cancel (hoverID);
-        orderTimer.transform.localPosition = new Vector3(0, -0.01f, 0);
+        orderTimer.transform.localPosition = new Vector3 (0, -0.01f, 0);
     }
 
     #endregion

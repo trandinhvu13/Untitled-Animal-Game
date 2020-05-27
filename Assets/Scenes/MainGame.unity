@@ -3687,7 +3687,7 @@ GameObject:
   - component: {fileID: 508164025}
   - component: {fileID: 508164024}
   m_Layer: 0
-  m_Name: Score
+  m_Name: ScoreText
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -3708,10 +3708,10 @@ RectTransform:
   m_Father: {fileID: 1703706735}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
-  m_AnchorMin: {x: 0.5, y: 0.5}
-  m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: 0.05, y: 0.17}
-  m_SizeDelta: {x: 2.1839786, y: 0.9343842}
+  m_AnchorMin: {x: 0, y: 0}
+  m_AnchorMax: {x: 1, y: 1}
+  m_AnchoredPosition: {x: 0.0344, y: 0.128}
+  m_SizeDelta: {x: 0.6404462, y: -0.038878083}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &508164024
 MonoBehaviour:
@@ -7079,7 +7079,7 @@ MonoBehaviour:
   m_material: {fileID: 0}
   m_sharedMaterial: {fileID: 0}
   m_isDefaultMaterial: 0
-  m_padding: 5.165
+  m_padding: 0
   m_canvasRenderer: {fileID: 944722794}
   m_TextComponent: {fileID: 508164024}
   m_materialReferenceIndex: 1
@@ -9786,7 +9786,7 @@ GameObject:
   - component: {fileID: 1431589178}
   - component: {fileID: 1431589177}
   m_Layer: 0
-  m_Name: TMP SubMeshUI [Low Batt  SDF Material + LiberationSans SDF Atlas]
+  m_Name: TMP SubMeshUI [DTM-Sans SDF Material + LiberationSans SDF Atlas]
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -9834,7 +9834,7 @@ MonoBehaviour:
   m_material: {fileID: 0}
   m_sharedMaterial: {fileID: 0}
   m_isDefaultMaterial: 0
-  m_padding: 5.165
+  m_padding: 1.25
   m_canvasRenderer: {fileID: 1431589178}
   m_TextComponent: {fileID: 1869456410}
   m_materialReferenceIndex: 1
@@ -11017,10 +11017,10 @@ RectTransform:
   m_Father: {fileID: 262220861}
   m_RootOrder: 4
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
-  m_AnchorMin: {x: 0.5, y: 0.5}
-  m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: 0.00000071526, y: 0.0000011921}
-  m_SizeDelta: {x: 100, y: 100}
+  m_AnchorMin: {x: 0, y: 0}
+  m_AnchorMax: {x: 1, y: 1}
+  m_AnchoredPosition: {x: -0.0032000542, y: 0.02519989}
+  m_SizeDelta: {x: -1.6098787, y: -4.7235126}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!1 &1759869067
 GameObject:
@@ -11969,7 +11969,7 @@ GameObject:
   - component: {fileID: 1869456411}
   - component: {fileID: 1869456410}
   m_Layer: 0
-  m_Name: Score
+  m_Name: HighscoreText
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -14038,12 +14038,37 @@ PrefabInstance:
     - target: {fileID: 8466025337904338145, guid: de43f19cce495d5478cae4b1ce6c6a44,
         type: 3}
       propertyPath: waitTime
-      value: 6
+      value: 20
       objectReference: {fileID: 0}
     - target: {fileID: 8466025337904338145, guid: de43f19cce495d5478cae4b1ce6c6a44,
         type: 3}
       propertyPath: highScore
-      value: 6000
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 8466025337904338145, guid: de43f19cce495d5478cae4b1ce6c6a44,
+        type: 3}
+      propertyPath: drinkMQuantity
+      value: 4
+      objectReference: {fileID: 0}
+    - target: {fileID: 8466025337904338145, guid: de43f19cce495d5478cae4b1ce6c6a44,
+        type: 3}
+      propertyPath: creamMQuantity
+      value: 4
+      objectReference: {fileID: 0}
+    - target: {fileID: 8466025337904338145, guid: de43f19cce495d5478cae4b1ce6c6a44,
+        type: 3}
+      propertyPath: fruitMQuantity
+      value: 4
+      objectReference: {fileID: 0}
+    - target: {fileID: 8466025337904338145, guid: de43f19cce495d5478cae4b1ce6c6a44,
+        type: 3}
+      propertyPath: maxCustomerCount
+      value: 3
+      objectReference: {fileID: 0}
+    - target: {fileID: 8466025337904338145, guid: de43f19cce495d5478cae4b1ce6c6a44,
+        type: 3}
+      propertyPath: maxLife
+      value: 100
       objectReference: {fileID: 0}
     - target: {fileID: 8466025337904338150, guid: de43f19cce495d5478cae4b1ce6c6a44,
         type: 3}
@@ -14255,12 +14280,12 @@ PrefabInstance:
         type: 3}
       propertyPath: scoreGameOverObj
       value: 
-      objectReference: {fileID: 1703706734}
+      objectReference: {fileID: 508164022}
     - target: {fileID: 8466025337904338151, guid: de43f19cce495d5478cae4b1ce6c6a44,
         type: 3}
       propertyPath: highScoreGameOverObj
       value: 
-      objectReference: {fileID: 1543125593}
+      objectReference: {fileID: 1869456408}
     - target: {fileID: 8466025337904338151, guid: de43f19cce495d5478cae4b1ce6c6a44,
         type: 3}
       propertyPath: gameOverScore
@@ -14271,6 +14296,16 @@ PrefabInstance:
       propertyPath: gameOverHighScore
       value: 
       objectReference: {fileID: 1869456410}
+    - target: {fileID: 8466025337904338151, guid: de43f19cce495d5478cae4b1ce6c6a44,
+        type: 3}
+      propertyPath: scoreGameOverEaseType
+      value: 24
+      objectReference: {fileID: 0}
+    - target: {fileID: 8466025337904338151, guid: de43f19cce495d5478cae4b1ce6c6a44,
+        type: 3}
+      propertyPath: scoreGameOverTweenTime
+      value: 0.25
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: de43f19cce495d5478cae4b1ce6c6a44, type: 3}
 --- !u!114 &8466025337515756203 stripped
@@ -14279,10 +14314,28 @@ MonoBehaviour:
     type: 3}
   m_PrefabInstance: {fileID: 8466025337515756202}
   m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 0}
+  m_GameObject: {fileID: 8466025337515756204}
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 41d7c91335e2ba1459c4cafbae323a5e, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+--- !u!1 &8466025337515756204 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 8466025337904338144, guid: de43f19cce495d5478cae4b1ce6c6a44,
+    type: 3}
+  m_PrefabInstance: {fileID: 8466025337515756202}
+  m_PrefabAsset: {fileID: 0}
+--- !u!114 &8466025337515756205
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8466025337515756204}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: cf28b8eb4bcbaa2429fcb243e916cc2c, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
 --- !u!1001 &9022838103476182725
