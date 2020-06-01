@@ -14338,6 +14338,12 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: cf28b8eb4bcbaa2429fcb243e916cc2c, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  stage1: 20
+  stage2: 40
+  stage3: 70
+  stage4: 100
+  stage4Time: 40
+  maxRepeatTime: 8
 --- !u!1001 &9022838103476182725
 PrefabInstance:
   m_ObjectHideFlags: 0

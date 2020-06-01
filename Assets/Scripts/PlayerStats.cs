@@ -27,7 +27,6 @@ public class PlayerStats : MonoBehaviour {
 
     [Header ("Customer")]
     public float waitTime;
-    public float customerWaitingTime = 10;
     public float minSpawnTime = 3;
     public float maxSpawnTime = 10;
     public float VIPCustomerChance;
