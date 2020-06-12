@@ -104,7 +104,7 @@ public class MainMenuHandler : MonoBehaviour {
 
         void execute () {
             MoveMenu ("left");
-            MovePanel(scorePanel, "left");
+            MovePanel (scorePanel, "left");
 
         }
     }
@@ -129,7 +129,7 @@ public class MainMenuHandler : MonoBehaviour {
         }
     }
 
-     public void aboutClick (GameObject _gameObject) {
+    public void aboutClick (GameObject _gameObject) {
         if (!LeanTween.isTweening (_gameObject)) {
             LeanTween.scale (_gameObject, new Vector3 (9, 9, 9), buttonTweenTime).setLoopPingPong (1).setEase (buttonEase).setOnComplete (execute);
         }
@@ -139,11 +139,22 @@ public class MainMenuHandler : MonoBehaviour {
         }
     }
 
+    public void closeClick (GameObject _gameObject) {
+        if (!LeanTween.isTweening (_gameObject)) {
+            LeanTween.scale (_gameObject, new Vector3 (1.2f, 1.2f, 1.2f), buttonTweenTime).setLoopPingPong (1).setEase (buttonEase).setOnComplete (execute);
+        }
+
+        void execute () {
+            MoveMenu ("right");
+            MovePanel(scorePanel, "right");
+        }
+    }
+
     public void MovePanel (GameObject _panel, string _dir) {
-        if (_dir == "left"){
+        if (_dir == "left") {
             LeanTween.moveX (_panel, 0, panelMoveTweenTime).setEase (panelMoveEase);
-        } else if (_dir == "right"){
-            LeanTween.moveX (_panel, -2, panelMoveTweenTime).setEase (panelMoveEase);
+        } else if (_dir == "right") {
+            LeanTween.moveX (_panel, 2.5f, panelMoveTweenTime).setEase (panelMoveEase);
         }
     }
 

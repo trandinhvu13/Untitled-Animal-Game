@@ -24,7 +24,7 @@ public class SecurePlayerPrefs {
    */
 	private static readonly string PRIVATE_KEY_PREFIX = "aag";
 	private static readonly string PRIVATE_KEY_RAND = "ghd";
-	private static readonly string PRIVATE_KEY_SUFFIX = "5";
+	private static readonly string PRIVATE_KEY_SUFFIX = "52";
 
 	// The private key of DES encryption.
 	private static string privateKey;
@@ -33,7 +33,7 @@ public class SecurePlayerPrefs {
 	private static bool isInit = false;
 
   // Your private key to store the randomly generated key for each device.
-	private static readonly string RAND_KEY = "aagghd5";
+	private static readonly string RAND_KEY = "aagghd52";
 
   // Should errors/exceptions be logged.
 	private static bool logErrorsEnabled = false;

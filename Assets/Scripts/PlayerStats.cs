@@ -49,8 +49,10 @@ public class PlayerStats : MonoBehaviour {
     public int customerWaitingTimePrice;
 
     private void OnEnable () {
-        //Change with players pref
-
+        int playCount = SecurePlayerPrefs.GetInt ("playCount", 0);
+        SecurePlayerPrefs.SetInt ("playCount", playCount + 1);
+        highScore = SecurePlayerPrefs.GetInt ("highscore", 0);
+        Debug.Log(SecurePlayerPrefs.GetInt ("playCount", 0));
     }
 
 }

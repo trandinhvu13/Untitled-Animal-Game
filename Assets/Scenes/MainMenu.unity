@@ -4577,7 +4577,7 @@ MonoBehaviour:
     m_PersistentCalls:
       m_Calls:
       - m_Target: {fileID: 1925427398}
-        m_MethodName: scoreClick
+        m_MethodName: closeClick
         m_Mode: 2
         m_Arguments:
           m_ObjectArgument: {fileID: 1185559315}
@@ -4661,7 +4661,7 @@ SpriteRenderer:
   m_LightmapParameters: {fileID: 0}
   m_SortingLayerID: -1619668735
   m_SortingLayer: 7
-  m_SortingOrder: 90
+  m_SortingOrder: 119
   m_Sprite: {fileID: 1763989116612304091, guid: 8db80d28b917a824e98d63a55e244319,
     type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}

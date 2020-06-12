@@ -240,14 +240,16 @@ public class SceneAnimationStuffs : MonoBehaviour {
                         } else {
                             currentScore = score;
                             gameOverScore.text = currentScore.ToString ();
-                            LeanTween.scale (scoreGameOverObj, new Vector3 (1.5f, 1.5f, 1.5f), scoreGameOverTweenTime).setEase (scoreGameOverEaseType).setLoopPingPong (1).setIgnoreTimeScale(true).setOnComplete (() => {
+                            LeanTween.scale (scoreGameOverObj, new Vector3 (1.5f, 1.5f, 1.5f), scoreGameOverTweenTime).setEase (scoreGameOverEaseType).setLoopPingPong (1).setIgnoreTimeScale (true).setOnComplete (() => {
                                 if (currentScore >= PlayerStats.instance.highScore) {
                                     gameOverHighScore.text = "New highscore!";
+                                    SecurePlayerPrefs.SetInt ("highscore", currentScore);
                                     PlayerStats.instance.highScore = currentScore;
+                                    //update to database
                                 } else {
                                     gameOverHighScore.text = "Highscore: " + PlayerStats.instance.highScore;
                                 }
-                                LeanTween.scale (highScoreGameOverObj, new Vector3 (1.5f, 1.5f, 1.5f), scoreGameOverTweenTime).setEase (scoreGameOverEaseType).setLoopPingPong (1).setIgnoreTimeScale(true);
+                                LeanTween.scale (highScoreGameOverObj, new Vector3 (1.5f, 1.5f, 1.5f), scoreGameOverTweenTime).setEase (scoreGameOverEaseType).setLoopPingPong (1).setIgnoreTimeScale (true);
                             });
                             yield break;
 
