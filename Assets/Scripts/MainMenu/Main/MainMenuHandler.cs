@@ -18,6 +18,7 @@ public class MainMenuHandler : MonoBehaviour {
     public GameObject howToPanel;
     public GameObject optionPanel;
     public GameObject aboutPanel;
+    public GameObject namePanel;
 
     #endregion
 
@@ -78,24 +79,21 @@ public class MainMenuHandler : MonoBehaviour {
     }
 
     public void playClick (GameObject _gameObject) {
-        if (!LeanTween.isTweening (_gameObject)) {
-            LeanTween.scale (_gameObject, new Vector3 (9, 9, 9), buttonTweenTime).setLoopPingPong (1).setEase (buttonEase).setOnComplete (execute);
+        if (SecurePlayerPrefs.GetInt ("playCount", 0) == 0) {
+            MoveMenu ("left");
+            namePanel.SetActive(true);
+            MovePanel (namePanel, "left");
+        } else {
+            if (!LeanTween.isTweening (_gameObject)) {
+                LeanTween.scale (_gameObject, new Vector3 (9, 9, 9), buttonTweenTime).setLoopPingPong (1).setEase (buttonEase).setOnComplete (execute);
+            }
+
+            void execute () {
+                GameEvent.instance.PlayButtonPress ();
+            }
         }
 
-        void execute () {
-            GameEvent.instance.PlayButtonPress ();
-        }
     }
-
-    // public void upgradeClick (GameObject _gameObject) {
-    //     if (!LeanTween.isTweening (_gameObject)) {
-    //         LeanTween.scale (_gameObject, new Vector3 (9, 9, 9), buttonTweenTime).setLoopPingPong (1).setEase (buttonEase).setOnComplete (execute);
-    //     }
-
-    //     void execute () {
-    //         MoveMenu ("left");
-    //     }
-    // }
 
     public void scoreClick (GameObject _gameObject) {
         if (!LeanTween.isTweening (_gameObject)) {
@@ -104,6 +102,7 @@ public class MainMenuHandler : MonoBehaviour {
 
         void execute () {
             MoveMenu ("left");
+            scorePanel.SetActive(true);
             MovePanel (scorePanel, "left");
 
         }
@@ -146,7 +145,8 @@ public class MainMenuHandler : MonoBehaviour {
 
         void execute () {
             MoveMenu ("right");
-            MovePanel(scorePanel, "right");
+            MovePanel (scorePanel, "right");
+            
         }
     }
 
@@ -154,7 +154,7 @@ public class MainMenuHandler : MonoBehaviour {
         if (_dir == "left") {
             LeanTween.moveX (_panel, 0, panelMoveTweenTime).setEase (panelMoveEase);
         } else if (_dir == "right") {
-            LeanTween.moveX (_panel, 2.5f, panelMoveTweenTime).setEase (panelMoveEase);
+            LeanTween.moveX (_panel, 2.5f, panelMoveTweenTime).setEase (panelMoveEase).setOnComplete(()=>{scorePanel.SetActive(false);});
         }
     }
 
