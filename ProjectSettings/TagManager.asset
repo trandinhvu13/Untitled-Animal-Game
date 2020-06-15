@@ -23,6 +23,7 @@ TagManager:
   - SceneLoader
   - StateMachine
   - Leaderboard
+  - EventSystem
   layers:
   - Default
   - TransparentFX
