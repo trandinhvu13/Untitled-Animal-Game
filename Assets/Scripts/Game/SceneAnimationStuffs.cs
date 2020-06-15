@@ -236,12 +236,11 @@ public class SceneAnimationStuffs : MonoBehaviour {
                         if (currentScore < score) {
                             currentScore += 50; //Increment the display score by 1
                             gameOverScore.text = currentScore.ToString (); //Write it to the UI\
-                            Debug.Log ("Incre");
                         } else {
                             currentScore = score;
                             gameOverScore.text = currentScore.ToString ();
                             LeanTween.scale (scoreGameOverObj, new Vector3 (1.5f, 1.5f, 1.5f), scoreGameOverTweenTime).setEase (scoreGameOverEaseType).setLoopPingPong (1).setIgnoreTimeScale (true).setOnComplete (() => {
-                                if (currentScore >= PlayerStats.instance.highScore) {
+                                if (currentScore > PlayerStats.instance.highScore) {
                                     gameOverHighScore.text = "New highscore!";
                                     SecurePlayerPrefs.SetInt ("highscore", currentScore);
                                     PlayerStats.instance.highScore = currentScore;

@@ -68,10 +68,8 @@ public class CustomerManager : MonoBehaviour {
     public void CompareAnswersHandler (int[] order, int id, string type) {
         if (order.SequenceEqual (seatsOrders[id])) {
             CorrectCustomerHandler (id, type);
-            Debug.Log ("True");
         } else {
             FalseCustomerHandler (id, type);
-            Debug.Log ("False");
         }
     }
 
@@ -101,7 +99,6 @@ public class CustomerManager : MonoBehaviour {
             GameEvent.instance.DecreaseScore (40);
         }
         GameEvent.instance.DespawnCustomer (_id, "Wrong");
-        Debug.Log ("false2");
         GameEvent.instance.ChangeLife (-1);
     }
 

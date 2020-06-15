@@ -11,6 +11,7 @@ public class CustomerScript : MonoBehaviour, IPoolable {
     public CustomerSprite customerSprite;
     public Animator ani;
     public TextMeshProUGUI timerNum;
+    public GameObject XWrong;
     public SpriteRenderer spriteRenderer;
     public BoxCollider2D col;
     #endregion
@@ -90,6 +91,7 @@ public class CustomerScript : MonoBehaviour, IPoolable {
 
             } else if (_reason == "Timeout" || _reason == "Wrong") {
                 //add red X animation
+                LeanTween.scale(XWrong, new Vector3(1,1,1), orderDespawnAnimationTime).setEase(LeanTweenType.easeOutElastic).setFrom(Vector3.zero);
 
             }
             if (order != null && timerGameObj != null) {
@@ -134,6 +136,7 @@ public class CustomerScript : MonoBehaviour, IPoolable {
     }
 
     public void OnSpawn () {
+        XWrong.transform.localScale = Vector3.zero;
         time = PlayerStats.instance.waitTime;
         col.enabled = true;
         isWaiting = true;
