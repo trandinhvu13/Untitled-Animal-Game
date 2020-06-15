@@ -13,6 +13,9 @@ public class ScoreManager : MonoBehaviour {
             Destroy (gameObject);
         }
     }
+    #region 
+    dreamloLeaderBoard dl;
+    #endregion
 
     #region GameObj
     public TextMeshProUGUI currentScoreText;
@@ -48,6 +51,7 @@ public class ScoreManager : MonoBehaviour {
         GameEvent.instance.OnChangeMultiplier += ChangeMultiplier;
         GameEvent.instance.OnChangeLife += ChangeCurrentLife;
         GameEvent.instance.OnChangeMaxLife += ChangeCurrentMaxLife;
+        this.dl = dreamloLeaderBoard.GetSceneDreamloLeaderboard ();
 
     }
 
@@ -103,11 +107,15 @@ public class ScoreManager : MonoBehaviour {
     }
 
     void LifeTrack () {
+        string playerName = SecurePlayerPrefs.GetString("playerName", "UNKNOWN");
         if (currentLife <= 0 && isGameOver == false) {
             isGameOver = true;
-            GameEvent.instance.GameOver();
+            if (dl.publicCode == "") Debug.LogError ("You forgot to set the publicCode variable");
+            if (dl.privateCode == "") Debug.LogError ("You forgot to set the privateCode variable");
+            dl.AddScore(playerName, currentScore);
+            GameEvent.instance.GameOver ();
         }
-       
+
     }
     void StreakTrack () {
         if (correctOrderStreak == PlayerStats.instance.ordersToIncreaseMult) {
