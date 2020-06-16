@@ -14378,10 +14378,10 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   stage1: 0
-  stage2: 30
-  stage3: 50
-  stage4: 80
-  stage4Time: 40
+  stage2: 60
+  stage3: 100
+  stage4: 200
+  stage4Time: 100
   maxRepeatTime: 8
 --- !u!1001 &9022838103476182725
 PrefabInstance:

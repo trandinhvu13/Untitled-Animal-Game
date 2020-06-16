@@ -14,6 +14,7 @@ public class CustomerScript : MonoBehaviour, IPoolable {
     public GameObject XWrong;
     public SpriteRenderer spriteRenderer;
     public BoxCollider2D col;
+    public ParticleSystem explosion;
     #endregion
 
     #region LeanTween
@@ -88,10 +89,10 @@ public class CustomerScript : MonoBehaviour, IPoolable {
             if (_reason == "Correct") {
 
                 //show particle effect
-
+                explosion.Play();
             } else if (_reason == "Timeout" || _reason == "Wrong") {
                 //add red X animation
-                LeanTween.scale(XWrong, new Vector3(1,1,1), orderDespawnAnimationTime).setEase(LeanTweenType.easeOutElastic).setFrom(Vector3.zero);
+                LeanTween.scale(XWrong, new Vector3(1,1,1), orderDespawnAnimationTime).setEase(LeanTweenType.easeOutBounce).setFrom(Vector3.zero);
 
             }
             if (order != null && timerGameObj != null) {
