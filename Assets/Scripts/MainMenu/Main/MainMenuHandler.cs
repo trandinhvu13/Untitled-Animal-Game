@@ -1,10 +1,12 @@
 ﻿using System;
 using System.Collections;
 using System.Collections.Generic;
+using System.Net.Mime;
+using System.Security.Cryptography;
 using TMPro;
 using UnityEngine;
-using UnityEngine.UI;
 using UnityEngine.SceneManagement;
+using UnityEngine.UI;
 
 public class MainMenuHandler : MonoBehaviour {
     #region Game Objects
@@ -23,6 +25,8 @@ public class MainMenuHandler : MonoBehaviour {
     public GameObject namePanel;
     public string playerName;
     public Text textInputField;
+    public Text nameID;
+    public Text nameIDInputField;
 
     #endregion
 
@@ -83,20 +87,20 @@ public class MainMenuHandler : MonoBehaviour {
     }
     public void InputFieldPlay (GameObject _gameObject) {
         playerName = textInputField.text;
-        if(playerName== null || playerName ==""){
+        if (playerName == null || playerName == "") {
             return;
-        }else{
+        } else {
             if (!LeanTween.isTweening (_gameObject)) {
-            LeanTween.scale (_gameObject, new Vector3 (1.2f, 1.2f, 1.2f), buttonTweenTime).setLoopPingPong (1).setEase (buttonEase).setOnComplete (execute);
+                LeanTween.scale (_gameObject, new Vector3 (1.2f, 1.2f, 1.2f), buttonTweenTime).setLoopPingPong (1).setEase (buttonEase).setOnComplete (execute);
+            }
+
+            void execute () {
+                SecurePlayerPrefs.SetString ("playerName", playerName);
+                Debug.Log (playerName);
+                GameEvent.instance.PlayButtonPress ();
+            }
         }
 
-        void execute () {
-            SecurePlayerPrefs.SetString ("playerName", playerName);
-            Debug.Log(playerName);
-            GameEvent.instance.PlayButtonPress ();
-        }
-        }
-        
     }
     public void playClick (GameObject _gameObject) {
         if (SecurePlayerPrefs.GetInt ("playCount", 0) == 0) {
@@ -142,6 +146,8 @@ public class MainMenuHandler : MonoBehaviour {
 
         void execute () {
             MoveMenu ("left");
+            howToPanel.SetActive (true);
+            MovePanel (howToPanel, "left");
         }
     }
 
@@ -151,7 +157,12 @@ public class MainMenuHandler : MonoBehaviour {
         }
 
         void execute () {
+            int random = (int) UnityEngine.Random.Range (0, 10000000000);
+            string name = SecurePlayerPrefs.GetString ("playerName", random.ToString ());
+            nameIDInputField.text = name;
             MoveMenu ("left");
+            optionPanel.SetActive (true);
+            MovePanel (optionPanel, "left");
         }
     }
 
@@ -162,10 +173,12 @@ public class MainMenuHandler : MonoBehaviour {
 
         void execute () {
             MoveMenu ("left");
+            aboutPanel.SetActive (true);
+            MovePanel (aboutPanel, "left");
         }
     }
 
-    public void closeClick (GameObject _gameObject) {
+    public void closeScoreClick (GameObject _gameObject) {
         if (!LeanTween.isTweening (_gameObject)) {
             LeanTween.scale (_gameObject, new Vector3 (1.2f, 1.2f, 1.2f), buttonTweenTime).setLoopPingPong (1).setEase (buttonEase).setOnComplete (execute);
         }
@@ -175,6 +188,47 @@ public class MainMenuHandler : MonoBehaviour {
             MovePanel (scorePanel, "right");
 
         }
+    }
+
+    public void closeAboutClick (GameObject _gameObject) {
+        if (!LeanTween.isTweening (_gameObject)) {
+            LeanTween.scale (_gameObject, new Vector3 (1.2f, 1.2f, 1.2f), buttonTweenTime).setLoopPingPong (1).setEase (buttonEase).setOnComplete (execute);
+        }
+
+        void execute () {
+            MoveMenu ("right");
+            MovePanel (aboutPanel, "right");
+
+        }
+    }
+
+    public void closeOptionClick (GameObject _gameObject) {
+        if (!LeanTween.isTweening (_gameObject)) {
+            LeanTween.scale (_gameObject, new Vector3 (1.2f, 1.2f, 1.2f), buttonTweenTime).setLoopPingPong (1).setEase (buttonEase).setOnComplete (execute);
+        }
+
+        void execute () {
+            SecurePlayerPrefs.SetString ("playerName", nameIDInputField.text);
+            MoveMenu ("right");
+            MovePanel (optionPanel, "right");
+
+        }
+    }
+
+    public void closeHowToClick (GameObject _gameObject) {
+        if (!LeanTween.isTweening (_gameObject)) {
+            LeanTween.scale (_gameObject, new Vector3 (1.2f, 1.2f, 1.2f), buttonTweenTime).setLoopPingPong (1).setEase (buttonEase).setOnComplete (execute);
+        }
+
+        void execute () {
+            MoveMenu ("right");
+            MovePanel (howToPanel, "right");
+
+        }
+    }
+
+    public void OnValueChange () {
+        nameID.text = "";
     }
 
     public void MovePanel (GameObject _panel, string _dir) {
