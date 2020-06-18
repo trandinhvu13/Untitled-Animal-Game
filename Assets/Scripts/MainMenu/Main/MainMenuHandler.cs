@@ -105,6 +105,7 @@ public class MainMenuHandler : MonoBehaviour {
     public void playClick (GameObject _gameObject) {
         if (SecurePlayerPrefs.GetInt ("playCount", 0) == 0) {
             if (!LeanTween.isTweening (_gameObject)) {
+                GameEvent.instance.ButtonPress();
                 LeanTween.scale (_gameObject, new Vector3 (9, 9, 9), buttonTweenTime).setLoopPingPong (1).setEase (buttonEase).setOnComplete (execute);
             }
 
@@ -116,6 +117,7 @@ public class MainMenuHandler : MonoBehaviour {
 
         } else {
             if (!LeanTween.isTweening (_gameObject)) {
+                GameEvent.instance.ButtonPress();
                 LeanTween.scale (_gameObject, new Vector3 (9, 9, 9), buttonTweenTime).setLoopPingPong (1).setEase (buttonEase).setOnComplete (execute);
             }
 
@@ -128,6 +130,7 @@ public class MainMenuHandler : MonoBehaviour {
 
     public void scoreClick (GameObject _gameObject) {
         if (!LeanTween.isTweening (_gameObject)) {
+            GameEvent.instance.ButtonPress();
             LeanTween.scale (_gameObject, new Vector3 (9, 9, 9), buttonTweenTime).setLoopPingPong (1).setEase (buttonEase).setOnComplete (execute);
         }
 
@@ -141,6 +144,7 @@ public class MainMenuHandler : MonoBehaviour {
 
     public void howToClick (GameObject _gameObject) {
         if (!LeanTween.isTweening (_gameObject)) {
+            GameEvent.instance.ButtonPress();
             LeanTween.scale (_gameObject, new Vector3 (9, 9, 9), buttonTweenTime).setLoopPingPong (1).setEase (buttonEase).setOnComplete (execute);
         }
 
@@ -153,6 +157,7 @@ public class MainMenuHandler : MonoBehaviour {
 
     public void optionsClick (GameObject _gameObject) {
         if (!LeanTween.isTweening (_gameObject)) {
+            GameEvent.instance.ButtonPress();
             LeanTween.scale (_gameObject, new Vector3 (9, 9, 9), buttonTweenTime).setLoopPingPong (1).setEase (buttonEase).setOnComplete (execute);
         }
 
@@ -168,6 +173,7 @@ public class MainMenuHandler : MonoBehaviour {
 
     public void aboutClick (GameObject _gameObject) {
         if (!LeanTween.isTweening (_gameObject)) {
+            GameEvent.instance.ButtonPress();
             LeanTween.scale (_gameObject, new Vector3 (9, 9, 9), buttonTweenTime).setLoopPingPong (1).setEase (buttonEase).setOnComplete (execute);
         }
 
@@ -180,6 +186,7 @@ public class MainMenuHandler : MonoBehaviour {
 
     public void closeScoreClick (GameObject _gameObject) {
         if (!LeanTween.isTweening (_gameObject)) {
+            GameEvent.instance.ButtonPress();
             LeanTween.scale (_gameObject, new Vector3 (1.2f, 1.2f, 1.2f), buttonTweenTime).setLoopPingPong (1).setEase (buttonEase).setOnComplete (execute);
         }
 
@@ -192,6 +199,7 @@ public class MainMenuHandler : MonoBehaviour {
 
     public void closeAboutClick (GameObject _gameObject) {
         if (!LeanTween.isTweening (_gameObject)) {
+            GameEvent.instance.ButtonPress();
             LeanTween.scale (_gameObject, new Vector3 (1.2f, 1.2f, 1.2f), buttonTweenTime).setLoopPingPong (1).setEase (buttonEase).setOnComplete (execute);
         }
 
@@ -204,6 +212,7 @@ public class MainMenuHandler : MonoBehaviour {
 
     public void closeOptionClick (GameObject _gameObject) {
         if (!LeanTween.isTweening (_gameObject)) {
+            GameEvent.instance.ButtonPress();
             LeanTween.scale (_gameObject, new Vector3 (1.2f, 1.2f, 1.2f), buttonTweenTime).setLoopPingPong (1).setEase (buttonEase).setOnComplete (execute);
         }
 
@@ -217,6 +226,7 @@ public class MainMenuHandler : MonoBehaviour {
 
     public void closeHowToClick (GameObject _gameObject) {
         if (!LeanTween.isTweening (_gameObject)) {
+            GameEvent.instance.ButtonPress();
             LeanTween.scale (_gameObject, new Vector3 (1.2f, 1.2f, 1.2f), buttonTweenTime).setLoopPingPong (1).setEase (buttonEase).setOnComplete (execute);
         }
 

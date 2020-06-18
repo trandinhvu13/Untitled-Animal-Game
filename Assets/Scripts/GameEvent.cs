@@ -167,9 +167,14 @@ public class GameEvent : MonoBehaviour {
     public void PlayButtonPress () {
         OnPlayButtonPress?.Invoke ();
     }
+
     #endregion
 
     #region In Game
+    public event Action OnButtonPress;
+    public void ButtonPress () {
+        OnButtonPress?.Invoke ();
+    }
     public event Action<bool> OnSetActiveTouch;
     public void SetActiveTouch (bool _bool) {
         OnSetActiveTouch?.Invoke (_bool);
