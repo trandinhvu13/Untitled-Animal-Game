@@ -4,7 +4,7 @@ using Hellmade.Sound;
 using UnityEngine;
 using UnityEngine.UI;
 
-public class MainMenuAudio : MonoBehaviour {
+public class SoundManager : MonoBehaviour {
     #region Audio
     public Audio backgroundAudio;
     public AudioClip backgroundAudioClip;
@@ -53,11 +53,12 @@ public class MainMenuAudio : MonoBehaviour {
         if(soundToggle.isOn == false)
         {
             EazySoundManager.GlobalVolume = 0f;
-            Debug.Log("mute");
+            playerSettings.isMuted = true;
         }else if(soundToggle.isOn == true)
         {
             EazySoundManager.GlobalVolume = 1f;
-            Debug.Log("unmute");
+            playerSettings.isMuted = false;
+
         }
         
     }

@@ -24,6 +24,7 @@ TagManager:
   - StateMachine
   - Leaderboard
   - EventSystem
+  - SoundManager
   layers:
   - Default
   - TransparentFX

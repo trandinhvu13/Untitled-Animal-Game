@@ -5,6 +5,7 @@ using System.Security.Cryptography.X509Certificates;
 using TMPro;
 using UnityEngine;
 using UnityEngine.UI;
+using Hellmade.Sound;
 
 public class SceneAnimationStuffs : MonoBehaviour {
     [Header ("Object")]
@@ -31,6 +32,10 @@ public class SceneAnimationStuffs : MonoBehaviour {
     public GameObject gameOverMenu;
     public GameObject highScoreGameOverObj;
     public GameObject scoreGameOverObj;
+
+    public SpriteRenderer soundIcon;
+    public Sprite mute;
+    public Sprite unmute;
 
     #endregion
 
@@ -164,6 +169,16 @@ public class SceneAnimationStuffs : MonoBehaviour {
     }
     #region Pause Menu
     public void HandlePauseIn () {
+        GameEvent.instance.ButtonPress();
+        bool isMuted = playerSettings.isMuted;
+        if (!isMuted)
+        {
+            soundIcon.sprite = unmute;
+        }
+        else
+        {
+            soundIcon.sprite = mute;
+        }
         fadeBlack.SetActive (true);
 
         LeanTween.value (gameObject, UpdateFadeBlackAlpha, 0, 0, 0);
@@ -178,6 +193,7 @@ public class SceneAnimationStuffs : MonoBehaviour {
 
     public void HandlePauseOutToGame (GameObject _gameObject) {
         if (!LeanTween.isTweening (_gameObject)) {
+            GameEvent.instance.ButtonPress();
             LeanTween.scale (_gameObject, new Vector3 (3.5f, 3.5f, 3.5f), buttonTweenTime).setLoopPingPong (1).setEase (buttonEase).setIgnoreTimeScale (true).setOnComplete (execute);
         }
 
@@ -194,6 +210,7 @@ public class SceneAnimationStuffs : MonoBehaviour {
 
     public void HandlePauseOutToMenu (GameObject _gameObject) {
         if (!LeanTween.isTweening (_gameObject)) {
+            GameEvent.instance.ButtonPress();
             LeanTween.scale (_gameObject, new Vector3 (3.5f, 3.5f, 3.5f), buttonTweenTime).setLoopPingPong (1).setEase (buttonEase).setIgnoreTimeScale (true).setOnComplete (execute);
         }
 
@@ -205,6 +222,7 @@ public class SceneAnimationStuffs : MonoBehaviour {
 
     public void HandleRestart (GameObject _gameObject) {
         if (!LeanTween.isTweening (_gameObject)) {
+            GameEvent.instance.ButtonPress();
             LeanTween.scale (_gameObject, new Vector3 (3.5f, 3.5f, 3.5f), buttonTweenTime).setLoopPingPong (1).setEase (buttonEase).setIgnoreTimeScale (true).setOnComplete (execute);
         }
 
@@ -212,6 +230,36 @@ public class SceneAnimationStuffs : MonoBehaviour {
             GameEvent.instance.ChangeScene (2);
 
         }
+    }
+
+    public void SoundButtonClick(GameObject _gameObject)
+    {
+        bool isMuted = playerSettings.isMuted;
+        if (!LeanTween.isTweening(_gameObject))
+        {
+            GameEvent.instance.ButtonPress();
+            LeanTween.scale(_gameObject, new Vector3(3.5f, 3.5f, 3.5f), buttonTweenTime).setLoopPingPong(1).setEase(buttonEase).setIgnoreTimeScale(true).setOnComplete(execute);
+        }
+
+        void execute()
+        {
+            if (!isMuted)
+            {
+                EazySoundManager.GlobalVolume = 0f;
+                playerSettings.isMuted = true;
+                soundIcon.sprite = mute;
+            }
+            else
+            {
+                EazySoundManager.GlobalVolume = 1f;
+                playerSettings.isMuted = false;
+                soundIcon.sprite = unmute;
+            }
+
+
+        }
+
+        
     }
 
     public void HandleGameOver () {

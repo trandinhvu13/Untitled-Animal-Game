@@ -27,7 +27,7 @@ public class MainMenuHandler : MonoBehaviour {
     public Text textInputField;
     public Text nameID;
     public Text nameIDInputField;
-
+    public Toggle isMuted;
     #endregion
 
     #region LeanTween
@@ -49,7 +49,7 @@ public class MainMenuHandler : MonoBehaviour {
 
     #region Monos
     private void OnEnable () {
-
+        //SecurePlayerPrefs.DeleteAll();
         MainMenuCharacter ();
         SetUpTween ();
     }
@@ -91,18 +91,21 @@ public class MainMenuHandler : MonoBehaviour {
             return;
         } else {
             if (!LeanTween.isTweening (_gameObject)) {
+                SecurePlayerPrefs.SetString("playerName", playerName);
+                Debug.Log(SecurePlayerPrefs.GetString("playerName"));
+                GameEvent.instance.ButtonPress();
                 LeanTween.scale (_gameObject, new Vector3 (1.2f, 1.2f, 1.2f), buttonTweenTime).setLoopPingPong (1).setEase (buttonEase).setOnComplete (execute);
             }
 
             void execute () {
-                SecurePlayerPrefs.SetString ("playerName", playerName);
-                Debug.Log (playerName);
+                
                 GameEvent.instance.PlayButtonPress ();
             }
         }
 
     }
     public void playClick (GameObject _gameObject) {
+        
         if (SecurePlayerPrefs.GetInt ("playCount", 0) == 0) {
             if (!LeanTween.isTweening (_gameObject)) {
                 GameEvent.instance.ButtonPress();
@@ -158,13 +161,24 @@ public class MainMenuHandler : MonoBehaviour {
     public void optionsClick (GameObject _gameObject) {
         if (!LeanTween.isTweening (_gameObject)) {
             GameEvent.instance.ButtonPress();
+            if (playerSettings.isMuted == false)
+            {
+                isMuted.isOn = true;
+            }
+            else
+            {
+                isMuted.isOn = false;
+            }
             LeanTween.scale (_gameObject, new Vector3 (9, 9, 9), buttonTweenTime).setLoopPingPong (1).setEase (buttonEase).setOnComplete (execute);
         }
 
         void execute () {
+            
+
             int random = (int) UnityEngine.Random.Range (0, 10000000000);
-            string name = SecurePlayerPrefs.GetString ("playerName", random.ToString ());
-            nameIDInputField.text = name;
+            string playerName = SecurePlayerPrefs.GetString ("playerName", random.ToString());
+            nameID.text = playerName;
+            nameIDInputField.text = playerName;
             MoveMenu ("left");
             optionPanel.SetActive (true);
             MovePanel (optionPanel, "left");
@@ -212,6 +226,7 @@ public class MainMenuHandler : MonoBehaviour {
 
     public void closeOptionClick (GameObject _gameObject) {
         if (!LeanTween.isTweening (_gameObject)) {
+            playerSettings.isMuted = !isMuted.isOn;
             GameEvent.instance.ButtonPress();
             LeanTween.scale (_gameObject, new Vector3 (1.2f, 1.2f, 1.2f), buttonTweenTime).setLoopPingPong (1).setEase (buttonEase).setOnComplete (execute);
         }
