@@ -17,6 +17,30 @@ public class GameEvent : MonoBehaviour {
     #endregion
 
     #region Customer
+    public event Action OnCustomerSpawn;
+    public void CustomerSpawn()
+    {
+        OnCustomerSpawn?.Invoke();
+    }
+
+    public event Action OnCustomerDespawn;
+    public void CustomerDespawn()
+    {
+        OnCustomerDespawn?.Invoke();
+    }
+
+    public event Action OnCorrect;
+    public void Correct()
+    {
+        OnCorrect?.Invoke();
+    }
+
+    public event Action OnFalse;
+    public void False()
+    {
+        OnFalse?.Invoke();
+    }
+
     public event Action<int[], int, string> OnCompare;
     public void Compare (int[] _givenOrder, int _id, string _type) {
         OnCompare?.Invoke (_givenOrder, _id, _type);
@@ -191,7 +215,43 @@ public class GameEvent : MonoBehaviour {
     public event Action OnGameOver;
     public void GameOver () {
         OnGameOver?.Invoke ();
-    } 
+    }
+    public event Action OnDoneScoreCount;
+    public void DoneScoreCount()
+    {
+        OnDoneScoreCount?.Invoke();
+    }
+
+    public event Action OnPickUpItem;
+    public void PickUpItem()
+    {
+        OnPickUpItem?.Invoke();
+    }
+
+    public event Action OnItemDrop;
+    public void ItemDrop()
+    {
+        OnItemDrop?.Invoke();
+    }
+
+    public event Action OnCountingStart;
+    public void CountingStart()
+    {
+        OnCountingStart?.Invoke();
+    }
+
+    public event Action OnDoneCountingStart;
+    public void DoneCountingStart()
+    {
+        OnDoneCountingStart?.Invoke();
+    }
+
+    public event Action OnChangeCat;
+    public void ChangeCat()
+    {
+        OnChangeCat?.Invoke();
+    }
+
 
     #endregion
     #endregion

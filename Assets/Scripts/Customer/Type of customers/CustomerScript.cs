@@ -90,15 +90,16 @@ public class CustomerScript : MonoBehaviour, IPoolable {
 
                 //show particle effect
                 explosion.Play();
+                GameEvent.instance.Correct();
             } else if (_reason == "Timeout" || _reason == "Wrong") {
                 //add red X animation
                 LeanTween.scale(XWrong, new Vector3(1,1,1), orderDespawnAnimationTime).setEase(LeanTweenType.easeOutBounce).setFrom(Vector3.zero);
-
+                GameEvent.instance.False();
             }
             if (order != null && timerGameObj != null) {
                 LeanTween.scale (order, new Vector3 (0f, 0f, 0), despawnAnimationTime).setEase (despawnEaseType).setOnComplete (shake);
                 LeanTween.scale (timerGameObj, new Vector3 (0f, 0f, 0), despawnAnimationTime).setEase (despawnEaseType).setOnComplete (shake);
-                LeanTween.moveY (gameObject, 0f, despawnAnimationTime).setEase (despawnEaseType).setOnComplete (despawn).setDelay (orderDespawnAnimationTime);
+                LeanTween.moveY (gameObject, 0f, despawnAnimationTime).setEase (despawnEaseType).setDelay (orderDespawnAnimationTime).setOnComplete(()=> { GameEvent.instance.CustomerDespawn(); despawn(); });
             }
 
         }
@@ -137,6 +138,7 @@ public class CustomerScript : MonoBehaviour, IPoolable {
     }
 
     public void OnSpawn () {
+        GameEvent.instance.CustomerSpawn();
         XWrong.transform.localScale = Vector3.zero;
         time = PlayerStats.instance.waitTime;
         col.enabled = true;
