@@ -343,7 +343,7 @@ MonoBehaviour:
   despawnAnimationTime: 0.5
   orderDespawnAnimationTime: 0.5
   shakeDuration: 0.1
-  shakeAmount: 0.05
+  shakeAmount: 0
   floatAmount: 0.45
   spawnEaseType: 32
   orderEaseType: 27

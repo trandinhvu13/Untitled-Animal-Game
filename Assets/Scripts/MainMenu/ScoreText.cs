@@ -26,7 +26,6 @@ private void Awake() {
         if (dl.publicCode == "") Debug.LogError ("You forgot to set the publicCode variable");
         if (dl.privateCode == "") Debug.LogError ("You forgot to set the privateCode variable");
         List<dreamloLeaderBoard.Score> scoreList = dl.ToListHighToLow ();
-        Debug.Log(scoreList.Count);
         if (scoreList == null) {
             first.text = "1. Loading...";
             second.text = "2. Loading...";
@@ -34,7 +33,6 @@ private void Awake() {
         } else {
             foreach (dreamloLeaderBoard.Score currentScore in scoreList) {
                 playerName.Add (currentScore.playerName);
-                Debug.Log(currentScore.playerName);
                 playerScore.Add (currentScore.score.ToString ());
             }
 

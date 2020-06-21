@@ -8,8 +8,7 @@ public class StartGameState : ByTheTale.StateMachine.State {
   }
 
   public override void Enter () {
-    //GameEvent.instance.InGameState ();
-    Debug.Log("In game");
+   
   }
 
   public override void Execute () {

@@ -286,9 +286,11 @@ public class SceneAnimationStuffs : MonoBehaviour {
                     while (true) {
                         gameOverScore.color = HSBColor.ToColor (new HSBColor (Mathf.PingPong (Time.unscaledTime * 0.5f, 1), 1, 1));
                         if (currentScore < score) {
+                            GameEvent.instance.ScoreCount();
                             currentScore += 50; //Increment the display score by 1
                             gameOverScore.text = currentScore.ToString (); //Write it to the UI\
                         } else {
+                            GameEvent.instance.DoneScoreCounting();
                             currentScore = score;
                             gameOverScore.text = currentScore.ToString ();
                             LeanTween.scale (scoreGameOverObj, new Vector3 (1.5f, 1.5f, 1.5f), scoreGameOverTweenTime).setEase (scoreGameOverEaseType).setLoopPingPong (1).setIgnoreTimeScale (true).setOnComplete (() => {

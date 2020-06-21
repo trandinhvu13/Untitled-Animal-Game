@@ -144,6 +144,7 @@ public class CupState : MonoBehaviour {
     }
 
     public void PickUp () {
+        GameEvent.instance.CupPickUp();
         isBeingHeld = true;
         pickupPos = gameObject.transform.position;
         changeSpriteOrder (pickUpSortingLayer);
@@ -154,7 +155,7 @@ public class CupState : MonoBehaviour {
     }
 
     public void Drop () {
-
+        
         void handle () {
             GameEvent.instance.HandleCup (cupID, false);
         }

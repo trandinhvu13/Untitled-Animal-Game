@@ -130,7 +130,6 @@ public class ScoreManager : MonoBehaviour {
     }
     void IncreaseScore (int scoreAmount) {
         currentScore = currentScore + (scoreAmount * currentMultiplier);
-        Debug.Log ("IncreaseScore");
         LeanTween.scale (score, new Vector3 (1.5f, 1.5f, 1.5f), 0.35f).setEase (LeanTweenType.easeOutBack).setFrom (new Vector3 (1, 1f, 1f)).setLoopPingPong (1);
         LeanTween.scale (life, new Vector3 (3.5f, 3.5f, 3.5f), 0.35f).setEase (LeanTweenType.easeOutBack).setFrom (new Vector3 (2.5f, 2.5f, 2.5f)).setLoopPingPong (1);
         correctOrderStreak++;

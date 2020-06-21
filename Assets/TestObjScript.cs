@@ -37,11 +37,9 @@ public class TestObjScript : MonoBehaviour {
     void OnTouchStay (Vector2 point) {
         isBeingHeld = true;
         touchPos = point;
-        Debug.Log ("Im Drag");
     }
 
     void OnTouchExit () {
-        Debug.Log ("Im Out");
     }
 
 }

@@ -42,7 +42,6 @@ public class DifficultyTracker : MonoBehaviour {
     }
 
     private void ChangeDifficulty (int stage) {
-        Debug.Log ("Change state: " + stage);
         if (stage == 1) {
             PlayerStats.instance.maxCustomerCount = 1;
             PlayerStats.instance.minSpawnTime = 3;
@@ -55,8 +54,8 @@ public class DifficultyTracker : MonoBehaviour {
             PlayerStats.instance.waitTime = 35;
         } else if (stage == 3) {
             PlayerStats.instance.maxCustomerCount = 3;
-            PlayerStats.instance.minSpawnTime = 18;
-            PlayerStats.instance.maxSpawnTime = 220;
+            PlayerStats.instance.minSpawnTime = 10;
+            PlayerStats.instance.maxSpawnTime = 22;
             PlayerStats.instance.waitTime = 35;
         } else if (stage == 4 && currentRepeatTime < maxRepeatTime) {
             PlayerStats.instance.maxCustomerCount = 4;
@@ -66,7 +65,6 @@ public class DifficultyTracker : MonoBehaviour {
 
     private void IncreaseDifficulty () {
         currentRepeatTime++;
-        Debug.Log ("Current time repeat " + currentRepeatTime);
         PlayerStats.instance.maxSpawnTime -= 1;
         PlayerStats.instance.waitTime -= 2;
     }

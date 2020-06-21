@@ -18,7 +18,7 @@ public class SoundManager : MonoBehaviour {
         GameEvent.instance.OnPlayButtonPress += StopBGMusic;
         GameEvent.instance.OnButtonPress += PlayButtonPressAudio;
 
-        int backgroundMusicID = EazySoundManager.PrepareMusic (backgroundAudioClip, 0.6f, true, false, 2f, 0.5f);
+        int backgroundMusicID = EazySoundManager.PrepareMusic (backgroundAudioClip, 0.8f, true, false, 2f, 0.5f);
         backgroundAudio = EazySoundManager.GetAudio (backgroundMusicID);
         backgroundAudio.Play ();
 

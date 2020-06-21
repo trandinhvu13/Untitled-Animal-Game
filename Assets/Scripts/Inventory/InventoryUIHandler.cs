@@ -97,6 +97,7 @@ public class InventoryUIHandler : MonoBehaviour {
     }
 
     public void MoveUp () {
+        GameEvent.instance.ChangeCat();
         currentCategory += 1;
         LeanTween.scale(buttonUp,new Vector3(5.5f,5.5f,5.5f), 0.2f).setEase(LeanTweenType.easeInOutQuad).setLoopPingPong(1).setOnComplete(()=>{buttonUp.transform.localScale=new Vector3(4,4,4);});
         LeanTween.move (scrollViews, pos[currentCategory].transform.position, transitionTime).setEase (easeType);
@@ -104,6 +105,7 @@ public class InventoryUIHandler : MonoBehaviour {
     }
 
     public void MoveDown () {
+        GameEvent.instance.ChangeCat();
         currentCategory -= 1;
         LeanTween.scale(buttonDown,new Vector3(5.5f,5.5f,5.5f), 0.2f).setEase(LeanTweenType.easeInOutQuad).setLoopPingPong(1).setOnComplete(()=>{buttonDown.transform.localScale=new Vector3(4,4,4);});
         LeanTween.move (scrollViews, pos[currentCategory].transform.position, transitionTime).setEase (easeType);

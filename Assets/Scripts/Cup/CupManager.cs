@@ -46,19 +46,20 @@ public class CupManager : MonoBehaviour {
 
     #region Methods
     private void HandleCups (int cupID, bool state) {
+        
+        GameEvent.instance.CupDrop();
         if (cupID == 1) {
-            
             cup1.GetComponent<LeanSelectable> ().enabled = false;
             cup1.SetActive (state);
             cup1.transform.position = inactivePos.position;
             cup2.SetActive (true);
-            LeanTween.move (cup2, activePos, tweenTime).setDelay (delayTweenTime).setEase (easeType).setOnComplete(()=>{cup2.GetComponent<LeanSelectable> ().enabled = true;});
+            LeanTween.move (cup2, activePos, tweenTime).setDelay (delayTweenTime).setEase (easeType).setOnComplete(()=>{cup2.GetComponent<LeanSelectable> ().enabled = true; });
         } else if (cupID == 2) {
             cup2.GetComponent<LeanSelectable> ().enabled = false;
             cup2.SetActive (state);
             cup2.transform.position = inactivePos.position;
             cup1.SetActive (true);
-            LeanTween.move (cup1, activePos, tweenTime).setDelay (delayTweenTime).setEase (easeType).setOnComplete(()=>{cup1.GetComponent<LeanSelectable> ().enabled = true;});
+            LeanTween.move (cup1, activePos, tweenTime).setDelay (delayTweenTime).setEase (easeType).setOnComplete(()=>{cup1.GetComponent<LeanSelectable> ().enabled = true; });
         }
     }
     #endregion

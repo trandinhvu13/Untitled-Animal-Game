@@ -252,6 +252,31 @@ public class GameEvent : MonoBehaviour {
         OnChangeCat?.Invoke();
     }
 
+    public event Action OnScoreCounting;
+    public void ScoreCount()
+    {
+        OnScoreCounting?.Invoke();
+    }
+
+    public event Action OnDoneScoreCounting;
+    public void DoneScoreCounting()
+    {
+        OnDoneScoreCounting?.Invoke();
+    }
+
+    public event Action OnCupPickUp;
+    public void CupPickUp()
+    {
+        OnCupPickUp?.Invoke();
+    }
+
+    public event Action OnCupDrop;
+    public void CupDrop()
+    {
+        OnCupDrop?.Invoke();
+    }
+
+
 
     #endregion
     #endregion

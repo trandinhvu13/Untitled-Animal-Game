@@ -44,7 +44,20 @@ public class GameAudio : MonoBehaviour
     public Audio changeCatAudio;
     public AudioClip changeCatAudioClip;
 
-    public Toggle soundToggle;
+    public Audio scoreCountAudio;
+    public AudioClip scoreCountAudioClip;
+
+    public Audio doneScoreCountAudio;
+    public AudioClip doneScoreCountAudioClip;
+
+    public Audio cupPickUpAudio;
+    public AudioClip cupPickUpAudioClip;
+
+    public Audio cupDropAudio;
+    public AudioClip cupDropAudioClip;
+
+
+    // public Toggle soundToggle;
     #endregion
 
     #region Mono
@@ -62,25 +75,29 @@ public class GameAudio : MonoBehaviour
         GameEvent.instance.OnCountingStart += PlayCountingAudio;
         GameEvent.instance.OnDoneCountingStart += PlayEndCountingAudio;
         GameEvent.instance.OnChangeCat += PlayChangeCat;
+        GameEvent.instance.OnScoreCounting += PlayScoreCount;
+        GameEvent.instance.OnDoneScoreCount += PlayDoneScoreCount;
+        GameEvent.instance.OnCupPickUp += PlayCupPickUp;
+        GameEvent.instance.OnCupDrop += PlayCupDrop;
 
 
-        backgroundMusicID = EazySoundManager.PrepareMusic(backgroundAudioClip, 0.4f, true, false, 2f, 0.5f);
+        backgroundMusicID = EazySoundManager.PrepareMusic(backgroundAudioClip, 0.3f, true, false, 2f, 0.5f);
         backgroundAudio = EazySoundManager.GetAudio(backgroundMusicID);
         backgroundAudio.Play();
 
         int buttonPressAudioID = EazySoundManager.PrepareUISound(buttonPressAudioClip, 1f);
         buttonPressAudio = EazySoundManager.GetUISoundAudio(buttonPressAudioID);
 
-        int countingAudioID = EazySoundManager.PrepareSound(countingAudioClip,1.4f);
+        int countingAudioID = EazySoundManager.PrepareSound(countingAudioClip,0.15f);
         countingAudio = EazySoundManager.GetSoundAudio(countingAudioID);
 
-        int endCountingAudioID = EazySoundManager.PrepareSound(endCountingAudioClip, 1.4f);
+        int endCountingAudioID = EazySoundManager.PrepareSound(endCountingAudioClip, 0.15f);
         endCountingAudio = EazySoundManager.GetSoundAudio(endCountingAudioID);
 
-        int spawnAudioID = EazySoundManager.PrepareSound(spawnAudioClip, 1f);
+        int spawnAudioID = EazySoundManager.PrepareSound(spawnAudioClip, 0.4f);
         spawnAudio = EazySoundManager.GetSoundAudio(spawnAudioID);
 
-        int despawnAudioID = EazySoundManager.PrepareSound(despawnAudioClip, 1f);
+        int despawnAudioID = EazySoundManager.PrepareSound(despawnAudioClip, 0.4f);
         despawnAudio = EazySoundManager.GetSoundAudio(despawnAudioID);
 
         int correctAudioID = EazySoundManager.PrepareSound(correctAudioClip, 1f);
@@ -89,17 +106,29 @@ public class GameAudio : MonoBehaviour
         int incorrectAudioID = EazySoundManager.PrepareSound(incorrectAudioClip, 1f);
         incorrectAudio = EazySoundManager.GetSoundAudio(incorrectAudioID);
 
-        int gameOverAudioID = EazySoundManager.PrepareSound(gameOverAudioClip, 1f);
+        int gameOverAudioID = EazySoundManager.PrepareSound(gameOverAudioClip, 1.4f);
         gameOverAudio = EazySoundManager.GetSoundAudio(gameOverAudioID);
 
-        int pickUpAudioID = EazySoundManager.PrepareSound(pickUpAudioClip, 1f);
+        int pickUpAudioID = EazySoundManager.PrepareSound(pickUpAudioClip, 2f);
         pickUpAudio = EazySoundManager.GetSoundAudio(pickUpAudioID);
 
-        int dropItemAudioID = EazySoundManager.PrepareSound(dropItemAudioClip, 1f);
+        int dropItemAudioID = EazySoundManager.PrepareSound(dropItemAudioClip, 2f);
         dropItemAudio = EazySoundManager.GetSoundAudio(dropItemAudioClip);
 
-        int changeCatAudioID = EazySoundManager.PrepareSound(changeCatAudioClip, 1f);
+        int changeCatAudioID = EazySoundManager.PrepareSound(changeCatAudioClip, 0.8f);
         changeCatAudio = EazySoundManager.GetSoundAudio(changeCatAudioID);
+
+        int scoreCountAudioID = EazySoundManager.PrepareSound(scoreCountAudioClip, 0f,true,null);
+        scoreCountAudio = EazySoundManager.GetSoundAudio(scoreCountAudioID);
+
+        int doneScoreCountAudioID = EazySoundManager.PrepareSound(doneScoreCountAudioClip, 0f, false, null);
+        doneScoreCountAudio = EazySoundManager.GetSoundAudio(doneScoreCountAudioID);
+
+        int cupPickUpAudioID = EazySoundManager.PrepareSound(cupPickUpAudioClip, 1f);
+        cupPickUpAudio = EazySoundManager.GetSoundAudio(cupPickUpAudioID);
+
+        int cupDropAudioID = EazySoundManager.PrepareSound(cupDropAudioClip, 0.5f);
+        cupDropAudio = EazySoundManager.GetSoundAudio(cupDropAudioID);
     }
     private void OnDisable()
     {
@@ -115,6 +144,10 @@ public class GameAudio : MonoBehaviour
         GameEvent.instance.OnCountingStart -= PlayCountingAudio;
         GameEvent.instance.OnDoneCountingStart -= PlayEndCountingAudio;
         GameEvent.instance.OnChangeCat -= PlayChangeCat;
+        GameEvent.instance.OnScoreCounting -= PlayScoreCount;
+        GameEvent.instance.OnDoneScoreCount -= PlayDoneScoreCount;
+        GameEvent.instance.OnCupPickUp -= PlayCupPickUp;
+        GameEvent.instance.OnCupDrop -= PlayCupDrop;
     }
 
     void Start()
@@ -146,8 +179,9 @@ public class GameAudio : MonoBehaviour
 
     void PlayEndCountingAudio()
     {
+        countingAudio.Stop();
         endCountingAudio.Play();
-        backgroundAudio.SetVolume(0.6f);
+        backgroundAudio.SetVolume(0.65f);
     }
 
     void PlaySpawnAudio()
@@ -173,7 +207,7 @@ public class GameAudio : MonoBehaviour
     void PlayGameOverAudio()
     {
         gameOverAudio.Play();
-        backgroundAudio.SetVolume(0.2f);
+        backgroundAudio.SetVolume(0.3f);
     }
 
     public void PlayPickUpAudio()
@@ -186,25 +220,33 @@ public class GameAudio : MonoBehaviour
         dropItemAudio.Play();
     }
 
+    void PlayCupPickUp()
+    {
+        cupPickUpAudio.Play();
+    }
+
+    void PlayCupDrop()
+    {
+        cupDropAudio.Play();
+    }
+
     public void PlayChangeCat()
     {
         changeCatAudio.Play();
     }
 
-    public void AudioToggle()
+    void PlayScoreCount()
     {
-        if (soundToggle.isOn == false)
-        {
-            EazySoundManager.GlobalVolume = 0f;
-            playerSettings.isMuted = true;
-        }
-        else if (soundToggle.isOn == true)
-        {
-            EazySoundManager.GlobalVolume = 1f;
-            playerSettings.isMuted = false;
-        }
-
+        scoreCountAudio.Play();
     }
+
+    void PlayDoneScoreCount()
+    {
+        scoreCountAudio.Stop();
+        doneScoreCountAudio.Play();
+    }
+
+    
 
     
     #endregion
