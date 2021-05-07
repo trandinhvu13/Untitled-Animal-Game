@@ -1,7 +1,8 @@
 # Untitled Animal Game
 
 ## Introduction
-Another game that I made for a college assignment. All the graphic was made by myself with soundFX found on the internet.  
+Another game that I made for a college assignment.  
+All the graphic was made by myself with soundFX found on the internet.  
 I have a chance to know more about working with mobile, despite the fact there are still many bugs and flaws in the game.  
 In the end, it's a great experience and I have learned a lot from it.  
 
