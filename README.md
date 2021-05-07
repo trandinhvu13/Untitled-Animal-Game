@@ -14,18 +14,13 @@ You can download and try it [here](https://github.com/trandinhvu13/Untitled-Anim
 
 ## Preview picture
 <p align="center">
-  <img src="https://i.ibb.co/n6yN3Nn/3.png" alt="Welcome Screen"/>
-</p>
-<p align="center">
-  <img src="https://i.ibb.co/475jNP5/1.png" alt="Map Overview"/>
-</p>
-<p align="center">
-  <img src="https://i.ibb.co/42zYSp6/2.png" alt="Enemies Wandering Around"/>
-</p>
-<p align="center">
-  <img src="https://i.ibb.co/1Rst4f9/4.png" alt="View From First-Person POV"/>
-</p>
+  <img src="https://i.ibb.co/WHBDFGN/1.png" alt="Welcome Screen"/>
 
+  <img src="https://i.ibb.co/QNSbB4S/2.png" alt="Map Overview"/>
 
+  <img src="https://i.ibb.co/xHJ3XGY/3.png" alt="Enemies Wandering Around"/>
+
+  <img src="https://i.ibb.co/7G1HNn3/4.png" alt="View From First-Person POV"/>
+</p>
 
 
