@@ -6,6 +6,9 @@ All the graphic was made by myself with soundFX found on the internet.
 I have a chance to know more about working with mobile, despite the fact there are still many bugs and flaws in the game.  
 In the end, it's a great experience and I have learned a lot from it.  
 
+## Supported platforms
+- Android
+
 ## About the game
 You are working in a cafe shop and your objective is to prepare the correct drinks for the animal customers.  
 A drink is consisted of 3 ingredients based on colors so you have to be fast to look and drag the right ingredient to the cup.  
