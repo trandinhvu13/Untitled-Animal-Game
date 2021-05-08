@@ -13,7 +13,7 @@ In the end, it's a great experience and I have learned a lot from it.
 You are working in a cafe shop and your objective is to prepare the correct drinks for the animal customers.  
 A drink is consisted of 3 ingredients based on colors so you have to be fast to look and drag the right ingredient to the cup.  
 
-## Download:
+## Download
 You can download and try it [here](https://github.com/trandinhvu13/Untitled-Animal-Game/releases) (it's quite bad though)
 
 ## Preview picture
