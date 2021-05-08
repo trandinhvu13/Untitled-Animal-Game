@@ -3,7 +3,7 @@
 ## Introduction
 Another game that I made for a college assignment.  
 All the graphic was made by myself with soundFX found on the internet.  
-I have a chance to know more about working with mobile, despite the fact there are still many bugs and flaws in the game.  
+I have a chance to know more about working with the mobile platform, despite the fact there are still many bugs and flaws in the project.  
 In the end, it's a great experience and I have learned a lot from it.  
 
 ## Supported platforms
